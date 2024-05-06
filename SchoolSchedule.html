@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>School Schedule</title>
+  <style>
+    /* Add some basic styling to make it look decent */
+    body {
+      text-align: center; /* Center justify text */
+    }
+  .schedule {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  .schedule-item {
+      margin-bottom: 10px;
+      list-style-type: none; /* Remove bullet points */
+      text-align: center; /* Center justify text */
+    }
+  </style>
+</head>
+<body>
+  <div class="schedule">
+    <h1 id="current-time"></h1>
+    <h2 id="current-date"></h2>
+    <h2 id="current-period"></h2>
+    <p id="countdown"></p>
+    <h2>Today's Schedule:</h2 style="text-align:center;">
+    <ul id="schedule-list"></ul>
+  </div>
+
+  <script>
+    const scheduleListElement = document.getElementById("schedule-list");
+    const currentTimeElement = document.getElementById("current-time");
+    const currentDateElement = document.getElementById("current-date");
+    const currentPeriodElement = document.getElementById("current-period");
+    const countdownElement = document.getElementById("countdown");
+    // Your personal access token and base ID
+    const accessToken = 'patI5iaCYvQ3fOAWW';
+    const baseId = 'app5kCLxN9sVAY9wA';
+    const tableName = 'AVMS_MinDays';
+
+    // Airtable endpoint URL
+    const endpoint = `https://api.airtable.com/v0/${baseId}/${tableName}`;
+
+    // Declare dateList outside the function scope
+    let dateList = [];
+
+    // Function to fetch data from Airtable and extract the "Date" column into a list
+    async function fetchDateList() {
+    	try {
+    		const response = await axios.get(endpoint, {
+        		headers: {
+        			'Authorization': `Bearer ${accessToken}`
+        		}
+        	});
+        dateList = response.data.records.map(record => record.fields.Date); // Extracting "Date" column
+        } catch (error) {
+    		console.error('Error fetching data:', error);
+    	}
+    }
+
+        // Invoke the function when the page loads
+        window.onload = async function() {
+            await fetchDateList();
+            console.log('Dates from Airtable:', dateList);
+            // You can now access the dateList variable from outside the function
+        };
+    // Define the schedules for each day of the week
+    const weeklySchedule = {
+      "Monday": [
+        { start: 9 * 60 + 45, end: 10 * 60 + 25, name: "First Period" },
+        { start: 10 * 60 + 29, end: 11 * 60 + 9, name: "Second Period" },
+        { start: 11 * 60 + 9, end: 11 * 60 + 21, name: "Break" },
+        { start: 11 * 60 + 25, end: 12 * 60 + 5, name: "Third Period" },
+        { start: 12 * 60 + 9, end: 12 * 60 + 49, name: "Fourth Period" },
+        { start: 12 * 60 + 53, end: 13 * 60 + 22, name: "RISE" },
+        { start: 13 * 60 + 22, end: 13 * 60 + 57, name: "Lunch" },
+        { start: 14 * 60 + 1, end: 14 * 60 + 41, name: "Fifth Period" },
+        { start: 14 * 60 + 45, end: 15 * 60 + 25, name: "Sixth Period" }
+      ],
+      "Friday": [
+        { start: (7 * 60 + 41) + 4 * 60, end: (8 * 60 + 41) + 4 * 60, name: "Zero Period" },
+        { start: (8 * 60 + 45) + 4 * 60, end: (9 * 60 + 35) + 4 * 60, name: "First Period" },
+        { start: (9 * 60 + 39) + 4 * 60, end: (10 * 60 + 29) + 4 * 60, name: "Second Period" },
+        { start: (10 * 60 + 29) + 4 * 60, end: (10 * 60 + 40) + 4 * 60, name: "Break" },
+        { start: (10 * 60 + 44) + 4 * 60, end: (11 * 60 + 34) + 4 * 60, name: "Third Period" },
+        { start: (11 * 60 + 38) + 4 * 60, end: (12 * 60 + 28) + 4 * 60, name: "Fourth Period" },
+        { start: (12 * 60 + 32) + 4 * 60, end: (13 * 60 + 2) + 4 * 60, name: "RISE" },
+        { start: (13 * 60 + 2) + 4 * 60, end: (13 * 60 + 37) + 4 * 60, name: "Lunch" },
+        { start: (13 * 60 + 41) + 4 * 60, end: (14 * 60 + 31) + 4 * 60, name: "Fifth Period" },
+        { start: (14 * 60 + 35) + 4 * 60, end: (15 * 60 + 25) + 4 * 60, name: "Sixth Period" }
+      ],
+      //... and so on for the rest of the week
+    };
+
+    // Get the current day of the week
+    const now = new Date();
+    const currentDate = now.toLocaleDateString("en-US", {year: "numeric"}) + "-" + now.toLocaleDateString("en-US", {month: "2-digit") + "-" + now.toLacaleDateString("en-US", {day: "2-digit");
+    let currentDay = now.toLocaleDateString("en-US", { weekday: "long" });
+
+    for (i=0;i<dateList.length-1;i++){
+    	if (dateList[i]==currentDate){
+        	currentDay = "Minimum Day";
+        }
+    }
+    
+    // Get the schedule for the current day
+    const currentSchedule = weeklySchedule[currentDay];
+
+    // Update the current time every second
+    setInterval(() => {
+      const now = new Date();
+      const options = { hour: "2-digit", minute: "2-digit", second: "2-digit" };
+      currentTimeElement.textContent = now.toLocaleTimeString("en-US", options);
+      currentDateElement.textContent = now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+    }, 1000);
+
+    // Update the current period and countdown based on the current time
+    setInterval(() => {
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentMinute = now.getMinutes();
+      const currentSecond = now.getSeconds();
+
+      // Find the current period
+      const currentPeriodIndex = currentSchedule.findIndex(
+        (period) =>
+          currentHour * 60 * 60 + currentMinute * 60 + currentSecond >= period.start * 60 &&
+          currentHour * 60 * 60 + currentMinute * 60 + currentSecond <= period.end * 60
+      );
+
+      if (currentPeriodIndex!== -1) {
+        const currentPeriod = currentSchedule[currentPeriodIndex];
+        const startHour = Math.floor(currentPeriod.start / 60);
+        const startMinute = currentPeriod.start % 60;
+        const endHour = Math.floor(currentPeriod.end / 60);
+        const endMinute = currentPeriod.end % 60;
+        currentPeriodElement.textContent = currentPeriod.name;
+
+        // Find the next period
+        const nextPeriodIndex = (currentPeriodIndex + 1) % currentSchedule.length;
+        const nextPeriod = currentSchedule[nextPeriodIndex];
+        const nextStartHour = Math.floor(nextPeriod.start / 60);
+        const nextStartMinute = nextPeriod.start % 60;
+        const timeDiff = nextPeriod.start * 60 - (currentHour * 60 * 60 + currentMinute * 60 + currentSecond);
+        const minutes = Math.floor(timeDiff / 60);
+        const seconds = timeDiff % 60;
+
+        countdownElement.textContent = `Countdown to ${nextPeriod.name}: ${minutes} minutes ${seconds} seconds`;
+      }
+    }, 1000);
+
+    // Create schedule list items dynamically
+    currentSchedule.forEach((period) => {
+      const listItem = document.createElement("li");
+      listItem.className = "schedule-item";
+      const startHour = Math.floor(period.start / 60);
+      const startMinute = period.start % 60;
+      const endHour = Math.floor(period.end / 60);
+      const endMinute = period.end % 60;
+      listItem.textContent = `${startHour}:${startMinute.toString().padStart(2, '0')} - ${endHour}:${endMinute.toString().padStart(2, '0')}: ${period.name}`;
+      scheduleListElement.appendChild(listItem);
+    });
+  </script>
+</body>
+</html>
