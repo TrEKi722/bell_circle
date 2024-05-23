@@ -192,7 +192,7 @@
         const minutes = Math.floor(timeDiff / 60);
         const seconds = timeDiff % 60;
 
-        countdownElement.textContent = `Countdown to ${nextPeriod.name}: ${minutes} minutes ${seconds} seconds`;
+        countdownElement.textContent = `Countdown to ${nextPeriod.name}:\n${minutes} minutes ${seconds} seconds`;
       }
     }, 1000);
 
