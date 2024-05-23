@@ -3,21 +3,22 @@
 <head>
   <title>School Schedule</title>
   <style>
-	/* Webhoster takes care of general styling */
-	body {
+    /* Webhoster takes care of general styling */
+    body {
       text-align: center; /* Center justify text */
     }
-  .schedule {
+    .schedule {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-  .schedule-item {
+    .schedule-item {
       margin-bottom: 10px;
       list-style-type: none; /* Remove bullet points */
       text-align: center; /* Center justify text */
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
   <div class="schedule">
@@ -25,7 +26,7 @@
     <h2 id="current-date"></h2>
     <h2 id="current-period"></h2>
     <p id="countdown"></p>
-    <h2>Today's Schedule:</h2 style="text-align:center;">
+    <h2>Today's Schedule:</h2>
     <ul id="schedule-list"></ul>
   </div>
 
@@ -48,24 +49,25 @@
 
     // Function to fetch data from Airtable and extract the "Date" column into a list
     async function fetchDateList() {
-    	try {
-    		const response = await axios.get(endpoint, {
-        		headers: {
-        			'Authorization': `Bearer ${accessToken}`
-        		}
-        	});
+      try {
+        const response = await axios.get(endpoint, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        });
         dateList = response.data.records.map(record => record.fields.Date); // Extracting "Date" column
-        } catch (error) {
-    		console.error('Error fetching data:', error);
-    	}
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     }
 
-        // Invoke the function when the page loads
-        window.onload = async function() {
-            await fetchDateList();
-            console.log('Dates from Airtable:', dateList);
-            // You can now access the dateList variable from outside the function
-        };
+    // Invoke the function when the page loads
+    window.onload = async function() {
+      await fetchDateList();
+      console.log('Dates from Airtable:', dateList);
+      // You can now access the dateList variable from outside the function
+    };
+
     // Define the schedules for each day of the week
     const weeklySchedule = {
       "Monday": [
@@ -133,16 +135,16 @@
     // Get the current day of the week
     const now = new Date();
     let currentDay = now.toLocaleDateString("en-US", { weekday: "long" });
-	  
-    // Gets the current date in ISO-8601 format
-    const currentDate = now.toLocaleDateString("en-US", {year: "numeric"}) + "-" + now.toLocaleDateString("en-US", {month: "2-digit") + "-" + now.toLacaleDateString("en-US", {day: "2-digit");
 
-    for (i=0;i<dateList.length;i++){
-    	if (dateList[i]==currentDate){
-        	currentDay = "Minimum Day";
-        }
+    // Gets the current date in ISO-8601 format
+    const currentDate = now.toLocaleDateString("en-US", {year: "numeric"}) + "-" + now.toLocaleDateString("en-US", {month: "2-digit"}) + "-" + now.toLocaleDateString("en-US", {day: "2-digit"});
+
+    for (let i = 0; i < dateList.length; i++) {
+      if (dateList[i] === currentDate) {
+        currentDay = "Minimum Day";
+      }
     }
-    
+
     // Get the schedule for the current day
     const currentSchedule = weeklySchedule[currentDay];
 
@@ -168,7 +170,7 @@
           currentHour * 60 * 60 + currentMinute * 60 + currentSecond <= period.end * 60
       );
 
-      if (currentPeriodIndex!== -1) {
+      if (currentPeriodIndex !== -1) {
         const currentPeriod = currentSchedule[currentPeriodIndex];
         const startHour = Math.floor(currentPeriod.start / 60);
         const startMinute = currentPeriod.start % 60;
