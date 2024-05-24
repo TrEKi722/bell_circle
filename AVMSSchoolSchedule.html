@@ -31,6 +31,7 @@
     <h2 id="current-date"></h2>
     <h2 id="current-period"></h2>
     <p>Countdown to:</p>
+    <p id="next-period"></p>
     <p id="countdown"></p>
     <h2>Today's Schedule:</h2>
     <ul id="schedule-list"></ul>
@@ -41,6 +42,7 @@
     const currentTimeElement = document.getElementById("current-time");
     const currentDateElement = document.getElementById("current-date");
     const currentPeriodElement = document.getElementById("current-period");
+    const nextPeriodElement = document.getElementById("next-period");
     const countdownElement = document.getElementById("countdown");
     // Your personal access token and base ID
     const accessToken = 'patI5iaCYvQ3fOAWW';
@@ -193,7 +195,8 @@
         const minutes = Math.floor(timeDiff / 60);
         const seconds = timeDiff % 60;
 
-        countdownElement.textContent = `${nextPeriod.name}:\n${minutes} minutes ${seconds} seconds`;
+        nextPeriodElement.textContent = `${nextPeriod.name}`;
+        countdownElement.textContent = `${minutes} minutes ${seconds} seconds`;
       }
     }, 1000);
 
