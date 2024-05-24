@@ -36,9 +36,8 @@
 </head>
 <body>
   <div class="schedule">
-    <h1 id="current-time"></h1>
-    <h2 id="current-date"></h2>
-    <h2 id="current-period"></h2>
+    <h1 id="current-timedate"></h1>
+    <h1 id="current-period" style="font-size:50px";></h1>
     <p>Countdown to:</p>
     <h2 id="next-period"></h2>
     <h1 id="countdown"></h1>
@@ -48,8 +47,7 @@
 
   <script>
     const scheduleListElement = document.getElementById("schedule-list");
-    const currentTimeElement = document.getElementById("current-time");
-    const currentDateElement = document.getElementById("current-date");
+    const currentTimeDateElement = document.getElementById("current-timedate");
     const currentPeriodElement = document.getElementById("current-period");
     const nextPeriodElement = document.getElementById("next-period");
     const countdownElement = document.getElementById("countdown");
@@ -169,8 +167,7 @@
     setInterval(() => {
       const now = new Date();
       const options = { hour: "2-digit", minute: "2-digit", second: "2-digit" };
-      currentTimeElement.textContent = now.toLocaleTimeString("en-US", options);
-      currentDateElement.textContent = now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+      currentTimeDateElement.textContent = now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }) + now.toLocaleTimeString("en-US", options);
     }, 1000);
 
     // Update the current period and countdown based on the current time
