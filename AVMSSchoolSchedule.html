@@ -30,6 +30,7 @@
     <h1 id="current-time"></h1>
     <h2 id="current-date"></h2>
     <h2 id="current-period"></h2>
+    <p>Countdown to:</p>
     <p id="countdown"></p>
     <h2>Today's Schedule:</h2>
     <ul id="schedule-list"></ul>
@@ -192,7 +193,7 @@
         const minutes = Math.floor(timeDiff / 60);
         const seconds = timeDiff % 60;
 
-        countdownElement.textContent = `Countdown to ${nextPeriod.name}:\n${minutes} minutes ${seconds} seconds`;
+        countdownElement.textContent = `${nextPeriod.name}:\n${minutes} minutes ${seconds} seconds`;
       }
     }, 1000);
 
