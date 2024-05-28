@@ -191,9 +191,39 @@
         const endHour = Math.floor(currentPeriod.end / 60);
         const endMinute = currentPeriod.end % 60;
         currentPeriodElement.textContent = currentPeriod.name;
-
+        
+        // Keep in mind the last period
+        const lastPeriodIndex = (currentPeriodIndex - 1) % currentSchedule.length;
+        const lastPeriod = currentSchedule[nextPeriodIndex];
+        
         // Find the next period
         const nextPeriodIndex = (currentPeriodIndex + 1) % currentSchedule.length;
+        const nextPeriod = currentSchedule[nextPeriodIndex];
+        const nextStartHour = Math.floor(nextPeriod.start / 60);
+        const nextStartMinute = nextPeriod.start % 60;
+        const timeDiff = nextPeriod.start * 60 - (currentHour * 60 * 60 + currentMinute * 60 + currentSecond);
+        const minutes = Math.floor(timeDiff / 60);
+        const seconds = timeDiff % 60;
+
+        nextPeriodElement.textContent = `${nextPeriod.name}`;
+        countdownElement.textContent = `${minutes} minutes ${seconds} seconds`;
+      } else {
+        const lastPeriodIndex = currentSchedule.findIndex(
+        (period) =>
+          currentHour * 60 * 60 + currentMinute * 60 + currentSecond >= period.start * 60 &&
+          (currentHour * 60 * 60 + currentMinute * 60 + currentSecond - period.end * 60) <= 4*60
+        );
+        const lastPeriod = currentSchedule[lastPeriodIndex];
+        const currentPeriod = "Passing";
+        const startHour = Math.floor(lastPeriod.start / 60);
+        const startMinute = nextPeriod.start % 60;
+        const startMinutes = (startHour*60)+startMinute
+        const endHour = Math.floor((startMinutes+4) / 60);
+        const endMinute = (startMinutes+4) % 60;
+        currentPeriodElement.textContent = currentPeriod;
+        
+        // Find the next period
+        const nextPeriodIndex = (lastPeriodIndex + 2) % currentSchedule.length;
         const nextPeriod = currentSchedule[nextPeriodIndex];
         const nextStartHour = Math.floor(nextPeriod.start / 60);
         const nextStartMinute = nextPeriod.start % 60;
