@@ -144,6 +144,19 @@
         { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
         { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
       ],
+      "Saturday": [ //TEMP
+        { start: 7 * 60 + 41, end: 8 * 60 + 41, name: "Zero Period" },
+        { start: 8 * 60 + 45, end: 9 * 60 + 35, name: "First Period" },
+        { start: 9 * 60 + 39, end: 10 * 60 + 29, name: "Second Period" },
+        { start: 10 * 60 + 29, end: 10 * 60 + 40, name: "Break" },
+        { start: 10 * 60 + 44, end: 11 * 60 + 34, name: "Third Period" },
+        { start: 11 * 60 + 38, end: 12 * 60 + 28, name: "Fourth Period" },
+        { start: 12 * 60 + 32, end: 13 * 60 + 2, name: "RISE" },
+        { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
+        { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
+        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" },
+        { start: 15 * 60 + 25, name: "Sixth Period"}
+      ],
       //... and so on for the rest of the week
     };
 
@@ -191,39 +204,9 @@
         const endHour = Math.floor(currentPeriod.end / 60);
         const endMinute = currentPeriod.end % 60;
         currentPeriodElement.textContent = currentPeriod.name;
-        
-        // Keep in mind the last period
-        const lastPeriodIndex = (currentPeriodIndex - 1) % currentSchedule.length;
-        const lastPeriod = currentSchedule[nextPeriodIndex];
-        
+
         // Find the next period
         const nextPeriodIndex = (currentPeriodIndex + 1) % currentSchedule.length;
-        const nextPeriod = currentSchedule[nextPeriodIndex];
-        const nextStartHour = Math.floor(nextPeriod.start / 60);
-        const nextStartMinute = nextPeriod.start % 60;
-        const timeDiff = nextPeriod.start * 60 - (currentHour * 60 * 60 + currentMinute * 60 + currentSecond);
-        const minutes = Math.floor(timeDiff / 60);
-        const seconds = timeDiff % 60;
-
-        nextPeriodElement.textContent = `${nextPeriod.name}`;
-        countdownElement.textContent = `${minutes} minutes ${seconds} seconds`;
-      } else {
-        const lastPeriodIndex = currentSchedule.findIndex(
-        (period) =>
-          currentHour * 60 * 60 + currentMinute * 60 + currentSecond >= period.start * 60 &&
-          (currentHour * 60 * 60 + currentMinute * 60 + currentSecond - period.end * 60) <= 4*60
-        );
-        const lastPeriod = currentSchedule[lastPeriodIndex];
-        const currentPeriod = "Passing";
-        const startHour = Math.floor(lastPeriod.start / 60);
-        const startMinute = nextPeriod.start % 60;
-        const startMinutes = (startHour*60)+startMinute
-        const endHour = Math.floor((startMinutes+4) / 60);
-        const endMinute = (startMinutes+4) % 60;
-        currentPeriodElement.textContent = currentPeriod;
-        
-        // Find the next period
-        const nextPeriodIndex = (lastPeriodIndex + 2) % currentSchedule.length;
         const nextPeriod = currentSchedule[nextPeriodIndex];
         const nextStartHour = Math.floor(nextPeriod.start / 60);
         const nextStartMinute = nextPeriod.start % 60;
