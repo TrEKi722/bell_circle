@@ -134,6 +134,7 @@
     const accessToken = 'patITxf5DhDNa3n4Z.9c2b195a60fd2f5489ef4973cf5624d94c95b2f5bf1d1998705597187eaf5425'; // Replace with your actual API key
     const baseId = 'app5kCLxN9sVAY9wA'; // Replace with your actual base ID
     const tableName = 'AVMS_MinDays'; // Replace with your actual table name
+    let weekdayID = 0;
     let dateList =[];
     
     // Airtable endpoint URL
@@ -141,6 +142,7 @@
     
     // Function to fetch data from Airtable and extract the "Date" column into a list
     async function fetchDateList() {
+      console.log("fetchDateList");
       try {
         const response = await axios.get(endpoint, {
           headers: {
@@ -153,10 +155,30 @@
         console.error('Error fetching data:', error);
       }
     }
+
+    async function fetchWeekdayNumber() {
+      console.log("fetchWeekdayNumber");
+      let temp = now.toLocaleDateString(en-US,{weekday:'short'};
+      if (temp == "Mon") {
+        weekdayID = 1;
+      } else if (temp == "Tue") {
+        weekdayID = 2;
+      } else if (temp = "Wed") {
+        weekdayID = 3;
+      } else if (temp = "Thu") {
+        weekdayID = 4;
+      } else if (temp = "Fri") {
+        weekdayID = 5;
+      } else if (temp = "Sat") {
+        weekdayID = 6;
+      }
+    }
     
-    async function initializeDateList() {
+    async function initializeVariables() {
       await fetchDateList();
+      await fetchWeekdayNumber();
       console.log('Dates from Airtable:', dateList);
+      console.log('Weekday ID:', weekdayID);
     };
 
     // Define the schedules for each day of the week
@@ -172,7 +194,7 @@
         { start: 14 * 60 + 1, end: 14 * 60 + 41, name: "Fifth Period" },
         { start: 14 * 60 + 45, end: 15 * 60 + 25, name: "Sixth Period" }
       ],
-      "Tuesday": [
+      "Standard": [
         { start: 7 * 60 + 41, end: 8 * 60 + 41, name: "Zero Period" },
         { start: 8 * 60 + 45, end: 9 * 60 + 35, name: "First Period" },
         { start: 9 * 60 + 39, end: 10 * 60 + 29, name: "Second Period" },
@@ -183,42 +205,6 @@
         { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
         { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
         { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
-      ],
-      "Wednesday": [
-        { start: 7 * 60 + 41, end: 8 * 60 + 41, name: "Zero Period" },
-        { start: 8 * 60 + 45, end: 9 * 60 + 35, name: "First Period" },
-        { start: 9 * 60 + 39, end: 10 * 60 + 29, name: "Second Period" },
-        { start: 10 * 60 + 29, end: 10 * 60 + 40, name: "Break" },
-        { start: 10 * 60 + 44, end: 11 * 60 + 34, name: "Third Period" },
-        { start: 11 * 60 + 38, end: 12 * 60 + 28, name: "Fourth Period" },
-        { start: 12 * 60 + 32, end: 13 * 60 + 2, name: "RISE" },
-        { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
-        { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
-        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
-      ],
-      "Thursday": [
-        { start: 7 * 60 + 41, end: 8 * 60 + 41, name: "Zero Period" },
-        { start: 8 * 60 + 45, end: 9 * 60 + 35, name: "First Period" },
-        { start: 9 * 60 + 39, end: 10 * 60 + 29, name: "Second Period" },
-        { start: 10 * 60 + 29, end: 10 * 60 + 40, name: "Break" },
-        { start: 10 * 60 + 44, end: 11 * 60 + 34, name: "Third Period" },
-        { start: 11 * 60 + 38, end: 12 * 60 + 28, name: "Fourth Period" },
-        { start: 12 * 60 + 32, end: 13 * 60 + 2, name: "RISE" },
-        { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
-        { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
-        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
-      ],
-      "Friday": [
-        { start: 7 * 60 + 41, end: 8 * 60 + 41, name: "Zero Period" },
-        { start: 8 * 60 + 45, end: 9 * 60 + 35, name: "First Period" },
-        { start: 9 * 60 + 39, end: 10 * 60 + 29, name: "Second Period" },
-        { start: 10 * 60 + 29, end: 10 * 60 + 40, name: "Break" },
-        { start: 10 * 60 + 44, end: 11 * 60 + 34, name: "Third Period" },
-        { start: 11 * 60 + 38, end: 12 * 60 + 28, name: "Fourth Period" },
-        { start: 12 * 60 + 32, end: 13 * 60 + 2, name: "RISE" },
-        { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
-        { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
-        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" },
       ],
       "Minimum Day": [ //TEMP
         { start: 7 * 60 + 41, end: 8 * 60 + 41, name: "Zero Period" },
@@ -254,8 +240,8 @@
           return("Minimum Day");
         }
       }
-      if (currentDay !== "Minimum Day") {
-        return(now.toLocaleDateString("en-US", { weekday: "long" }));
+      if (currentDay !== "Minimum Day" && (weekdayID <= 5 && weekdayID >= 2)) {
+        currentDay = "Standard";
       }
     }
 
