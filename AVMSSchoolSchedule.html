@@ -26,10 +26,83 @@
       align-items: center;
     }
     .schedule-item {
-      margin-bottom: 10px;
-      margin-right: 45px;
       list-style-type: none; /* Remove bullet points */
       text-align: center; /* Center justify text */
+      margin-bottom: 10px;
+    }
+    #schedule-list {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* The switch - the box around the slider */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    input:checked + .slider {
+      background-color: #00B58B;
+    }
+    
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+    
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+    
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+    
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    .slider-label {
+      position: relative;
+      left: 30px;
+      top: 30px;
+      border: 3px solid #73AD21;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -37,14 +110,20 @@
 <body>
   <div class="schedule">
     <h1 id="current-timedate"></h1>
-    <h1 id="current-period" style="font-size:50px";></h1>
+    <h1 id="current-period" style="font-size:40px";></h1>
     <p>Countdown to:</p>
     <h2 id="next-period"></h2>
     <h1 id="countdown"></h1>
     <h2>Today's Schedule:</h2>
     <ul id="schedule-list"></ul>
   </div>
-
+  <div>
+    <label class="switch">
+      <input type="checkbox" id="24Hr switch" name="24Hr switch" value="24Hr switch" checked>
+      <span class="slider round"></span>
+    </label>
+    <label for="24Hr switch" style="position: relative; left: 5px;  top: 20px;  width: 200px;  border: 0px solid #73AD21;"> 24Hr Time</label>
+  </div>
   <script>
     const scheduleListElement = document.getElementById("schedule-list");
     const currentTimeDateElement = document.getElementById("current-timedate");
@@ -52,16 +131,14 @@
     const nextPeriodElement = document.getElementById("next-period");
     const countdownElement = document.getElementById("countdown");
     // Your personal access token and base ID
-    const accessToken = 'patI5iaCYvQ3fOAWW';
-    const baseId = 'app5kCLxN9sVAY9wA';
-    const tableName = 'AVMS_MinDays';
-
+    const accessToken = 'patITxf5DhDNa3n4Z.9c2b195a60fd2f5489ef4973cf5624d94c95b2f5bf1d1998705597187eaf5425'; // Replace with your actual API key
+    const baseId = 'app5kCLxN9sVAY9wA'; // Replace with your actual base ID
+    const tableName = 'AVMS_MinDays'; // Replace with your actual table name
+    let dateList =[];
+    
     // Airtable endpoint URL
     const endpoint = `https://api.airtable.com/v0/${baseId}/${tableName}`;
-
-    // Declare dateList outside the function scope
-    let dateList = [];
-
+    
     // Function to fetch data from Airtable and extract the "Date" column into a list
     async function fetchDateList() {
       try {
@@ -70,12 +147,13 @@
             'Authorization': `Bearer ${accessToken}`
           }
         });
+        console.log(response); // Log the full response for debugging
         dateList = response.data.records.map(record => record.fields.Date); // Extracting "Date" column
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-
+    
     // Invoke the function when the page loads
     window.onload = async function() {
       await fetchDateList();
@@ -142,9 +220,9 @@
         { start: 12 * 60 + 32, end: 13 * 60 + 2, name: "RISE" },
         { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
         { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
-        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
+        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" },
       ],
-      "Saturday": [ //TEMP
+      "Minimum Day": [ //TEMP
         { start: 7 * 60 + 41, end: 8 * 60 + 41, name: "Zero Period" },
         { start: 8 * 60 + 45, end: 9 * 60 + 35, name: "First Period" },
         { start: 9 * 60 + 39, end: 10 * 60 + 29, name: "Second Period" },
@@ -168,7 +246,7 @@
     const currentDate = now.toLocaleDateString("en-US", {year: "numeric"}) + "-" + now.toLocaleDateString("en-US", {month: "2-digit"}) + "-" + now.toLocaleDateString("en-US", {day: "2-digit"});
 
     for (let i = 0; i < dateList.length; i++) {
-      if (dateList[i] === currentDate) {
+      if (dateList[i] == currentDate) {
         currentDay = "Minimum Day";
       }
     }
@@ -189,14 +267,14 @@
       const currentHour = now.getHours();
       const currentMinute = now.getMinutes();
       const currentSecond = now.getSeconds();
-
+    
       // Find the current period
       const currentPeriodIndex = currentSchedule.findIndex(
         (period) =>
           currentHour * 60 * 60 + currentMinute * 60 + currentSecond >= period.start * 60 &&
           currentHour * 60 * 60 + currentMinute * 60 + currentSecond <= period.end * 60
       );
-
+    
       if (currentPeriodIndex !== -1) {
         const currentPeriod = currentSchedule[currentPeriodIndex];
         const startHour = Math.floor(currentPeriod.start / 60);
@@ -204,7 +282,7 @@
         const endHour = Math.floor(currentPeriod.end / 60);
         const endMinute = currentPeriod.end % 60;
         currentPeriodElement.textContent = currentPeriod.name;
-
+    
         // Find the next period
         const nextPeriodIndex = (currentPeriodIndex + 1) % currentSchedule.length;
         const nextPeriod = currentSchedule[nextPeriodIndex];
@@ -213,11 +291,20 @@
         const timeDiff = nextPeriod.start * 60 - (currentHour * 60 * 60 + currentMinute * 60 + currentSecond);
         const minutes = Math.floor(timeDiff / 60);
         const seconds = timeDiff % 60;
-
+    
         nextPeriodElement.textContent = `${nextPeriod.name}`;
         countdownElement.textContent = `${minutes} minutes ${seconds} seconds`;
+      } else {
+        console.log(`Current time: ${currentHour}:${currentMinute}`);
+        console.log(`Last period end time: ${currentSchedule[currentSchedule.length - 1].end}`);
+        if (currentHour * 60 + currentMinute >= currentSchedule[currentSchedule.length - 1].end) {
+          currentPeriodElement.textContent = "End of School";
+        } else {
+          currentPeriodElement.textContent = "Passing";
+        }
       }
     }, 1000);
+
 
     // Create schedule list items dynamically
     currentSchedule.forEach((period) => {
