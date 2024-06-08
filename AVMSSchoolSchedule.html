@@ -154,7 +154,6 @@
       }
     }
     
-    // Invoke the function when the page loads
     async function initializeDateList() {
       await fetchDateList();
       console.log('Dates from Airtable:', dateList);
@@ -260,17 +259,17 @@
       }
     }
 
+    // Update the current time every second
+    setInterval(() => {
+      const now = new Date();
+      const options = { hour: "2-digit", minute: "2-digit", second: "2-digit" };
+      currentTimeDateElement.textContent = now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }) + " " + now.toLocaleTimeString("en-US", options);
+    }, 1000);
+    
     getScheduleDay().then((currentDay) => {
       console.log(currentDay);
       // Get the schedule for the current day
       const currentSchedule = weeklySchedule[currentDay];
-  
-      // Update the current time every second
-      setInterval(() => {
-        const now = new Date();
-        const options = { hour: "2-digit", minute: "2-digit", second: "2-digit" };
-        currentTimeDateElement.textContent = now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }) + " " + now.toLocaleTimeString("en-US", options);
-      }, 1000);
   
       // Update the current period and countdown based on the current time
       setInterval(() => {
