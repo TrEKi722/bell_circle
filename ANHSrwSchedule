@@ -80,11 +80,11 @@
         var embedUrl = "";
 
         // Check for holidays
-        if (month === 11 && date === 1 && year === 2023) {
+        if (month === 7 && date === 18 && year === 2024) {
             document.getElementById("schedule").innerHTML = "<p>Enjoy your holiday!</p>";
-        } else if (month === 10 && date === 30 && year === 2023) {
-            // Block Late Start
-            embedUrl = "https://rewordify.com/schoolclock.php?p=09:10%3DFirst+Period;10:55%3DPassing;11:05%3DThird+Period;12:50%3DLunch;13:20%3DPassing;13:30%3DFifth+Period;15:15%3DEnd+of+School";
+        } else if ((month === 8 && date === 20 && year === 2024) || (month === 8 && date === 21 && year === 2024)) {
+            // Traditional 0-6 (First 2 days of school)
+            embedUrl = "https://rewordify.com/schoolclock.php?p=07:20=Zero%20Period;08:20=Passing;08:30=First%20Period;09:20=Passing;09:30=Second%20Period;10:20=Passing;10:30=Third%20Period;11:20=Wolverine%20Plus;11:45=Passing;11:55=Fourth%20Period;12:45=Lunch;13:15=Passing;13:25=Fifth%20Period;14:15=Passing;14:25=Sixth%20Period;15:15=End%20of%20School";
         } else if (dayOfWeek === 0 || dayOfWeek === 6) {
             // Weekend
             document.getElementById("schedule").innerHTML = "<p>Enjoy your weekend!</p>";
@@ -92,9 +92,6 @@
         } else if (dayOfWeek === 1) {
             // Monday
             embedUrl = "https://rewordify.com/schoolclock.php?p=08:15%3DTeacher+Collab;09:10%3DFirst+Period;09:55%3DPassing;10:05%3DSecond+Period;10:50%3DPassing;11:00%3DThird+Period;11:45%3DWolverine%20Plus;12:00%3DPassing;12:10%3DFourth+Period;12:55%3DLunch;13:25%3DPassing;13:35%3DFifth+Period;14:20%3DPassing;14:30%3DSixth+Period;15:15%3DEnd+of+School";
-        } else if (dayOfWeek === 2 || dayOfWeek === 3 || dayOfWeek === 4 || dayOfWeek === 5) {
-// Testing
-            embedUrl = "https://rewordify.com/schoolclock.php?p=08:30%3DExam+1;10:30%3DPassing;10:40%3DWolverine+Plus;11:25%3DPassing;11:35%Exam+2;13:35%3DEnd+of+School";
         } else if (dayOfWeek === 2 || dayOfWeek === 3 || dayOfWeek === 4 || dayOfWeek === 5) {
             // Tuesday through Friday
             embedUrl = "https://rewordify.com/schoolclock.php?p=07:20%3DZero+Period;08:20%3DPassing;08:30%3DFirst+or+Second+Period;10:10%3DPassing;10:20%3DWolverine+Plus;11:00%3DPassing;11:10%3DThird+or+Fourth+Period;12:50%3DLunch;13:25%3DPassing;13:35%3DFifth+or+Sixth+Period;15:15%3DEnd+of+School";
