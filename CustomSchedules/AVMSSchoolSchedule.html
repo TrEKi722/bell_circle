@@ -158,18 +158,19 @@
 
     async function fetchWeekdayNumber() {
       console.log("fetchWeekdayNumber");
-      let temp = now.toLocaleDateString(en-US,{weekday:'short'};
-      if (temp == "Mon") {
+      const now = new Date(); // Ensure now is declared inside the function
+      let temp = now.toLocaleDateString('en-US', { weekday: 'short' });
+      if (temp === "Mon") {
         weekdayID = 1;
-      } else if (temp == "Tue") {
+      } else if (temp === "Tue") {
         weekdayID = 2;
-      } else if (temp = "Wed") {
+      } else if (temp === "Wed") {
         weekdayID = 3;
-      } else if (temp = "Thu") {
+      } else if (temp === "Thu") {
         weekdayID = 4;
-      } else if (temp = "Fri") {
+      } else if (temp === "Fri") {
         weekdayID = 5;
-      } else if (temp = "Sat") {
+      } else if (temp === "Sat") {
         weekdayID = 6;
       }
     }
@@ -230,18 +231,20 @@
     const currentDate = now.toLocaleDateString("en-US", {year: "numeric"}) + "-" + now.toLocaleDateString("en-US", {month: "2-digit"}) + "-" + now.toLocaleDateString("en-US", {day: "2-digit"});
 
     async function getScheduleDay() {
-      await initializeDateList();
+      await initializeVariables();
       console.log("getScheduleDay");
       console.log(dateList);
       for (let i = 0; i < dateList.length; i++) {
         console.log(i);
         if (dateList[i] == currentDate) {
           console.log(dateList[i] + currentDate);
-          return("Minimum Day");
+          currentDay = "Minimum Day";
+          return(currentDay);
         }
       }
       if (currentDay !== "Minimum Day" && (weekdayID <= 5 && weekdayID >= 2)) {
         currentDay = "Standard";
+        return(currentDay);
       }
     }
 
