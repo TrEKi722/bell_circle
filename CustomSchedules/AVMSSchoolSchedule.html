@@ -135,6 +135,24 @@
       fetchWeekdayNumber();
     }
 
+    // Function to override Date
+    function overrideDate(year, month, day, hour, minute, second) {
+      const originalDate = Date; // Save the original Date constructor
+      const testDate = new Date(year, month - 1, day, hour, minute, second); // Create a test date
+    
+      // Override the Date object
+      Date = class extends originalDate {
+        constructor() {
+          return testDate;
+        }
+      };
+    
+      // Return a function to restore the original Date object
+      return function restoreDate() {
+        Date = originalDate;
+        };
+      }
+    
     const weeklySchedule = {
       "Monday": [
         { start: 9 * 60 + 45, end: 10 * 60 + 25, name: "First Period" },
