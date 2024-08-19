@@ -81,18 +81,18 @@
         // Check for US holidays
         if (month === 11 && date === 1 && year === 2023) {
             document.getElementById("schedule").innerHTML = "<p>Enjoy your holiday!</p>";
-    } else if (month === 9 && date === 15 && year === 2023) {
-            embedUrl = "https://rewordify.com/schoolclock.php?p=08:06%3D0;08:41%3DPass;08:45%3D1;09:22%3DPass;09:26%3D2;10:01%3DPass;10:05%3D3;10:40%3DBreak;10:50%3DPass;10:54%3D4;11:29%3DPass;11:33%3D5;12:08%3DPass;12:12%3D6;12:47%3DEnd+of+Day";
+        } else if (month === 8 && date === 20 && year === 2024) {
+            // Minimum Day
+            embedUrl = "https://rewordify.com/schoolclock.php?p=08:06%3DZero+Period;08:41%3DPassing;08:45%3DFirst+Period;09:22%3DPassing;09:26%3DSecond+Period;10:01%3DPassing;10:05%3DThird+Period;10:40%3DBreak;10:50%3DPassing;10:54%3DFourth+Period;11:29%3DPassing;11:33%3DFifth+Period;12:08%3DPassing;12:12%3DSixth+Period;12:47%3DEnd+of+Day";
         } else if (dayOfWeek === 0 || dayOfWeek === 6) {
             // Weekend
             document.getElementById("schedule").innerHTML = "<p>Enjoy your weekend!</p>";
-
         } else if (dayOfWeek === 1) {
             // Monday
-            embedUrl = "https://rewordify.com/schoolclock.php?p=09:45%3DFirst+Period;10:30%3DPass;10:34%3DSecond+Period;11:14%3DBreak;11:24%3DPass;11:28%3DThird+Period;12:08%3DPass;12:12%3DFourth+Period;12:52%3DPass;12:56%3DBroncoPlus;13:22%3DLunch;13:57%3DPass;14:01%3DFifth+Period;14:41%3DPass;14:45%3DSixth+Period;15:25%3DEnd+of+School";
+            embedUrl = "https://rewordify.com/schoolclock.php?p=09:45%3DFirst+Period;10:30%3DPassing;10:34%3DSecond+Period;11:14%3DBreak;11:24%3DPassing;11:28%3DThird+Period;12:08%3DPassing;12:12%3DFourth+Period;12:52%3DPassing;12:56%3DBroncoPlus;13:22%3DLunch;13:57%3DPassing;14:01%3DFifth+Period;14:41%3DPassing;14:45%3DSixth+Period;15:25%3DEnd+of+School";
         } else if (dayOfWeek === 2 || dayOfWeek === 3 || dayOfWeek === 4 || dayOfWeek === 5) {
             // Tuesday through Thursday
-            embedUrl = "https://rewordify.com/schoolclock.php?p=07:38%3DZero+Period;08:41%3DPass;08:45%3DFirst+Period;09:40%3DPass;09:44%3DSecond+Period;10:34%3DBreak;10:44%3DPass;10:48%3DThird+Period;11:38%3DPass;11:42%3DFourth+Period;12:32%3DPass;12:36%3DBroncoPlus;13:02%3DLunch;13:37%3DPass;13:41%3DFifth+Period;14:31%3DPass;14:35%3DSixth+Period;15:25%3DEnd+of+School";
+            embedUrl = "https://rewordify.com/schoolclock.php?p=07:38%3DZero+Period;08:41%3DPassing;08:45%3DFirst+Period;09:40%3DPassing;09:44%3DSecond+Period;10:34%3DBreak;10:44%3DPassing;10:48%3DThird+Period;11:38%3DPassing;11:42%3DFourth+Period;12:32%3DPassing;12:36%3DBroncoPlus;13:02%3DLunch;13:37%3DPassing;13:41%3DFifth+Period;14:31%3DPassing;14:35%3DSixth+Period;15:25%3DEnd+of+School";
         } else {
             // Error
             document.getElementById("schedule").innerHTML = "<p>Error 418 - I'm a Teapot</p> <hr> <p>We are working to fix the problem, please check back later.</p> <hr> <p>Yes that is a real error, look it up.</p>";
