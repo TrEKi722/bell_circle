@@ -80,9 +80,9 @@
         // Check for US holidays
         if (month === 11 && date === 1 && year === 2023) {
             document.getElementById("schedule").innerHTML = "<p>Enjoy your holiday!</p>";
-        } else if (month === 6 && date === 1 && year === 2023) {
-            // June 1, 2023 - Minimum Day
-            embedUrl = "https://rewordify.com/schoolclock.php?p=07:41%3DZero+Period;08:41%3DPass;08:45%3DFirst+Period;09:20%3DPass;09:24%3DSecond+Period;09:55%3DBreak;10:05%3DPass;10:09%3DThird+Period;10:42%3DPass;10:46%3DFourth+Period;11:19%3DLunch;11:38%3DPass;11:42%3DFifth+Period;12:15%3DPass;12:19%3DSixth+Period;12:52%3DEnd+of+School";
+        } else if (month === 8 && date === 20 && year === 2024) {
+            // Minimum Day
+            embedUrl = "https://rewordify.com/schoolclock.php?p=07:40%3DZero+Period;08:40%3DPass;08:45%3DFirst+Period;09:21%3DPass;09:26%3DSecond+Period;09:57%3DBreak;10:04%3DPass;10:09%3DThird+Period;10:40%3DPass;10:45%3DFourth+Period;11:16%3DBreak;11:28%3DPass;11:33%3DFifth+Period;12:04%3DPass;12:09%3DSixth+Period;12:40%3DEnd+of+School";
         } else if (dayOfWeek === 0 || dayOfWeek === 6) {
             // Weekend
             document.getElementById("schedule").innerHTML = "<p>Enjoy your weekend!</p>";
