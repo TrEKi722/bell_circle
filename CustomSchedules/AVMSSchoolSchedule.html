@@ -6,18 +6,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
   <style>
     body {
-      text-align: center; /* Center justify text */
+      text-align: center;
       font-family: "Titillium Web", sans-serif;
       font-weight: 400;
       font-style: normal;
     }
-    .schedule h2{
-      margin-bottom: 0;
-    }
-    .schedule h1{
-      margin-bottom: 0;
-    }
-    .schedule p{
+    .schedule h2, .schedule h1, .schedule p {
       margin-bottom: 0;
     }
     .schedule {
@@ -26,8 +20,8 @@
       align-items: center;
     }
     .schedule-item {
-      list-style-type: none; /* Remove bullet points */
-      text-align: center; /* Center justify text */
+      list-style-type: none;
+      text-align: center;
       margin-bottom: 10px;
     }
     #schedule-list {
@@ -36,22 +30,17 @@
       flex-direction: column;
       align-items: center;
     }
-    /* The switch - the box around the slider */
     .switch {
       position: relative;
       display: inline-block;
       width: 60px;
       height: 34px;
     }
-    
-    /* Hide default HTML checkbox */
     .switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
-    
-    /* The slider */
     .slider {
       position: absolute;
       cursor: pointer;
@@ -60,10 +49,8 @@
       right: 0;
       bottom: 0;
       background-color: #ccc;
-      -webkit-transition: .4s;
       transition: .4s;
     }
-    
     .slider:before {
       position: absolute;
       content: "";
@@ -72,37 +59,22 @@
       left: 4px;
       bottom: 4px;
       background-color: white;
-      -webkit-transition: .4s;
       transition: .4s;
     }
-    
     input:checked + .slider {
       background-color: #00B58B;
     }
-    
     input:focus + .slider {
       box-shadow: 0 0 1px #2196F3;
     }
-    
     input:checked + .slider:before {
-      -webkit-transform: translateX(26px);
-      -ms-transform: translateX(26px);
       transform: translateX(26px);
     }
-    
-    /* Rounded sliders */
     .slider.round {
       border-radius: 34px;
     }
-    
     .slider.round:before {
       border-radius: 50%;
-    }
-    .slider-label {
-      position: relative;
-      left: 30px;
-      top: 30px;
-      border: 3px solid #73AD21;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -110,7 +82,7 @@
 <body>
   <div class="schedule">
     <h1 id="current-timedate"></h1>
-    <h1 id="current-period" style="font-size:40px";></h1>
+    <h1 id="current-period" style="font-size:40px"></h1>
     <p>Countdown to:</p>
     <h2 id="next-period"></h2>
     <h1 id="countdown"></h1>
@@ -130,59 +102,40 @@
     const currentPeriodElement = document.getElementById("current-period");
     const nextPeriodElement = document.getElementById("next-period");
     const countdownElement = document.getElementById("countdown");
-    // Your personal access token and base ID
-    const accessToken = 'patITxf5DhDNa3n4Z.9c2b195a60fd2f5489ef4973cf5624d94c95b2f5bf1d1998705597187eaf5425'; // Replace with your actual API key
-    const baseId = 'app5kCLxN9sVAY9wA'; // Replace with your actual base ID
-    const tableName = 'AVMS_MinDays'; // Replace with your actual table name
+
+    const accessToken = 'patITxf5DhDNa3n4Z.9c2b195a60fd2f5489ef4973cf5624d94c95b2f5bf1d1998705597187eaf5425';
+    const baseId = 'app5kCLxN9sVAY9wA';
+    const tableName = 'AVMS_MinDays';
+
     let weekdayID = 0;
-    let dateList =[];
-    
-    // Airtable endpoint URL
+    let dateList = [];
+
     const endpoint = `https://api.airtable.com/v0/${baseId}/${tableName}`;
-    
-    // Function to fetch data from Airtable and extract the "Date" column into a list
+
     async function fetchDateList() {
-      console.log("fetchDateList");
       try {
         const response = await axios.get(endpoint, {
           headers: {
             'Authorization': `Bearer ${accessToken}`
           }
         });
-        console.log(response); // Log the full response for debugging
-        dateList = response.data.records.map(record => record.fields.Date); // Extracting "Date" column
+        dateList = response.data.records.map(record => record.fields.Date);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
 
-    async function fetchWeekdayNumber() {
-      console.log("fetchWeekdayNumber");
-      const now = new Date(); // Ensure now is declared inside the function
-      let temp = now.toLocaleDateString('en-US', { weekday: 'short' });
-      if (temp === "Mon") {
-        weekdayID = 1;
-      } else if (temp === "Tue") {
-        weekdayID = 2;
-      } else if (temp === "Wed") {
-        weekdayID = 3;
-      } else if (temp === "Thu") {
-        weekdayID = 4;
-      } else if (temp === "Fri") {
-        weekdayID = 5;
-      } else if (temp === "Sat") {
-        weekdayID = 6;
-      }
+    function fetchWeekdayNumber() {
+      const now = new Date();
+      const temp = now.toLocaleDateString('en-US', { weekday: 'short' });
+      weekdayID = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(temp);
     }
-    
+
     async function initializeVariables() {
       await fetchDateList();
-      await fetchWeekdayNumber();
-      console.log('Dates from Airtable:', dateList);
-      console.log('Weekday ID:', weekdayID);
-    };
+      fetchWeekdayNumber();
+    }
 
-    // Define the schedules for each day of the week
     const weeklySchedule = {
       "Monday": [
         { start: 9 * 60 + 45, end: 10 * 60 + 25, name: "First Period" },
@@ -207,7 +160,7 @@
         { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
         { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
       ],
-      "Minimum Day": [ //TEMP
+      "Minimum Day": [
         { start: 7 * 60 + 41, end: 8 * 60 + 41, name: "Zero Period" },
         { start: 8 * 60 + 45, end: 9 * 60 + 35, name: "First Period" },
         { start: 9 * 60 + 39, end: 10 * 60 + 29, name: "Second Period" },
@@ -217,106 +170,101 @@
         { start: 12 * 60 + 32, end: 13 * 60 + 2, name: "RISE" },
         { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
         { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
-        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" },
-        { start: 15 * 60 + 25, name: "Sixth Period"}
-      ],
-      //... and so on for the rest of the week
+        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
+      ]
     };
 
-    // Get the current day of the week
-    const now = new Date();
-    let currentDay = "";
+    function isMinimumDay() {
+      const now = new Date();
+      const today = now.toISOString().split("T")[0];
+      return dateList.includes(today);
+    }
 
-    // Gets the current date in ISO-8601 format
-    const currentDate = now.toLocaleDateString("en-US", {year: "numeric"}) + "-" + now.toLocaleDateString("en-US", {month: "2-digit"}) + "-" + now.toLocaleDateString("en-US", {day: "2-digit"});
-
-    async function getScheduleDay() {
-      await initializeVariables();
-      console.log("getScheduleDay");
-      console.log(dateList);
-      for (let i = 0; i < dateList.length; i++) {
-        console.log(i);
-        if (dateList[i] == currentDate) {
-          console.log(dateList[i] + currentDate);
-          currentDay = "Minimum Day";
-          return(currentDay);
-        }
-      }
-      if (currentDay !== "Minimum Day" && (weekdayID <= 5 && weekdayID >= 2)) {
-        currentDay = "Standard";
-        return(currentDay);
+    function getScheduleDay() {
+      if (isMinimumDay()) {
+        return "Minimum Day";
+      } else if (weekdayID === 1) {
+        return "Monday";
+      } else if (weekdayID >= 2 && weekdayID <= 5) {
+        return "Standard";
+      } else {
+        return null;
       }
     }
 
-    // Update the current time every second
-    setInterval(() => {
-      const now = new Date();
-      const options = { hour: "2-digit", minute: "2-digit", second: "2-digit" };
-      currentTimeDateElement.textContent = now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }) + " " + now.toLocaleTimeString("en-US", options);
-    }, 1000);
-    
-    getScheduleDay().then((currentDay) => {
-      console.log(currentDay);
-      // Get the schedule for the current day
-      const currentSchedule = weeklySchedule[currentDay];
-  
-      // Update the current period and countdown based on the current time
-      setInterval(() => {
-        const now = new Date();
-        const currentHour = now.getHours();
-        const currentMinute = now.getMinutes();
-        const currentSecond = now.getSeconds();
-      
-        // Find the current period
-        const currentPeriodIndex = currentSchedule.findIndex(
-          (period) =>
-            currentHour * 60 * 60 + currentMinute * 60 + currentSecond >= period.start * 60 &&
-            currentHour * 60 * 60 + currentMinute * 60 + currentSecond <= period.end * 60
-        );
-      
-        if (currentPeriodIndex !== -1) {
-          const currentPeriod = currentSchedule[currentPeriodIndex];
-          const startHour = Math.floor(currentPeriod.start / 60);
-          const startMinute = currentPeriod.start % 60;
-          const endHour = Math.floor(currentPeriod.end / 60);
-          const endMinute = currentPeriod.end % 60;
-          currentPeriodElement.textContent = currentPeriod.name;
-      
-          // Find the next period
-          const nextPeriodIndex = (currentPeriodIndex + 1) % currentSchedule.length;
-          const nextPeriod = currentSchedule[nextPeriodIndex];
-          const nextStartHour = Math.floor(nextPeriod.start / 60);
-          const nextStartMinute = nextPeriod.start % 60;
-          const timeDiff = nextPeriod.start * 60 - (currentHour * 60 * 60 + currentMinute * 60 + currentSecond);
-          const minutes = Math.floor(timeDiff / 60);
-          const seconds = timeDiff % 60;
-      
-          nextPeriodElement.textContent = `${nextPeriod.name}`;
-          countdownElement.textContent = `${minutes} minutes ${seconds} seconds`;
-        } else {
-          // console.log(`Current time: ${currentHour}:${currentMinute}`);
-          // console.log(`Last period end time: ${currentSchedule[currentSchedule.length - 1].end}`);
-          if (currentHour * 60 + currentMinute >= currentSchedule[currentSchedule.length - 1].end) {
-            currentPeriodElement.textContent = "End of School";
-          } else {
-            currentPeriodElement.textContent = "Passing";
-          }
-        }
-      }, 1000);
-  
-  
-      // Create schedule list items dynamically
-      currentSchedule.forEach((period) => {
+    function displaySchedule() {
+      scheduleListElement.innerHTML = '';
+      const scheduleDay = getScheduleDay();
+      if (!scheduleDay) {
+        scheduleListElement.innerHTML = '<li class="schedule-item">No school today!</li>';
+        return;
+      }
+      const schedule = weeklySchedule[scheduleDay];
+      schedule.forEach((period) => {
         const listItem = document.createElement("li");
-        listItem.className = "schedule-item";
-        const startHour = Math.floor(period.start / 60);
-        const startMinute = period.start % 60;
-        const endHour = Math.floor(period.end / 60);
-        const endMinute = period.end % 60;
-        listItem.textContent = `${startHour}:${startMinute.toString().padStart(2, '0')} - ${endHour}:${endMinute.toString().padStart(2, '0')}: ${period.name}`;
+        listItem.textContent = `${period.name}: ${formatTime(period.start)} - ${formatTime(period.end)}`;
+        listItem.classList.add("schedule-item");
         scheduleListElement.appendChild(listItem);
       });
-    });
+    }
+
+    function updateCurrentTime() {
+      const now = new Date();
+      const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false,
+      };
+      currentTimeDateElement.textContent = now.toLocaleString("en-US", options);
+    }
+
+    function formatTime(minutes) {
+      const hours = Math.floor(minutes / 60);
+      const mins = minutes % 60;
+      return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
+    }
+
+    function updateCountdown() {
+      const now = new Date();
+      const totalMinutes = now.getHours() * 60 + now.getMinutes();
+      const scheduleDay = getScheduleDay();
+      if (!scheduleDay) return;
+      const schedule = weeklySchedule[scheduleDay];
+      const currentPeriod = schedule.find(period => totalMinutes >= period.start && totalMinutes < period.end);
+      const nextPeriod = schedule.find(period => totalMinutes < period.start);
+
+      if (currentPeriod) {
+        const remainingMinutes = currentPeriod.end - totalMinutes;
+        currentPeriodElement.textContent = `Current: ${currentPeriod.name}`;
+        nextPeriodElement.textContent = `Ends in:`;
+        countdownElement.textContent = `${Math.floor(remainingMinutes / 60)}h ${remainingMinutes % 60}m`;
+      } else if (nextPeriod) {
+        const remainingMinutes = nextPeriod.start - totalMinutes;
+        currentPeriodElement.textContent = `Next: ${nextPeriod.name}`;
+        nextPeriodElement.textContent = `Starts in:`;
+        countdownElement.textContent = `${Math.floor(remainingMinutes / 60)}h ${remainingMinutes % 60}m`;
+      } else {
+        currentPeriodElement.textContent = "School is over for today!";
+        nextPeriodElement.textContent = "";
+        countdownElement.textContent = "";
+      }
+    }
+
+    function initialize() {
+      initializeVariables().then(() => {
+        displaySchedule();
+        updateCurrentTime();
+        updateCountdown();
+        setInterval(updateCurrentTime, 60000);
+        setInterval(updateCountdown, 60000);
+      });
+    }
+
+    window.onload = initialize;
   </script>
 </body>
 </html>
