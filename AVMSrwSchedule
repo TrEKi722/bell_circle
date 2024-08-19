@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Schedule</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+        html, body {
+            height: 100%;
+            margin: 0;
+            text-align: center;
+            font-family: Comfortaa, sans-serif;
+            font-size: 25px;
+        }
+        hr{
+             height: 1px;
+             background-color: none;
+             border: none;
+        }
+        p{
+            font-family: 'Fira Code', monospace;
+        }
+        .banner {
+            font-size: 28px;
+            font-family: Comfortaa, sans-serif;
+            text-align: center;
+            background-image: url("https://freerangestock.com/sample/140799/wood-background--dark-wooden-background.jpg");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 20px;
+            height: 225px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .embed-container {
+            background-color: #acdffd;
+            border: none;
+            height: 1000px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1>
+    <script>
+        var today = new Date();
+        var dayOfWeek = today.getDay();
+
+        var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var dayText = weekdays[dayOfWeek];
+        var iconUrl = "https://i.ibb.co/N35h5KR/IMG-0946.png"; // Replace with your new icon image URL
+
+        var img = new Image();
+        img.src = iconUrl;
+        img.width = 150; // Set the width to 150px or your desired size
+
+        var container = document.createElement("div");
+        container.style.display = "flex";
+        container.style.alignItems = "center";
+        container.appendChild(img);
+        container.appendChild(document.createTextNode(" " + dayText));
+
+        document.querySelector(".banner h1").appendChild(container);
+    </script>
+</h1>
+</div>
+
+    <div id="schedule"></div>
+
+    <script>
+        var today = new Date();
+        var dayOfWeek = today.getDay();
+        var month = today.getMonth() + 1;
+        var date = today.getDate();
+        var year = today.getFullYear();
+        var embedUrl = "";
+
+        // Check for US holidays
+        if (month === 3 && date === 27 && year === 2023) {
+            document.getElementById("schedule").innerHTML = "<p>Enjoy your holiday!</p>";
+        } else if (month === 3 && date === 30 && year === 2024) {
+            // Minimum Day
+            embedUrl = "https://rewordify.com/schoolclock.php?p=07:41%3DZero+Period;08:41%3DPass;08:45%3DFirst+Period;09:20%3DPass;09:24%3DSecond+Period;09:55%3DBreak;10:05%3DPass;10:09%3DThird+Period;10:42%3DPass;10:46%3DFourth+Period;11:19%3DLunch;11:38%3DPass;11:42%3DFifth+Period;12:15%3DPass;12:19%3DSixth+Period;12:52%3DEnd+of+School";
+        } else if (dayOfWeek === 0 || dayOfWeek === 6) {
+            // Weekend
+            document.getElementById("schedule").innerHTML = "<p>Enjoy your weekend!</p>";
+
+        } else if (dayOfWeek === 1) {
+            // Monday
+            embedUrl = "https://rewordify.com/schoolclock.php?p=09:45%3DFirst+Period;10:25%3DPass;10:29%3DSecond+Period;11:09%3DBreak;11:21%3DPass;11:25%3DThird+Period;12:05%3DPass;12:09%3DFourth+Period;12:49%3DPass;12:53%3DRise;13:22%3DLunch;13:57%3DPass;14:01%3DFifth+Period;14:41%3DPass;14:45%3DSixth+Period;15:25%3DEnd+of+School";
+        } else if (dayOfWeek === 2 || dayOfWeek === 3 || dayOfWeek === 4 || dayOfWeek === 5) {
+            // Thursday and Friday
+            embedUrl = "https://rewordify.com/schoolclock.php?p=07:41%3DZero+Period;08:41%3DPass;08:45%3DFirst+Period;09:35%3DPass;09:39%3DSecond+Period;10:29%3DBreak;10:40%3DPass;10:44%3DThird+Period;11:34%3DPass;11:38%3DFourth+Period;12:28%3DPass;12:32%3DRise;13:02%3DLunch;13:37%3DPass;13:41%3DFifth+Period;14:31%3DPass;14:35%3DSixth+Period;15:25%3DEnd+of+School";
+        } else {
+            // Error
+            document.getElementById("schedule").innerHTML = "<p>Error 418 - I'm a Teapot</p> <hr> <p>We are working to fix the problem, please check back later.</p> <hr> <p>Yes that is a real error, look it up.</p>";
+        }
+
+        if (embedUrl !== "") {
+            document.getElementById("schedule").innerHTML = '<iframe src="' + embedUrl + '" class="embed-container" height:100%></iframe>';
+        }
+    </script>
+</body>
+</html>
