@@ -217,6 +217,7 @@
         weekday: "long",
         hour: "numeric",
         minute: "numeric",
+        second: "numeric",
         hour12: false,
       };
       currentTimeDateElement.textContent = now.toLocaleString("en-US", options);
@@ -237,16 +238,18 @@
       const currentPeriod = schedule.find(period => totalMinutes >= period.start && totalMinutes < period.end);
       const nextPeriod = schedule.find(period => totalMinutes < period.start);
 
+      const totalSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+
       if (currentPeriod) {
-        const remainingMinutes = currentPeriod.end - totalMinutes;
+        const remainingSeconds = currentPeriod.end * 60 - totalSeconds;
         currentPeriodElement.textContent = `Current: ${currentPeriod.name}`;
         nextPeriodElement.textContent = `Ends in:`;
-        countdownElement.textContent = `${Math.floor(remainingMinutes / 60)}h ${remainingMinutes % 60}m`;
+        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
       } else if (nextPeriod) {
-        const remainingMinutes = nextPeriod.start - totalMinutes;
+        const remainingSeconds = nextPeriod.start * 60 - totalSeconds;
         currentPeriodElement.textContent = `Next: ${nextPeriod.name}`;
         nextPeriodElement.textContent = `Starts in:`;
-        countdownElement.textContent = `${Math.floor(remainingMinutes / 60)}h ${remainingMinutes % 60}m`;
+        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
       } else {
         currentPeriodElement.textContent = "School is over for today!";
         nextPeriodElement.textContent = "";
@@ -259,8 +262,8 @@
         displaySchedule();
         updateCurrentTime();
         updateCountdown();
-        setInterval(updateCurrentTime, 60000);
-        setInterval(updateCountdown, 60000);
+        setInterval(updateCurrentTime, 1000);
+        setInterval(updateCountdown, 1000);
       });
     }
 
