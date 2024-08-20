@@ -93,7 +93,7 @@
       <input type="checkbox" id="24Hr switch" name="24Hr switch" value="24Hr switch" checked>
       <span class="slider round"></span>
     </label>
-    <label for="24Hr switch" style="position: relative; left: 5px;  top: 20px;  width: 200px;  border: 0px solid #73AD21;"> 24Hr Time</label>
+    <label for="24Hr switch" style="position: relative; left: 5px; top: 20px; width: 200px; border: 0px solid #73AD21;">24Hr Time</label>
   </div>
   <script>
     const scheduleListElement = document.getElementById("schedule-list");
@@ -111,18 +111,24 @@
 
     const endpoint = `https://api.airtable.com/v0/${baseId}/${tableName}`;
 
-    async function fetchDateList() {
-      try {
-        const response = await axios.get(endpoint, {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`
-          }
-        });
-        dateList = response.data.records.map(record => record.fields.Date);
-      } catch (error) {
-        console.error('Error fetching data:', error);
+async function fetchDateList() {
+  try {
+    const response = await axios.get(endpoint, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
       }
+    });
+    if (response.status === 200) {
+      dateList = response.data.records.map(record => record.fields.Date);
+      console.log("Fetched dates:", dateList);
+    } else {
+      console.error('Failed to fetch data:', response.status, response.statusText);
     }
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+  }
+}
+
 
     function fetchWeekdayNumber() {
       const now = new Date();
@@ -133,6 +139,7 @@
     async function initializeVariables() {
       await fetchDateList();
       fetchWeekdayNumber();
+      console.log("Weekday ID:", weekdayID);
     }
 
     const weeklySchedule = {
@@ -169,7 +176,6 @@
         { start: 12 * 60 + 32, end: 13 * 60 + 2, name: "RISE" },
         { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
         { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
-        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
       ]
     };
 
@@ -180,7 +186,9 @@
     }
 
     function getScheduleDay() {
-      if (isMinimumDay()) {
+      const minimumDay = isMinimumDay();
+      console.log("Is Minimum Day:", minimumDay);
+      if (minimumDay) {
         return "Minimum Day";
       } else if (weekdayID === 1) {
         return "Monday";
@@ -194,6 +202,7 @@
     function displaySchedule() {
       scheduleListElement.innerHTML = '';
       const scheduleDay = getScheduleDay();
+      console.log("Schedule Day:", scheduleDay);
       if (!scheduleDay) {
         scheduleListElement.innerHTML = '<li class="schedule-item">No school today!</li>';
         return;
