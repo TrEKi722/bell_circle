@@ -81,6 +81,7 @@
 </head>
 <body>
   <div class="schedule">
+    <h1 id="current-date"></h1>
     <h1 id="current-timedate"></h1>
     <h1 id="current-period" style="font-size:40px"></h1>
     <h2 id="next-period"></h2>
@@ -90,14 +91,15 @@
   </div>
   <div>
     <label class="switch">
-      <input type="checkbox" id="24Hr switch" name="24Hr switch" value="24Hr switch" checked>
+      <input type="checkbox" id="24HrSwitch" name="24HrSwitch" value="24HrSwitch" checked>
       <span class="slider round"></span>
     </label>
-    <label for="24Hr switch" style="position: relative; left: 5px; top: 20px; width: 200px; border: 0px solid #73AD21;">24Hr Time</label>
+    <label for="24HrSwitch" style="position: relative; left: 5px; top: 20px; width: 200px; border: 0px solid #73AD21;">24Hr Time</label>
   </div>
   <script>
     const scheduleListElement = document.getElementById("schedule-list");
     const currentTimeDateElement = document.getElementById("current-timedate");
+    const currentDateElement = document.getElementById("current-date");
     const currentPeriodElement = document.getElementById("current-period");
     const nextPeriodElement = document.getElementById("next-period");
     const countdownElement = document.getElementById("countdown");
@@ -108,27 +110,28 @@
 
     let weekdayID = 0;
     let dateList = [];
+    let minimumDay = false;
+    let is24HourFormat = true; // Default to 24-hour format
 
     const endpoint = `https://api.airtable.com/v0/${baseId}/${tableName}`;
 
-async function fetchDateList() {
-  try {
-    const response = await axios.get(endpoint, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
+    async function fetchDateList() {
+      try {
+        const response = await axios.get(endpoint, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        });
+        if (response.status === 200) {
+          dateList = response.data.records.map(record => record.fields.Date);
+          console.log("Fetched dates:", dateList);
+        } else {
+          console.error('Failed to fetch data:', response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
       }
-    });
-    if (response.status === 200) {
-      dateList = response.data.records.map(record => record.fields.Date);
-      console.log("Fetched dates:", dateList);
-    } else {
-      console.error('Failed to fetch data:', response.status, response.statusText);
     }
-  } catch (error) {
-    console.error('Error fetching data:', error.message);
-  }
-}
-
 
     function fetchWeekdayNumber() {
       const now = new Date();
@@ -139,7 +142,9 @@ async function fetchDateList() {
     async function initializeVariables() {
       await fetchDateList();
       fetchWeekdayNumber();
+      minimumDay = isMinimumDay(); 
       console.log("Weekday ID:", weekdayID);
+      console.log("Is Minimum Day:", minimumDay);
     }
 
     const weeklySchedule = {
@@ -175,88 +180,66 @@ async function fetchDateList() {
         { start: 11 * 60 + 38, end: 12 * 60 + 28, name: "Fourth Period" },
         { start: 12 * 60 + 32, end: 13 * 60 + 2, name: "RISE" },
         { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
-        { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
+        { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" }
       ]
     };
 
     function isMinimumDay() {
-      const now = new Date();
-      const today = now.toISOString().split("T")[0];
-      return dateList.includes(today);
+      const todayDate = new Date().toISOString().split('T')[0];
+      const minDay = dateList.includes(todayDate);
+      console.log("Is Minimum Day Check:", minDay);
+      return minDay;
     }
 
-    function getScheduleDay() {
-      const minimumDay = isMinimumDay();
-      console.log("Is Minimum Day:", minimumDay);
-      if (minimumDay) {
-        return "Minimum Day";
-      } else if (weekdayID === 1) {
-        return "Monday";
-      } else if (weekdayID >= 2 && weekdayID <= 5) {
-        return "Standard";
+    function formatTime(minutes) {
+      if (is24HourFormat) {
+        const hour = Math.floor(minutes / 60);
+        const minute = minutes % 60;
+        return `${hour}:${minute < 10 ? '0' : ''}${minute}`;
       } else {
-        return null;
+        const hour = Math.floor(minutes / 60);
+        const minute = minutes % 60;
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const formattedHour = hour % 12 || 12;
+        return `${formattedHour}:${minute < 10 ? '0' : ''}${minute} ${period}`;
       }
     }
 
-    function displaySchedule() {
+    function displayCurrentTime() {
+      const now = new Date();
+      const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: !is24HourFormat };
+      currentTimeDateElement.textContent = now.toLocaleTimeString([], options);
+      currentDateElement.textContent = now.toLocaleDateString();
+    }
+
+    function updateSchedule() {
+      const todaySchedule = minimumDay ? weeklySchedule["Minimum Day"] : weeklySchedule["Standard"];
       scheduleListElement.innerHTML = '';
-      const scheduleDay = getScheduleDay();
-      console.log("Schedule Day:", scheduleDay);
-      if (!scheduleDay) {
-        scheduleListElement.innerHTML = '<li class="schedule-item">No school today!</li>';
-        return;
-      }
-      const schedule = weeklySchedule[scheduleDay];
-      schedule.forEach((period) => {
-        const listItem = document.createElement("li");
-        listItem.textContent = `${period.name}: ${formatTime(period.start)} - ${formatTime(period.end)}`;
-        listItem.classList.add("schedule-item");
+      todaySchedule.forEach(period => {
+        const listItem = document.createElement('li');
+        listItem.className = 'schedule-item';
+        listItem.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.name}`;
         scheduleListElement.appendChild(listItem);
       });
     }
 
-    function updateCurrentTime() {
+    function updateCurrentPeriodAndCountdown() {
       const now = new Date();
-      const options = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        weekday: "long",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-        hour12: false,
-      };
-      currentTimeDateElement.textContent = now.toLocaleString("en-US", options);
-    }
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const todaySchedule = minimumDay ? weeklySchedule["Minimum Day"] : weeklySchedule["Standard"];
 
-    function formatTime(minutes) {
-      const hours = Math.floor(minutes / 60);
-      const mins = minutes % 60;
-      return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
-    }
-
-    function updateCountdown() {
-      const now = new Date();
-      const totalMinutes = now.getHours() * 60 + now.getMinutes();
-      const scheduleDay = getScheduleDay();
-      if (!scheduleDay) return;
-      const schedule = weeklySchedule[scheduleDay];
-      const currentPeriod = schedule.find(period => totalMinutes >= period.start && totalMinutes < period.end);
-      const nextPeriod = schedule.find(period => totalMinutes < period.start);
-
-      const totalSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+      const currentPeriod = todaySchedule.find(period => currentMinutes >= period.start && currentMinutes < period.end);
+      const nextPeriod = todaySchedule.find(period => currentMinutes < period.start);
 
       if (currentPeriod) {
-        const remainingSeconds = currentPeriod.end * 60 - totalSeconds;
         currentPeriodElement.textContent = `Current: ${currentPeriod.name}`;
         nextPeriodElement.textContent = `Ends in:`;
+        const remainingSeconds = (currentPeriod.end - currentMinutes) * 60 - (now.getSeconds());
         countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
       } else if (nextPeriod) {
-        const remainingSeconds = nextPeriod.start * 60 - totalSeconds;
         currentPeriodElement.textContent = `Next: ${nextPeriod.name}`;
         nextPeriodElement.textContent = `Starts in:`;
+        const remainingSeconds = (nextPeriod.start - currentMinutes) * 60 - (now.getSeconds());
         countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
       } else {
         currentPeriodElement.textContent = "School is over for today!";
@@ -267,15 +250,21 @@ async function fetchDateList() {
 
     function initialize() {
       initializeVariables().then(() => {
-        displaySchedule();
-        updateCurrentTime();
-        updateCountdown();
-        setInterval(updateCurrentTime, 1000);
-        setInterval(updateCountdown, 1000);
+        displayCurrentTime();
+        updateSchedule();
+        updateCurrentPeriodAndCountdown();
+        setInterval(displayCurrentTime, 1000);
+        setInterval(updateCurrentPeriodAndCountdown, 1000);
       });
     }
 
     window.onload = initialize;
+
+    document.getElementById('24HrSwitch').addEventListener('change', (event) => {
+      is24HourFormat = event.target.checked;
+      displayCurrentTime();
+      updateSchedule();
+    });
   </script>
 </body>
 </html>
