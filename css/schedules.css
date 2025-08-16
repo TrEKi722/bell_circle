@@ -1,23 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Alice&family=Comfortaa:wght@300..700&family=Fira+Code:wght@300..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: "Comfortaa", sans-serif;
-    font-size: 1.75rem;
-    background-color: #acdffd;
-}
-
-hr {
-    height: 1px;
-    background-color: none;
-    border: none;
-}
-
-p{
-    font-family: 'Fira Code', monospace;
-}
-
 .banner {
     font-size: 2.5rem;
     font-family: "Comfortaa", sans-serif;
@@ -33,7 +15,6 @@ p{
     align-items: center;
     justify-content: center;
 }
-
 nav {
     background-color: #000;
     display: flex;
@@ -45,32 +26,26 @@ nav {
     box-shadow: 0 2px 6px rgba(0,0,0,0.07);
 
 }
-
 .nav-right {
     display: flex;
     gap: 0.1rem;
     align-items: right;
 }
-
-
 .nav-left {
     display: flex;
     align-items: left;
     margin-right: 30px;
 }
-
 .logo {
     height: 40px;
     margin-right: 10px;
 }
-
 .logo-text {
     font-size: 1.5em;
     font-weight: 400;
     color: #fff;
     margin: 0;
 }
-
 nav a {
     color: #fff;
     text-decoration: none;
@@ -78,29 +53,78 @@ nav a {
     border-radius: 4px;
     transition: color 0.1s;
 }
-
 nav a:hover {
     color: #aaa;
     cursor: pointer;
 }
-
-.section {
-    width: 80vw;
-    margin: 40px auto;
-    background: #80d0ff;
-    border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    padding: 16px;
-    text-align: left;
+body {
+    text-align: center;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
-
-.section h2 {
-    font-family: "Comfortaa", sans-serif;
-    font-size: 28px;
-    margin-top: 0;
+.schedule h2, .schedule h1, .schedule p {
+    margin-bottom: 0;
 }
-
-.section p {
-    font-family: 'Fira Code', monospace;
-    font-size: 20px;
+.schedule {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.schedule-item {
+    list-style-type: none;
+    text-align: center;
+    margin-bottom: 10px;
+}
+#schedule-list {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+input:checked + .slider {
+    background-color: #00B58B;
+}
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 50%;
 }

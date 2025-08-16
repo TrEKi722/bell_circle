@@ -3,83 +3,22 @@
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      text-align: center;
-      font-family: "Titillium Web", sans-serif;
-      font-weight: 400;
-      font-style: normal;
-    }
-    .schedule h2, .schedule h1, .schedule p {
-      margin-bottom: 0;
-    }
-    .schedule {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .schedule-item {
-      list-style-type: none;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    #schedule-list {
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 34px;
-    }
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: .4s;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-    }
-    input:checked + .slider {
-      background-color: #00B58B;
-    }
-    input:focus + .slider {
-      box-shadow: 0 0 1px #2196F3;
-    }
-    input:checked + .slider:before {
-      transform: translateX(26px);
-    }
-    .slider.round {
-      border-radius: 34px;
-    }
-    .slider.round:before {
-      border-radius: 50%;
-    }
-  </style>
+  <link rel="stylesheet" href="css/schedules.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <div id="navbar-container"></div>
+  <script>
+    // Load navbar from navbar.html
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+      });
+  </script>
 </head>
 <body>
+  <div class="banner">
+    Bell Circle
+  </div>
   <div class="schedule">
     <h1 id="current-date"></h1>
     <h1 id="current-timedate"></h1>
