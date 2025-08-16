@@ -75,7 +75,7 @@ nav a:hover {
 }
 
 .section {
-    max-width: 80vw;
+    width: 80vw;
     margin: 40px auto;
     background: #80d0ff;
     border-radius: 10px;
