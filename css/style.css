@@ -1,60 +1,84 @@
-        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Fira+Code&display=swap');
-        html, body {
-            height: 100%;
-            margin: 0;
-            font-family: Comfortaa, cursive;
-            font-size: 25px;
-            background-color: #f4faff;
-        }
-        .banner {
-            font-size: 32px;
-            font-family: Comfortaa, cursive;
-            text-align: center;
-            background-image: url("https://freerangestock.com/sample/140799/wood-background--dark-wooden-background.jpg");
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 30px 0;
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        nav {
-            background-color: #acdffd;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            padding: 15px 0;
-            font-family: 'Fira Code', monospace;
-            font-size: 22px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-        }
-        nav a {
-            color: #1a3a5d;
-            text-decoration: none;
-            padding: 8px 18px;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-        nav a:hover {
-            background-color: #e3f3ff;
-        }
-        .section {
-            max-width: 900px;
-            margin: 40px auto;
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-            padding: 32px;
-            text-align: left;
-        }
-        .section h2 {
-            font-family: Comfortaa, cursive;
-            font-size: 28px;
-            margin-top: 0;
-        }
-        .section p {
-            font-family: 'Fira Code', monospace;
-            font-size: 20px;
-        }
+@import url('https://fonts.googleapis.com/css2?family=Alice&family=Comfortaa:wght@300..700&family=Fira+Code:wght@300..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: "Comfortaa", sans-serif;
+    font-size: 25px;
+    background-color: #f4faff;
+}
+
+.banner {
+    font-size: 48px;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 700;
+    text-align: center;
+    background-image: url("https://freerangestock.com/sample/140799/wood-background--dark-wooden-background.jpg");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 30px 0;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav {
+    background-color: #000;
+    display: flex;
+    justify-content: right;
+    gap: 40px;
+    padding: 15px 0;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    .logo {
+        display: flex;
+        justify-content: left;
+        font-size: 0.755rem;
+        font-weight: 700;
+        color: #fff;
+    }
+    .logo-text {
+        display: flex;
+        justify-content: left;
+        font-size: 0.755rem;
+        font-weight: 700;
+        color: #fff;
+    }
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 4px;
+    transition: color 0.1s;
+}
+
+nav a:hover {
+    color: #aaa;
+    cursor: pointer;
+}
+
+.section {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    padding: 32px;
+    text-align: left;
+}
+
+.section h2 {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 28px;
+    margin-top: 0;
+}
+
+.section p {
+    font-family: 'Fira Code', monospace;
+    font-size: 20px;
+}
