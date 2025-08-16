@@ -1,3 +1,26 @@
+.dropdown .dropdown {
+    position: relative;
+}
+.dropdown .dropbtn {
+    padding-right: 28px;
+}
+.district-content {
+    right: 100%;
+    top: 0;
+    margin-right: 2px;
+    min-width: 180px;
+}
+.dropdown-content .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #222;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    z-index: 2;
+}
+.dropdown-content .dropdown:hover .dropdown-content {
+    display: block;
+}
 @import url('https://fonts.googleapis.com/css2?family=Alice&family=Comfortaa:wght@300..700&family=Fira+Code:wght@300..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 
 html, body {
@@ -82,6 +105,49 @@ nav a {
 nav a:hover {
     color: #aaa;
     cursor: pointer;
+}
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropbtn {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 4px;
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    transition: color 0.1s;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #222;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    z-index: 1;
+    border-radius: 4px;
+    margin-top: 2px;
+}
+.dropdown-content a {
+    color: #fff;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 4px;
+    transition: background 0.1s;
+}
+.dropdown-content a:hover {
+    background-color: #333;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    color: #aaa;
 }
 
 .section {
