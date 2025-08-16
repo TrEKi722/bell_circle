@@ -65,6 +65,7 @@ nav {
 }
 
 .logo {
+    font-family: 'Titillium Web', sans-serif !important;
     height: 40px;
     margin-right: 10px;
 }
@@ -95,6 +96,8 @@ nav a:hover {
     display: inline-block;
 }
 .dropbtn {
+    vertical-align: middle;
+    display: inline-block;
     color: #fff;
     text-decoration: none;
     padding: 8px 18px;
@@ -110,8 +113,11 @@ nav a:hover {
     position: absolute;
     background-color: #222;
     min-width: 160px;
+    max-width: 90vw;
+    right: 0;
+    left: auto;
     box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    z-index: 1;
+    z-index: 10;
     border-radius: 4px;
     margin-top: 2px;
 }
@@ -122,6 +128,12 @@ nav a:hover {
     display: block;
     border-radius: 4px;
     transition: background 0.1s;
+    display: none;
+    position: absolute;
+    background-color: #222;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    z-index: 20;
 }
 .dropdown-content a:hover {
     background-color: #333;
