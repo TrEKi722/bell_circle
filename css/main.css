@@ -48,16 +48,16 @@ p {
   background: #000;
   color: #fff;
   font-family: 'Titillium Web', sans-serif;
-  font-size: 1rem;
+  font-size: 0.50rem;
   position: relative;
   z-index: 100;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 6px rgba(31, 31, 31, 0.07);
 }
 .navbar-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.25rem 2rem;
+  padding: 0.25rem 0.10rem;
   min-height: 48px;
 }
 .navbar-left {
@@ -118,7 +118,8 @@ p {
   display: none;
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0;
+  left: auto;
   background: #222;
   min-width: 180px;
   max-width: 90vw;
@@ -147,32 +148,52 @@ p {
 .navbar-dropdown-content a:hover {
   background: #333;
 }
-/* District dropdown left of text, never off screen */
-.district-content {
+/* District dropdown left of text, outside scrollable area */
+.district-dropdown {
   position: absolute;
   top: 0;
   right: 100%;
+  left: auto;
   min-width: 180px;
   max-width: 40vw;
   background: #222;
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
   border-radius: 4px;
-  z-index: 9999;
+  z-index: 10000;
   margin-right: 2px;
   display: none;
   overflow-x: auto;
 }
-.district-content.open {
+.district-dropdown.open {
   display: block;
 }
+.district-content {
+  position: static;
+  min-width: 100%;
+  max-width: 100%;
+  margin-right: 0;
+  box-shadow: none;
+  border-radius: 4px;
+}
 @media (max-width: 1100px) {
-  .district-content {
+  .navbar-dropdown-content {
+    position: static;
+    min-width: 100%;
+    max-width: 100%;
+    right: auto;
+    left: auto;
+    margin-right: 0;
+    box-shadow: none;
+    border-radius: 4px;
+  }
+  .district-dropdown {
     position: static;
     min-width: 100%;
     max-width: 100%;
     margin-right: 0;
     box-shadow: none;
     border-radius: 4px;
+    z-index: 9999;
   }
 }
 /* Hamburger Styles */
