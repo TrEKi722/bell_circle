@@ -84,7 +84,11 @@
           }
         });
         if (response.status === 200) {
-          dateList = response.data.records.map(record => record.fields.Date);
+          // Expecting fields.Date (yyyy-mm-dd) and fields.Details (schedule name)
+          dateList = response.data.records.map(record => ({
+            date: record.fields.Date,
+            details: record.fields.Details
+          }));
           console.log("Fetched dates:", dateList);
         } else {
           console.error('Failed to fetch data:', response.status, response.statusText);
@@ -100,12 +104,23 @@
       weekdayID = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(temp);
     }
 
+    function isMinimumDay() {
+      const todayDate = new Date().toISOString().split('T')[0];
+      // Find if today matches a date in the list and get its details (schedule name)
+      const found = dateList.find(item => item.date === todayDate);
+      if (found) {
+        console.log("Schedule for today:", found.details);
+        return found.details;
+      }
+      return null;
+    }
+
     async function initializeVariables() {
       await fetchDateList();
       fetchWeekdayNumber();
-      minimumDay = isMinimumDay(); 
+      minimumDay = isMinimumDay(); // now returns schedule name or null
       console.log("Weekday ID:", weekdayID);
-      console.log("Is Minimum Day:", minimumDay);
+      console.log("Today's Schedule:", minimumDay);
     }
 
     const weeklySchedule = {
@@ -145,13 +160,6 @@
       ]
     };
 
-    function isMinimumDay() {
-      const todayDate = new Date().toISOString().split('T')[0];
-      const minDay = dateList.includes(todayDate);
-      console.log("Is Minimum Day Check:", minDay);
-      return minDay;
-    }
-
     function formatTime(minutes) {
       if (is24HourFormat) {
         const hour = Math.floor(minutes / 60);
@@ -174,7 +182,12 @@
     }
 
     function updateSchedule() {
-      const todaySchedule = minimumDay ? weeklySchedule["Minimum Day"] : weeklySchedule["Standard"];
+      let todaySchedule;
+      if (minimumDay && weeklySchedule[minimumDay]) {
+        todaySchedule = weeklySchedule[minimumDay];
+      } else {
+        todaySchedule = weeklySchedule["Standard"];
+      }
       scheduleListElement.innerHTML = '';
       todaySchedule.forEach(period => {
         const listItem = document.createElement('li');
@@ -187,7 +200,12 @@
     function updateCurrentPeriodAndCountdown() {
       const now = new Date();
       const currentMinutes = now.getHours() * 60 + now.getMinutes();
-      const todaySchedule = minimumDay ? weeklySchedule["Minimum Day"] : weeklySchedule["Standard"];
+      let todaySchedule;
+      if (minimumDay && weeklySchedule[minimumDay]) {
+        todaySchedule = weeklySchedule[minimumDay];
+      } else {
+        todaySchedule = weeklySchedule["Standard"];
+      }
 
       const currentPeriod = todaySchedule.find(period => currentMinutes >= period.start && currentMinutes < period.end);
       const nextPeriod = todaySchedule.find(period => currentMinutes < period.start);
