@@ -46,21 +46,24 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 20px;
+    padding: 0.15rem 32px;
     font-family: 'Titillium Web', sans-serif;
-    font-size: 0.65rem;
+    font-size: 1rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    min-height: 56px;
 }
 
 .nav-right {
     display: flex;
     gap: 0.1rem;
-    align-items: right;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
 }
 
 .nav-left {
     display: flex;
-    align-items: left;
+    align-items: center;
     margin-right: 30px;
 }
 
@@ -74,7 +77,8 @@ nav {
     font-size: 1.5em;
     font-weight: 400;
     color: #fff;
-    margin: 0;
+    margin: 0 0 0 8px;
+    white-space: nowrap;
 }
 
 nav a {
@@ -83,6 +87,8 @@ nav a {
     padding: 8px 18px;
     border-radius: 4px;
     transition: color 0.1s;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 nav a:hover {
