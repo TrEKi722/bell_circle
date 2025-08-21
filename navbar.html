@@ -3,6 +3,11 @@
         <img class="logo" src="/Media/Transparent/BellIcon.png" alt="Bell Circle Logo">
         <p class="logo-text">Bell Circle</p>
     </div>
+    <button class="nav-hamburger" aria-label="Open menu" onclick="document.querySelector('.nav-right').classList.toggle('open')">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
     <div class="nav-right">
         <a href="/index.html">Home</a>
         <a href="/avms/">AVMS</a>
@@ -31,4 +36,18 @@
             </div>
         </div>
     </div>
+    <script>
+    // Optional: close menu when clicking outside or resizing
+    window.addEventListener('resize', function() {
+        if(window.innerWidth > 900) {
+            document.querySelector('.nav-right').classList.remove('open');
+        }
+    });
+    document.addEventListener('click', function(e) {
+        const nav = document.querySelector('nav');
+        if(!nav.contains(e.target)) {
+            document.querySelector('.nav-right').classList.remove('open');
+        }
+    });
+    </script>
 </nav>
