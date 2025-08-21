@@ -121,14 +121,19 @@ p {
   left: 0;
   background: #222;
   min-width: 180px;
+  max-width: 90vw;
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
   z-index: 9999;
   border-radius: 4px;
   margin-top: 2px;
+  overflow-x: auto;
 }
 .navbar-dropdown:focus > .navbar-dropdown-content,
 .navbar-dropdown:active > .navbar-dropdown-content,
 .navbar-dropdown:hover > .navbar-dropdown-content {
+  display: block;
+}
+.navbar-dropdown-content.open {
   display: block;
 }
 .navbar-dropdown-content a {
@@ -142,40 +147,24 @@ p {
 .navbar-dropdown-content a:hover {
   background: #333;
 }
-/* District dropdown left of text */
-.district-dropdown {
-  position: relative;
-  display: inline-block;
-}
+/* District dropdown left of text, never off screen */
 .district-content {
   position: absolute;
   top: 0;
   right: 100%;
   min-width: 180px;
+  max-width: 40vw;
   background: #222;
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
   border-radius: 4px;
   z-index: 9999;
   margin-right: 2px;
   display: none;
+  overflow-x: auto;
 }
-.district-dropdown:focus > .district-content,
-.district-dropdown:active > .district-content,
-.district-dropdown:hover > .district-content {
+.district-content.open {
   display: block;
 }
-.district-content a {
-  color: #fff;
-  padding: 10px 16px;
-  text-decoration: none;
-  display: block;
-  border-radius: 4px;
-  transition: background 0.1s;
-}
-.district-content a:hover {
-  background: #333;
-}
-
 /* Hamburger Styles */
 .navbar-hamburger {
   display: none;
@@ -212,6 +201,12 @@ p {
   background: rgba(0,0,0,0.4);
   z-index: 9998;
 }
+.navbar-overlay.open {
+  display: block;
+}
+body.navbar-menu-open {
+  overflow: hidden;
+}
 .navbar-hamburger-menu {
   display: none;
   position: fixed;
@@ -227,6 +222,9 @@ p {
   overflow-y: auto;
   flex-direction: column;
   gap: 1rem;
+}
+.navbar-hamburger-menu.open {
+  display: flex;
 }
 .navbar-hamburger-menu a {
   color: #fff;
@@ -466,4 +464,9 @@ input:checked + .slider:before {
     .dropdown.open > .dropbtn {
         color: #aaa;
     }
+}
+
+/* Prevent horizontal scroll from dropdowns */
+html, body {
+  overflow-x: hidden;
 }

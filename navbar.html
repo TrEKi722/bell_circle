@@ -73,16 +73,15 @@
 const hamburger = document.querySelector('.navbar-hamburger');
 const menu = document.querySelector('.navbar-hamburger-menu');
 const overlay = document.querySelector('.navbar-overlay');
-
 function openMenu() {
-  menu.style.display = 'flex';
-  overlay.style.display = 'block';
-  document.body.style.overflow = 'hidden';
+  menu.classList.add('open');
+  overlay.classList.add('open');
+  document.body.classList.add('navbar-menu-open');
 }
 function closeMenu() {
-  menu.style.display = 'none';
-  overlay.style.display = 'none';
-  document.body.style.overflow = '';
+  menu.classList.remove('open');
+  overlay.classList.remove('open');
+  document.body.classList.remove('navbar-menu-open');
 }
 if (hamburger && menu && overlay) {
   hamburger.addEventListener('click', openMenu);
@@ -100,19 +99,19 @@ function setupDropdowns(scope) {
     if (!btn || !content) return;
     // Desktop: hover
     btn.addEventListener('mouseenter', () => {
-      if (window.innerWidth > 1100) content.style.display = 'block';
+      if (window.innerWidth > 1100) content.classList.add('open');
     });
     btn.addEventListener('mouseleave', () => {
-      if (window.innerWidth > 1100) content.style.display = 'none';
+      if (window.innerWidth > 1100) content.classList.remove('open');
     });
     dropdown.addEventListener('mouseleave', () => {
-      if (window.innerWidth > 1100) content.style.display = 'none';
+      if (window.innerWidth > 1100) content.classList.remove('open');
     });
     // Mobile: click
     btn.addEventListener('click', (e) => {
       if (window.innerWidth <= 1100) {
         e.preventDefault();
-        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
+        content.classList.toggle('open');
       }
     });
   });
@@ -127,19 +126,19 @@ function setupDistrictDropdowns(scope) {
     if (!btn || !content) return;
     // Desktop: hover
     btn.addEventListener('mouseenter', () => {
-      if (window.innerWidth > 1100) content.style.display = 'block';
+      if (window.innerWidth > 1100) content.classList.add('open');
     });
     btn.addEventListener('mouseleave', () => {
-      if (window.innerWidth > 1100) content.style.display = 'none';
+      if (window.innerWidth > 1100) content.classList.remove('open');
     });
     dropdown.addEventListener('mouseleave', () => {
-      if (window.innerWidth > 1100) content.style.display = 'none';
+      if (window.innerWidth > 1100) content.classList.remove('open');
     });
     // Mobile: click
     btn.addEventListener('click', (e) => {
       if (window.innerWidth <= 1100) {
         e.preventDefault();
-        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
+        content.classList.toggle('open');
       }
     });
   });
