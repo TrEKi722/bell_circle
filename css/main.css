@@ -48,10 +48,11 @@ nav {
     justify-content: space-between;
     padding: 0.15rem 32px;
     font-family: 'Titillium Web', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-    min-height: 48px;
-    width: 100vw;
+    min-height: 44px;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .nav-right {
@@ -86,7 +87,7 @@ nav {
 nav a {
     color: #fff;
     text-decoration: none;
-    padding: 8px 18px;
+    padding: 8px 12px;
     border-radius: 4px;
     transition: color 0.1s;
     white-space: nowrap;
