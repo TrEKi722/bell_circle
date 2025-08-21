@@ -206,31 +206,21 @@
       } else {
         todaySchedule = weeklySchedule["Monday"];
       }
-      // Example: Show all schedules in formatted sections
       scheduleListElement.innerHTML = '';
-      for (const [title, periods] of Object.entries(weeklySchedule)) {
-        const sectionTitle = document.createElement('li');
-        sectionTitle.style.fontWeight = 'bold';
-        sectionTitle.style.marginTop = '20px';
-        sectionTitle.textContent = title + ' Schedule';
-        scheduleListElement.appendChild(sectionTitle);
-
-        // Header row
-        const header = document.createElement('li');
-        header.textContent = 'Period | Times | Length';
-        header.style.fontStyle = 'italic';
-        scheduleListElement.appendChild(header);
-
-        periods.forEach(period => {
-          const start = formatTime(period.start);
-          const end = formatTime(period.end);
-          const length = period.end - period.start;
-          const listItem = document.createElement('li');
-          listItem.className = 'schedule-item';
-          listItem.textContent = `${period.name} | ${start} - ${end} | ${length} min`;
-          scheduleListElement.appendChild(listItem);
-        });
-      }
+      // Header row
+      const header = document.createElement('li');
+      header.textContent = 'Period | Times | Length';
+      header.style.fontStyle = 'italic';
+      scheduleListElement.appendChild(header);
+      todaySchedule.forEach(period => {
+        const start = formatTime(period.start);
+        const end = formatTime(period.end);
+        const length = period.end - period.start;
+        const listItem = document.createElement('li');
+        listItem.className = 'schedule-item';
+        listItem.textContent = `${period.name} | ${start} - ${end} | ${length} min`;
+        scheduleListElement.appendChild(listItem);
+      });
     }
 
     function updateCurrentPeriodAndCountdown() {

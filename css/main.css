@@ -50,7 +50,8 @@ nav {
     font-family: 'Titillium Web', sans-serif;
     font-size: 1rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-    min-height: 56px;
+    min-height: 48px;
+    width: 100vw;
 }
 
 .nav-right {
@@ -59,6 +60,7 @@ nav {
     align-items: center;
     justify-content: flex-end;
     flex: 1;
+    width: 100%;
 }
 
 .nav-left {
