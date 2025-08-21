@@ -68,3 +68,81 @@
     </div>
   </div>
 </nav>
+<script>
+// Hamburger menu logic
+const hamburger = document.querySelector('.navbar-hamburger');
+const menu = document.querySelector('.navbar-hamburger-menu');
+const overlay = document.querySelector('.navbar-overlay');
+
+function openMenu() {
+  menu.style.display = 'flex';
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu() {
+  menu.style.display = 'none';
+  overlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+if (hamburger && menu && overlay) {
+  hamburger.addEventListener('click', openMenu);
+  overlay.addEventListener('click', closeMenu);
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1100) closeMenu();
+  });
+}
+// Dropdowns: hover or click
+function setupDropdowns(scope) {
+  const dropdowns = scope.querySelectorAll('.navbar-dropdown');
+  dropdowns.forEach(dropdown => {
+    const btn = dropdown.querySelector('.navbar-dropbtn');
+    const content = dropdown.querySelector('.navbar-dropdown-content');
+    if (!btn || !content) return;
+    // Desktop: hover
+    btn.addEventListener('mouseenter', () => {
+      if (window.innerWidth > 1100) content.style.display = 'block';
+    });
+    btn.addEventListener('mouseleave', () => {
+      if (window.innerWidth > 1100) content.style.display = 'none';
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      if (window.innerWidth > 1100) content.style.display = 'none';
+    });
+    // Mobile: click
+    btn.addEventListener('click', (e) => {
+      if (window.innerWidth <= 1100) {
+        e.preventDefault();
+        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
+      }
+    });
+  });
+}
+setupDropdowns(document);
+// District dropdowns
+function setupDistrictDropdowns(scope) {
+  const districts = scope.querySelectorAll('.district-dropdown');
+  districts.forEach(dropdown => {
+    const btn = dropdown.querySelector('.navbar-dropbtn');
+    const content = dropdown.querySelector('.district-content');
+    if (!btn || !content) return;
+    // Desktop: hover
+    btn.addEventListener('mouseenter', () => {
+      if (window.innerWidth > 1100) content.style.display = 'block';
+    });
+    btn.addEventListener('mouseleave', () => {
+      if (window.innerWidth > 1100) content.style.display = 'none';
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      if (window.innerWidth > 1100) content.style.display = 'none';
+    });
+    // Mobile: click
+    btn.addEventListener('click', (e) => {
+      if (window.innerWidth <= 1100) {
+        e.preventDefault();
+        content.style.display = (content.style.display === 'block') ? 'none' : 'block';
+      }
+    });
+  });
+}
+setupDistrictDropdowns(document);
+</script>
