@@ -209,8 +209,6 @@
       scheduleListElement.innerHTML = '';
       // Header row
       const header = document.createElement('li');
-      header.textContent = 'Period | Times | Length';
-      header.style.fontStyle = 'italic';
       scheduleListElement.appendChild(header);
       todaySchedule.forEach(period => {
         const start = formatTime(period.start);
@@ -218,7 +216,7 @@
         const length = period.end - period.start;
         const listItem = document.createElement('li');
         listItem.className = 'schedule-item';
-        listItem.textContent = `${period.name} | ${start} - ${end} | ${length} min`;
+        listItem.textContent = '${start} - ${end}: ${period.name}';
         scheduleListElement.appendChild(listItem);
       });
     }
