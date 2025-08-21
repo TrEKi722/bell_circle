@@ -54,6 +54,9 @@ nav {
     width: 100%;
     overflow-x: hidden;
     box-sizing: border-box;
+
+    position: relative; /* create stacking context */
+    z-index: 1000;      /* make sure it's above banner */
 }
 
 .nav-right {
