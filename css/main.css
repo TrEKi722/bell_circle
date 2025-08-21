@@ -108,6 +108,7 @@ nav a:hover {
     cursor: pointer;
     transition: color 0.1s;
 }
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -120,6 +121,9 @@ nav a:hover {
     z-index: 10;
     border-radius: 4px;
     margin-top: 2px;
+}
+.dropdown.open > .dropdown-content {
+    display: block;
 }
 .dropdown-content a {
     color: #fff;
@@ -138,10 +142,7 @@ nav a:hover {
     margin-right: 2px;
     min-width: 180px;
 }
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-.dropdown:hover .dropbtn {
+.dropdown.open > .dropbtn {
     color: #aaa;
 }
 
@@ -257,7 +258,7 @@ input:checked + .slider:before {
     transition: 0.3s;
 }
 
-@media (max-width: 1vw) {
+@media (max-width: 900px) {
     nav {
         flex-wrap: wrap;
         position: relative;
@@ -296,9 +297,35 @@ input:checked + .slider:before {
         min-width: 100%;
         max-width: 100%;
     }
+    .dropdown.open > .dropdown-content {
+        display: block;
+    }
     .district-content {
         position: static;
         min-width: 100%;
         margin-right: 0;
+    }
+}
+
+/* Desktop: open dropdowns on hover */
+@media (min-width: 901px) {
+    .dropdown:hover > .dropdown-content {
+        display: block;
+    }
+    .dropdown:hover > .dropbtn {
+        color: #aaa;
+    }
+    .dropdown.open > .dropdown-content {
+        display: none;
+    }
+}
+
+/* Mobile: open dropdowns on click */
+@media (max-width: 900px) {
+    .dropdown.open > .dropdown-content {
+        display: block;
+    }
+    .dropdown.open > .dropbtn {
+        color: #aaa;
     }
 }

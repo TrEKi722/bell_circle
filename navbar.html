@@ -18,7 +18,7 @@
         <a href="/dhhs/">Dana Hills</a>
         <a href="/tesoro/">Tesoro</a>
         <div class="dropdown">
-            <a href="#" class="dropbtn">Other ▼</a>
+            <a href="#" class="dropbtn" onclick="event.preventDefault(); if(window.innerWidth <= 900) this.parentElement.classList.toggle('open');">Other</a>
             <div class="dropdown-content">
                 <a href="#">Blog</a>
                 <a href="#">Feedback</a>
@@ -26,7 +26,25 @@
                 <a href="#">Privacy Policy</a>
                 <a href="#">About</a>
                 <div class="dropdown district-dropdown">
-                    <a href="#" class="dropbtn">District Links ▶</a>
+                    <a href="#" class="dropbtn" onclick="event.preventDefault(); if(window.innerWidth <= 900) this.parentElement.classList.toggle('open');">District Links</a>
+                    <div class="dropdown-content district-content">
+                        <a href="https://clever.com/in/capousd/student/portal">Clever</a>
+                        <a href="https://students.enrichingstudents.com/">Enriching Students</a>
+                        <a href="https://capousd.instructure.com">Canvas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#" class="dropbtn" onclick="event.preventDefault(); if(window.innerWidth <= 900) this.parentElement.classList.toggle('open');">Other ▼</a>
+            <div class="dropdown-content">
+                <a href="#">Blog</a>
+                <a href="#">Feedback</a>
+                <a href="#">Change Log</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">About</a>
+                <div class="dropdown district-dropdown">
+                    <a href="#" class="dropbtn" onclick="event.preventDefault(); if(window.innerWidth <= 900) this.parentElement.classList.toggle('open');">District Links ▶</a>
                     <div class="dropdown-content district-content">
                         <a href="https://clever.com/in/capousd/student/portal">Clever</a>
                         <a href="https://students.enrichingstudents.com/">Enriching Students</a>
@@ -36,7 +54,6 @@
             </div>
         </div>
     </div>
-    <script>
     // Optional: close menu when clicking outside or resizing
     window.addEventListener('resize', function() {
         if(window.innerWidth > 900) {
@@ -47,6 +64,31 @@
         const nav = document.querySelector('nav');
         if(!nav.contains(e.target)) {
             document.querySelector('.nav-right').classList.remove('open');
+        }
+    });
+    </script>
+    <script>
+    // Responsive dropdown logic
+    window.addEventListener('resize', function() {
+        if(window.innerWidth > 900) {
+            document.querySelector('.nav-right').classList.remove('open');
+            document.querySelectorAll('.dropdown.open').forEach(function(el){el.classList.remove('open');});
+        }
+    });
+    document.addEventListener('click', function(e) {
+        const nav = document.querySelector('nav');
+        if(!nav.contains(e.target)) {
+            document.querySelector('.nav-right').classList.remove('open');
+            document.querySelectorAll('.dropdown.open').forEach(function(el){el.classList.remove('open');});
+        }
+    });
+    // Only allow click to open dropdowns on mobile
+    document.addEventListener('click', function(e) {
+        if(window.innerWidth > 900) return;
+        if(e.target.classList.contains('dropbtn')) {
+            document.querySelectorAll('.dropdown.open').forEach(function(el){
+                if(!el.contains(e.target)) el.classList.remove('open');
+            });
         }
     });
     </script>
