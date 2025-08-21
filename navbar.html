@@ -1,39 +1,70 @@
-<nav>
-    <div class="nav-left">
-        <img class="logo" src="/Media/Transparent/BellIcon.png" alt="Bell Circle Logo">
-        <p class="logo-text">Bell Circle</p>
+<nav class="navbar">
+  <div class="navbar-content">
+    <div class="navbar-left">
+      <img class="navbar-logo" src="/Media/Transparent/BellIcon.png" alt="Bell Circle Logo">
+      <span class="navbar-logo-text">Bell Circle</span>
     </div>
-    <button class="nav-hamburger" aria-label="Open menu" onclick="document.querySelector('.nav-right').classList.toggle('open')">
-        <span></span>
-        <span></span>
-        <span></span>
+    <button class="navbar-hamburger" aria-label="Open menu" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
-    <div class="nav-right">
-        <a href="/index.html">Home</a>
-        <a href="/avms/">AVMS</a>
-        <a href="/djams/">DJAMS</a>
-        <a href="/fnms/">FNMS</a>
-        <a href="/nhms/">NHMS</a>
-        <a href="/anhs/">Aliso Niguel</a> 
-        <a href="/dhhs/">Dana Hills</a>
-        <a href="/tesoro/">Tesoro</a>
-        <div class="dropdown">
-            <a href="#" class="dropbtn" onclick="event.preventDefault(); if(window.innerWidth <= 900) this.parentElement.classList.toggle('open');">Other</a>
-            <div class="dropdown-content">
-                <a href="#">Blog</a>
-                <a href="#">Feedback</a>
-                <a href="#">Change Log</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">About</a>
-                <div class="dropdown district-dropdown">
-                    <a href="#" class="dropbtn" onclick="event.preventDefault(); if(window.innerWidth <= 900) this.parentElement.classList.toggle('open');">District Links</a>
-                    <div class="dropdown-content district-content">
-                        <a href="https://clever.com/in/capousd/student/portal">Clever</a>
-                        <a href="https://students.enrichingstudents.com/">Enriching Students</a>
-                        <a href="https://capousd.instructure.com">Canvas</a>
-                    </div>
-                </div>
+    <div class="navbar-links">
+      <a href="../">Home</a>
+      <a href="/avms/">AVMS</a>
+      <a href="/djams/">DJAMS</a>
+      <a href="/fnms/">FNMS</a>
+      <a href="/nhms/">NHMS</a>
+      <a href="/anhs/">Aliso Niguel</a>
+      <a href="/dhhs/">Dana Hills</a>
+      <a href="/tesoro/">Tesoro</a>
+      <div class="navbar-dropdown" tabindex="0">
+        <span class="navbar-dropbtn">Other</span>
+        <div class="navbar-dropdown-content">
+          <a href="#">Blog</a>
+          <a href="#">Feedback</a>
+          <a href="#">Change Log</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">About</a>
+          <div class="navbar-dropdown district-dropdown" tabindex="0">
+            <span class="navbar-dropbtn">District Links</span>
+            <div class="navbar-dropdown-content district-content">
+              <a href="https://clever.com/in/capousd/student/portal">Clever</a>
+              <a href="https://students.enrichingstudents.com/">Enriching Students</a>
+              <a href="https://capousd.instructure.com">Canvas</a>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+  <div class="navbar-overlay"></div>
+  <div class="navbar-hamburger-menu">
+    <a href="../">Home</a>
+    <a href="/avms/">AVMS</a>
+    <a href="/djams/">DJAMS</a>
+    <a href="/fnms/">FNMS</a>
+    <a href="/nhms/">NHMS</a>
+    <a href="/anhs/">Aliso Niguel</a>
+    <a href="/dhhs/">Dana Hills</a>
+    <a href="/tesoro/">Tesoro</a>
+    <div class="navbar-dropdown" tabindex="0">
+      <span class="navbar-dropbtn">Other</span>
+      <div class="navbar-dropdown-content">
+        <a href="#">Blog</a>
+        <a href="#">Feedback</a>
+        <a href="#">Change Log</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">About</a>
+        <div class="navbar-dropdown district-dropdown" tabindex="0">
+          <span class="navbar-dropbtn">District Links</span>
+          <div class="navbar-dropdown-content district-content district-mobile">
+            <a href="https://clever.com/in/capousd/student/portal">Clever</a>
+            <a href="https://students.enrichingstudents.com/">Enriching Students</a>
+            <a href="https://capousd.instructure.com">Canvas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>
