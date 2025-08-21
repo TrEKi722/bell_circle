@@ -69,7 +69,6 @@
   </div>
 </nav>
 <script>
-// Hamburger menu logic
 const hamburger = document.querySelector('.navbar-hamburger');
 const menu = document.querySelector('.navbar-hamburger-menu');
 const overlay = document.querySelector('.navbar-overlay');
@@ -90,7 +89,7 @@ if (hamburger && menu && overlay) {
     if (window.innerWidth > 1100) closeMenu();
   });
 }
-// Dropdowns: hover or click
+// Dropdowns: hover (desktop) or click (mobile)
 function setupDropdowns(scope) {
   const dropdowns = scope.querySelectorAll('.navbar-dropdown');
   dropdowns.forEach(dropdown => {
@@ -98,15 +97,10 @@ function setupDropdowns(scope) {
     const content = dropdown.querySelector('.navbar-dropdown-content');
     if (!btn || !content) return;
     // Desktop: hover
-    btn.addEventListener('mouseenter', () => {
-      if (window.innerWidth > 1100) content.classList.add('open');
-    });
-    btn.addEventListener('mouseleave', () => {
-      if (window.innerWidth > 1100) content.classList.remove('open');
-    });
-    dropdown.addEventListener('mouseleave', () => {
-      if (window.innerWidth > 1100) content.classList.remove('open');
-    });
+    if (window.innerWidth > 1100) {
+      dropdown.addEventListener('mouseenter', () => content.classList.add('open'));
+      dropdown.addEventListener('mouseleave', () => content.classList.remove('open'));
+    }
     // Mobile: click
     btn.addEventListener('click', (e) => {
       if (window.innerWidth <= 1100) {
@@ -125,15 +119,10 @@ function setupDistrictDropdowns(scope) {
     const content = dropdown.querySelector('.district-content');
     if (!btn || !content) return;
     // Desktop: hover
-    btn.addEventListener('mouseenter', () => {
-      if (window.innerWidth > 1100) content.classList.add('open');
-    });
-    btn.addEventListener('mouseleave', () => {
-      if (window.innerWidth > 1100) content.classList.remove('open');
-    });
-    dropdown.addEventListener('mouseleave', () => {
-      if (window.innerWidth > 1100) content.classList.remove('open');
-    });
+    if (window.innerWidth > 1100) {
+      dropdown.addEventListener('mouseenter', () => content.classList.add('open'));
+      dropdown.addEventListener('mouseleave', () => content.classList.remove('open'));
+    }
     // Mobile: click
     btn.addEventListener('click', (e) => {
       if (window.innerWidth <= 1100) {
@@ -144,4 +133,14 @@ function setupDistrictDropdowns(scope) {
   });
 }
 setupDistrictDropdowns(document);
+// Prevent dropdowns from causing horizontal scroll
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.navbar-dropdown-content, .district-content').forEach(el => {
+    if (window.innerWidth <= 1100) {
+      el.style.maxWidth = '100vw';
+    } else {
+      el.style.maxWidth = '';
+    }
+  });
+});
 </script>
