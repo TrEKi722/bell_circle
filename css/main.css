@@ -257,7 +257,7 @@ input:checked + .slider:before {
     transition: 0.3s;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1vw) {
     nav {
         flex-wrap: wrap;
         position: relative;
