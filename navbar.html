@@ -55,13 +55,20 @@
 const hamburger = document.querySelector('.navbar-hamburger');
 const menu = document.querySelector('.navbar-hamburger-menu');
 function toggleMenu() {
+  if (!menu) {
+    console.log('Menu element not found');
+    return;
+  }
   menu.classList.toggle('open');
+  console.log('Hamburger clicked. Menu open:', menu.classList.contains('open'));
 }
 if (hamburger && menu) {
   hamburger.addEventListener('click', toggleMenu);
   window.addEventListener('resize', () => {
     if (window.innerWidth > 1100) menu.classList.remove('open');
   });
+} else {
+  console.log('Hamburger or menu element not found:', {hamburger, menu});
 }
 // Dropdowns: hover (desktop) or click (mobile)
 function setupDropdowns(scope) {

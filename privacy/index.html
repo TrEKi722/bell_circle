@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="icon" type="image/png" href="/Media/Transparent/BellIcon.png">
+    <title>Privacy Policy - Bell Circle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy for Bell Circle.">
+</head>
+<body>
+    <div id="navbar-container"></div>
+    <script>
+      fetch('/navbar.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('navbar-container').innerHTML = html;
+        });
+    </script>
+    <div class="banner">
+        Privacy Policy
+    </div>
+    <div class="section">
+        <h2>Privacy Policy</h2>
+        <div id="privacy-policy-content">
+            <p>Welcome to Bell Circle, where your privacy is a top priority. This Privacy Policy provides important information on how we collect, use, and safeguard your data when you visit our website.</p>
+
+            <p><strong>Data Collection and Use</strong></p>
+            <p>Bell Circle utilizes Google Analytics to gather insights on page visits, user interactions, and the geographic locations (city level) of our visitors. This helps us enhance your experience on our site. We also collect personal details such as email addresses and the names of schools attended through our website forms. This information is used solely for the purpose of analytics and improving Bell Circle.</p>
+
+            <p><strong>Data Storage and Access</strong></p>
+            <p>All collected information is securely stored within Google Analytics. There is only one person with access to this data, ensuring your personal information is kept private and secure.</p>
+
+            <p><strong>Your Rights</strong></p>
+            <p>At present, Bell Circle does not offer a direct way for users to modify or delete their personal information once submitted. We recognize this limitation and are working towards providing greater control to our users in the future.</p>
+
+            <p><strong>Legal Compliance</strong></p>
+            <p>Located in California, Bell Circle adheres to the California Consumer Privacy Act (CCPA), aligning our data collection practices with state laws. While we do not restrict the age of our users, we encourage those under 13 to obtain parental consent before sharing any personal information.</p>
+
+            <p><strong>Changes to This Policy</strong></p>
+            <p>Bell Circle reserves the right to modify our privacy policy as needed to reflect changes in our operations or legal obligations. We recommend that visitors review this policy periodically for updates.</p>
+
+            <p><strong>Contact Us</strong></p>
+            <p>If you have any concerns or questions about our privacy practices, please don’t hesitate to reach out at <a href="mailto:bellcircle@writeme.com">bellcircle@writeme.com</a>.</p>
+        <div style="text-align:center; margin-top:32px;">
+            <img src="../Media/Transparent/BellText_Dark.png" alt="Bell Circle Logo" style="max-width:300px; width:100%; height:auto;">
+        </div>
+        </div>
+    </div>
+</body>
+</html>
