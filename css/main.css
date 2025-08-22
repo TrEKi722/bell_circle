@@ -121,6 +121,7 @@ p {
 .navbar-dropbtn {
   color: #fff;
   padding: 8px 12px;
+  justify-content: center;
   border-radius: 4px;
   cursor: pointer;
   user-select: none;
@@ -306,6 +307,7 @@ body.menu-open::before {
 
 .schedule h2, .schedule h1, .schedule p {
     margin-bottom: 0;
+    font-size: 2rem;
 }
 .schedule {
     display: flex;
@@ -316,6 +318,7 @@ body.menu-open::before {
     list-style-type: none;
     text-align: center;
     margin-bottom: 10px;
+    font-size: 1rem;
 }
 #schedule-list {
     padding: 0;
