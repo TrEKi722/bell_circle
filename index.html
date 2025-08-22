@@ -11,13 +11,17 @@
 <body>
     <div id="navbar-container"></div>
     <script>
-      // Load navbar from navbar.html
-      fetch('/navbar.html')
-        .then(response => response.text())
-        .then(html => {
-          document.getElementById('navbar-container').innerHTML = html;
-        });
+        fetch('/navbar.html')
+            .then(response => response.text())
+            .then(html => {
+            document.getElementById('navbar-container').innerHTML = html;
+            // After navbar is injected, load its script
+            const script = document.createElement("script");
+            script.src = "/navbar.js";
+            document.body.appendChild(script);
+            });
     </script>
+
     <div class="banner">
         Bell Circle
     </div>
