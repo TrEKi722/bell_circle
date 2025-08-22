@@ -37,7 +37,7 @@ const links = document.querySelector('.navbar-links');
 
 function showMenuMobile(show) {
   if (window.innerWidth <= 1100) {
-    links.style.display = show ? 'flex' : 'none';
+    links.style.setProperty('display', show ? 'flex' : 'none', 'important');
     links.style.flexDirection = 'column';
     links.style.position = 'fixed';
     links.style.top = '48px';
