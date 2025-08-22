@@ -199,15 +199,23 @@
 
     function updateSchedule() {
       let todaySchedule;
-      if (minimumDay && weeklySchedule[minimumDay]) {
-        todaySchedule = weeklySchedule[minimumDay];
-      } else if (weekdayID == 1) {
+      if (minimumDay) {
+        if (weeklySchedule[minimumDay]) {
+          // If the string matches one of your defined schedules
+          todaySchedule = weeklySchedule[minimumDay];
+        } else {
+          // Debugging case: Airtable returned something you don't handle
+          console.warn(`Unknown schedule type from Airtable: "${minimumDay}"`);
+          todaySchedule = weeklySchedule["Block"]; // fallback
+        }
+      } else if (weekdayID === 1) {
         todaySchedule = weeklySchedule["Monday"];
       } else {
         todaySchedule = weeklySchedule["Block"];
       }
+      console.log("Using schedule:", minimumDay || (weekdayID === 1 ? "Monday" : "Block"));
       scheduleListElement.innerHTML = '';
-      scheduleListElement.appendChild(header);
+      // scheduleListElement.appendChild(header);
       todaySchedule.forEach(period => {
         const listItem = document.createElement('li');
         listItem.className = 'schedule-item';
@@ -220,9 +228,16 @@
       const now = new Date();
       const currentMinutes = now.getHours() * 60 + now.getMinutes();
       let todaySchedule;
-      if (minimumDay && weeklySchedule[minimumDay]) {
-        todaySchedule = weeklySchedule[minimumDay];
-      } else if (weekdayID == 1) {
+      if (minimumDay) {
+        if (weeklySchedule[minimumDay]) {
+          // If the string matches one of your defined schedules
+          todaySchedule = weeklySchedule[minimumDay];
+        } else {
+          // Debugging case: Airtable returned something you don't handle
+          console.warn(`Unknown schedule type from Airtable: "${minimumDay}"`);
+          todaySchedule = weeklySchedule["Block"]; // fallback
+        }
+      } else if (weekdayID === 1) {
         todaySchedule = weeklySchedule["Monday"];
       } else {
         todaySchedule = weeklySchedule["Block"];
