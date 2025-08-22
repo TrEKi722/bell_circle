@@ -318,7 +318,7 @@ body.menu-open::before {
     list-style-type: none;
     text-align: center;
     margin-bottom: 0.25rem;
-    font-size: 0.75rem;
+    font-size: 1rem;
 }
 #schedule-list {
     padding: 0;
