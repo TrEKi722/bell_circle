@@ -14,6 +14,10 @@
         .then(response => response.text())
         .then(html => {
           document.getElementById('navbar-container').innerHTML = html;
+          // After navbar is injected, load its script
+          const script = document.createElement("script");
+          script.src = "/navbar.js"
+          document.body.appendChild(script);
         });
     </script>
   <div class="banner">
