@@ -307,7 +307,7 @@ body.menu-open::before {
 
 .schedule h2, .schedule h1, .schedule p {
     margin-bottom: 0;
-    font-size: 2rem;
+    font-size: 1.25rem;
 }
 .schedule {
     display: flex;
@@ -317,8 +317,8 @@ body.menu-open::before {
 .schedule-item {
     list-style-type: none;
     text-align: center;
-    margin-bottom: 10px;
-    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
 }
 #schedule-list {
     padding: 0;
