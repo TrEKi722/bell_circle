@@ -347,7 +347,7 @@ body.menu-open::before {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 .switch {
     position: relative;
