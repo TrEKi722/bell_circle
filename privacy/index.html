@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-            <!-- Google Tag Manager -->
-            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
-            <!-- End Google Tag Manager --> 
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+        <!-- End Google Tag Manager --> 
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="icon" type="image/png" href="/Media/Transparent/BellIcon.png">
@@ -26,7 +26,11 @@
             .then(response => response.text())
             .then(html => {
             document.getElementById('navbar-container').innerHTML = html;
-            });
+            // After navbar is injected, load its script
+            const script = document.createElement("script");
+            script.src = "/navbar.js";
+            document.body.appendChild(script);
+        });
         </script>
         <div class="banner">
             Privacy Policy
