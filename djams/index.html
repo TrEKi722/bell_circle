@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+  <!-- End Google Tag Manager --> 
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="icon" type="image/png" href="/Media/Transparent/BellIcon.png">
+  <title>AVMS - Bell Circle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <meta name="description" content="Bell Circle - Your hub for school schedules, updates, and resources."> -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWWN534W"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="navbar-container"></div>
+    <script>
+      // Load navbar from navbar.html
+      fetch('/navbar.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('navbar-container').innerHTML = html;
+          // After navbar is injected, load its script
+          const script = document.createElement("script");
+          script.src = "/navbar.js"
+          document.body.appendChild(script);
+        });
+    </script>
+  <div class="banner">
+      <h1>
+          <script>
+              var today = new Date();
+              var dayOfWeek = today.getDay();
+
+              var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+              var dayText = weekdays[dayOfWeek];
+              var iconUrl = "https://i.ibb.co/q5hQYvy/IMG-0943.png"; // Replace with your icon image URL
+
+              var img = new Image();
+              img.src = iconUrl;
+              img.width = 150; // Set the width to 100px or your desired size
+              img.margin = "20px";
+
+              var container = document.createElement("div");
+              container.style.display = "flex";
+              container.style.alignItems = "center";
+              container.appendChild(img);
+              container.appendChild(document.createTextNode(" " + dayText));
+
+              document.querySelector(".banner").appendChild(container);
+          </script>
+      </h1>
+  </div>
+  <div class="schedule">
+    <h1 id="current-date"></h1>
+    <h1 id="current-timedate"></h1>
+    <h1 id="current-period" style="font-size:40px"></h1>
+    <h2 id="next-period"></h2>
+    <h1 id="countdown"></h1>
+    <h2>Today's Schedule:</h2>
+    <ul id="schedule-list"></ul>
+  </div>
+  <div class="switch-container">
+    <label class="switch">
+      <input type="checkbox" id="24HrSwitch" name="24HrSwitch" value="24HrSwitch">
+      <span class="slider round"></span>
+    </label>
+    <label for="24HrSwitch" class="switch-label">24Hr Time</label>
+  </div>
+  <script src ="https://cdn.jotfor.ms/s/static/latest/static/feedback2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var JFL_252337325834054 = new JotformFeedback({
+        formId: '252337325834054',
+        base: 'https://form.jotform.com/',
+        windowTitle: 'Missing Special Schedule',
+        backgroundColor: '#acdffd',
+        fontColor: '#FFFFFF',
+        type: 'false',
+        height: 550,
+        width: 700,
+        openOnLoad: false
+      });
+  </script>
+  <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
+  <script>window.jotformEmbedHandler("iframe[id='252337325834054']", "https://form.jotform.com/")</script>
+  <div class="section">
+    <br>
+    <h2 style="text-align: center;">Upcoming Special Schedules</h2>
+    <div>
+      <iframe class="airtable-embed" src="https://airtable.com/embed/app5kCLxN9sVAY9wA/shr3F5A3PLYkXxySB?layout=card" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+    </div>
+    <p>If a special schedule is missing, please request it be added <strong><a class="btn lightbox-252337325834054"
+      style="text-transform: uppercase; cursor: pointer; display: inline-block; font-family: inherit;">here</a></strong></p>
+  </div>
+  <div id="footer-container" class="footer"></div>
+  <script>
+      // Load footer from footer.html
+      fetch('/footer.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('footer-container').innerHTML = html;
+        });
+  </script>
+  <script>
+    const scheduleListElement = document.getElementById("schedule-list");
+    const currentTimeDateElement = document.getElementById("current-timedate");
+    const currentDateElement = document.getElementById("current-date");
+    const currentPeriodElement = document.getElementById("current-period");
+    const nextPeriodElement = document.getElementById("next-period");
+    const countdownElement = document.getElementById("countdown");
+
+    const accessToken = 'patITxf5DhDNa3n4Z.9c2b195a60fd2f5489ef4973cf5624d94c95b2f5bf1d1998705597187eaf5425';
+    const baseId = 'app5kCLxN9sVAY9wA';
+    const tableName = 'DJAMS';
+
+    let weekdayID = 0;
+    let dateList = [];
+    let minimumDay = false;
+    let is24HourFormat = false; // Whether or not to default to 24-hour format
+
+    const endpoint = `https://api.airtable.com/v0/${baseId}/${tableName}`;
+
+    async function fetchDateList() {
+      try {
+        const response = await axios.get(endpoint, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        });
+        if (response.status === 200) {
+          // Expecting fields.Date (yyyy-mm-dd) and fields.Details (schedule name)
+          dateList = response.data.records.map(record => ({
+            date: record.fields.Date,
+            details: record.fields.Details
+          }));
+          console.log("Fetched dates:", dateList);
+        } else {
+          console.error('Failed to fetch data:', response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+      }
+    }
+
+    function fetchWeekdayNumber() {
+      const now = new Date();
+      const temp = now.toLocaleDateString('en-US', { weekday: 'short' });
+      weekdayID = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(temp);
+    }
+
+    function isMinimumDay() {
+      const todayDate = new Date().toISOString().split('T')[0];
+      // Find if today matches a date in the list and get its details (schedule name)
+      const found = dateList.find(item => item.date === todayDate);
+      if (found) {
+        console.log("Schedule for today:", found.details);
+        return found.details;
+      }
+      return null;
+    }
+
+    async function initializeVariables() {
+      await fetchDateList();
+      fetchWeekdayNumber();
+      minimumDay = isMinimumDay(); // now returns schedule name or null
+      console.log("Weekday ID:", weekdayID);
+      console.log("Today's Schedule:", minimumDay);
+    }
+
+    const weeklySchedule = {
+      "Monday": [
+        { start: 9 * 60 + 45, end: 10 * 60 + 30, name: "First Period" },
+        { start: 10 * 60 + 34, end: 11 * 60 + 14, name: "Second Period" },
+        { start: 11 * 60 + 14, end: 11 * 60 + 24, name: "Break" },
+        { start: 11 * 60 + 28, end: 12 * 60 + 8, name: "Third Period" },
+        { start: 12 * 60 + 12, end: 12 * 60 + 52, name: "Fourth Period" },
+        { start: 12 * 60 + 56, end: 13 * 60 + 22, name: "RISE" },
+        { start: 13 * 60 + 22, end: 13 * 60 + 57, name: "Lunch" },
+        { start: 14 * 60 + 1, end: 14 * 60 + 41, name: "Fifth Period" },
+        { start: 14 * 60 + 45, end: 15 * 60 + 25, name: "Sixth Period" }
+      ],
+      "Standard": [
+        { start: 7 * 60 + 41, end: 8 * 60 + 41, name: "Zero Period" },
+        { start: 8 * 60 + 45, end: 9 * 60 + 40, name: "First Period" },
+        { start: 9 * 60 + 44, end: 10 * 60 + 34, name: "Second Period" },
+        { start: 10 * 60 + 34, end: 10 * 60 + 44, name: "Break" },
+        { start: 10 * 60 + 48, end: 11 * 60 + 38, name: "Third Period" },
+        { start: 11 * 60 + 42, end: 12 * 60 + 32, name: "Fourth Period" },
+        { start: 12 * 60 + 36, end: 13 * 60 + 2, name: "RISE" },
+        { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
+        { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
+        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
+      ],
+      "Minimum Day": [
+        { start: 8 * 60 + 6, end: 8 * 60 + 40, name: "Zero Period" },
+        { start: 8 * 60 + 44, end: 9 * 60 + 19, name: "First Period" },
+        { start: 9 * 60 + 23, end: 9 * 60 + 57, name: "Second Period" },
+        { start: 9 * 60 + 57, end: 10 * 60 + 5, name: "Break" },
+        { start: 10 * 60 + 9, end: 10 * 60 + 43, name: "Third Period" },
+        { start: 10 * 60 + 47, end: 11 * 60 + 21, name: "Fourth Period" },
+        { start: 11 * 60 + 21, end: 11 * 60 + 31, name: "Break" },
+        { start: 11 * 60 + 35, end: 12 * 60 + 9, name: "Fifth Period" },
+        { start: 12 * 60 + 13, end: 12 * 60 + 47, name: "Sixth Period" }
+      ]
+    };
+
+    function formatTime(minutes) {
+      if (is24HourFormat) {
+        const hour = Math.floor(minutes / 60);
+        const minute = minutes % 60;
+        return `${hour}:${minute < 10 ? '0' : ''}${minute}`;
+      } else {
+        const hour = Math.floor(minutes / 60);
+        const minute = minutes % 60;
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const formattedHour = hour % 12 || 12;
+        return `${formattedHour}:${minute < 10 ? '0' : ''}${minute} ${period}`;
+      }
+    }
+
+    function displayCurrentTime() {
+      const now = new Date();
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: !is24HourFormat };
+      const dateOptions = { weekday: "long", month: "long", day: "numeric", };
+      currentTimeDateElement.textContent = now.toLocaleDateString([], dateOptions) + ", " +now.toLocaleTimeString([], timeOptions);
+      //currentDateElement.textContent = now.toLocaleDateString();
+    }
+
+    function updateSchedule() {
+      let todaySchedule;
+      if (minimumDay && weeklySchedule[minimumDay]) {
+        todaySchedule = weeklySchedule[minimumDay];
+      } else {
+        todaySchedule = weeklySchedule["Standard"];
+      }
+      scheduleListElement.innerHTML = '';
+      todaySchedule.forEach(period => {
+        const listItem = document.createElement('li');
+        listItem.className = 'schedule-item';
+        listItem.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.name}`;
+        scheduleListElement.appendChild(listItem);
+      });
+    }
+
+    function updateCurrentPeriodAndCountdown() {
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      let todaySchedule;
+      if (minimumDay && weeklySchedule[minimumDay]) {
+        todaySchedule = weeklySchedule[minimumDay];
+      } else {
+        todaySchedule = weeklySchedule["Standard"];
+      }
+
+      const currentPeriod = todaySchedule.find(period => currentMinutes >= period.start && currentMinutes < period.end);
+      const nextPeriod = todaySchedule.find(period => currentMinutes < period.start);
+
+      if (currentPeriod) {
+        currentPeriodElement.textContent = `Current: ${currentPeriod.name}`;
+        nextPeriodElement.textContent = `Ends in:`;
+        const remainingSeconds = (currentPeriod.end - currentMinutes) * 60 - (now.getSeconds());
+        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
+      } else if (nextPeriod) {
+        currentPeriodElement.textContent = `Next: ${nextPeriod.name}`;
+        nextPeriodElement.textContent = `Starts in:`;
+        const remainingSeconds = (nextPeriod.start - currentMinutes) * 60 - (now.getSeconds());
+        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
+      } else {
+        currentPeriodElement.textContent = "School is over for today!";
+        nextPeriodElement.textContent = "";
+        countdownElement.textContent = "";
+      }
+    }
+
+    function initialize() {
+      initializeVariables().then(() => {
+        displayCurrentTime();
+        updateSchedule();
+        updateCurrentPeriodAndCountdown();
+        setInterval(displayCurrentTime, 1000);
+        setInterval(updateCurrentPeriodAndCountdown, 1000);
+      });
+    }
+
+    window.onload = initialize;
+
+    document.getElementById('24HrSwitch').addEventListener('change', (event) => {
+      is24HourFormat = event.target.checked;
+      displayCurrentTime();
+      updateSchedule();
+    });
+  </script>
+</body>
+</html>
