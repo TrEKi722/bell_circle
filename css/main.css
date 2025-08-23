@@ -337,7 +337,7 @@ body.menu-open::before {
 
 .changelog h4 {
     font-family: "Comfortaa", sans-serif;
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
     color: #444;
@@ -347,7 +347,7 @@ body.menu-open::before {
     margin-top: 0.5rem;
     margin-bottom: 1rem;
     padding-left: 2rem;
-    font-size: 0.5rem;
+    font-size: 0.6rem;
 }
 
 .changelog ul ul {

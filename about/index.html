@@ -9,11 +9,11 @@
         })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
         <!-- End Google Tag Manager --> 
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="/css/main.css">
         <link rel="icon" type="image/png" href="/Media/Transparent/BellIcon.png">
-        <title>Bell Circle</title>
+        <title>About - Bell Circle</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Bell Circle - Your hub for school schedules, updates, and resources.">
+        <meta name="description" content="Learn more about the creator of Bell Circle.">
     </head>
     <body>
         <!-- Google Tag Manager (noscript) -->
@@ -26,7 +26,6 @@
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById('navbar-container').innerHTML = html;
-                    // After navbar is injected, load its script
                     const script = document.createElement("script");
                     script.src = "/navbar.js";
                     document.body.appendChild(script);
@@ -34,26 +33,15 @@
         </script>
 
         <div class="banner">
-            Bell Circle
+            About
         </div>
-        <div class="section">
-            <h2>Welcome to Bell Circle</h2>
+        <div class="section" style="text-align:center;">
+            <img src="/Media/Transparent/profile_square.png" alt="Profile Photo" style="width:180px;height:180px;border-radius:12px;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,0.12);margin-bottom:20px;">
+            <h2>Hi! I'm Troy.</h2>
             <p>
-                We take care of your school day so you can focus on learning. 
-                Easily check today's schedule, find important links, and stay organized.
-            </p>
-        </div>
-        <!-- <div class="section">
-            <h2>Monthly Challenge</h2>
-            <p>
-                Check out the <a href="404.html">monthly challenge</a> for the latest!
-            </p>
-        </div> -->
-        <div class="section">
-            <h2>About Bell Circle</h2>
-            <p>
-                Created for students and staff, Bell Circle aims to simplify your school day. 
-                This is a small passion project of mine and I thank you all for using this website. Please feel free to <a href="/feedback">submit feedback</a> and remember I am only human.
+                This is me. Some of you may know me, others won't, but it's great to meet you! I have run this website practically solely, (with alooot of input, thank you to you all!), since 7th grade or the 2021-'22 year for me. I have loved doing so, and I hope to continue growing with you all.
+                <br><br>
+                I am currently a junior at Aliso Niguel High School. I am a member of ASB tech committee as well as executive council for both NHS and CSF.
             </p>
         </div>
         <div id="footer-container"></div>
