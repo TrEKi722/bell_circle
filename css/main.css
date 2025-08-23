@@ -350,7 +350,7 @@ body.menu-open::before {
 .switch-label {
     position: relative;
     width: 200px;
-    font-size: 0.35rem;
+    font-size: 0.65rem;
     font-family: "Fira Code", sans-serif;
     font-weight: 400;
     color: #333;
