@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="icon" type="image/png" href="/Media/Transparent/BellIcon.png">
+        <title>Feedback - Bell Circle</title>
+    </head>
+    <body>
+        <div id="navbar-container"></div>
+        <script>
+            // Load navbar from navbar.html
+            fetch('/navbar.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('navbar-container').innerHTML = html;
+                    const script = document.createElement("script");
+                    script.src = "/navbar.js";
+                    document.body.appendChild(script);
+                });
+        </script>
+        <div class="banner">
+            <h1>
+                Feedback
+            </h1>
+        </div>
+        <div class="section">
+            <script type="text/javascript" src="https://form.jotform.com/jsform/241017900692149"></script>
+        </div>
+        <div id="footer-container" class="footer"></div>
+        <script>
+            // Load footer from footer.html
+            fetch('/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                });
+        </script>
+    </body>
+</html>
