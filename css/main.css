@@ -53,6 +53,12 @@ p {
     margin-top: 20px;
 }
 
+.footer img {
+    vertical-align: middle;
+    max-width: 125px;
+    width: 100%;
+}
+
 /* --- Navbar Styles --- */
 .navbar {
   width: 100%;
@@ -336,6 +342,13 @@ body.menu-open::before {
     flex-direction: column;
     align-items: center;
 }
+.switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+}
 .switch {
     position: relative;
     display: inline-block;
@@ -348,13 +361,12 @@ body.menu-open::before {
     height: 0;
 }
 .switch-label {
-    position: relative;
-    width: 200px;
     font-size: 0.65rem;
     font-family: "Fira Code", sans-serif;
     font-weight: 400;
     color: #333;
-    align-self: flex-start;
+    margin: 0;
+    padding: 0;
 }
 .slider {
     position: absolute;
