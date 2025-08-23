@@ -59,10 +59,10 @@
   </div>
   <div>
     <label class="switch">
-      <input type="checkbox" id="24HrSwitch" name="24HrSwitch" value="24HrSwitch" checked>
+      <input type="checkbox" id="24HrSwitch" name="24HrSwitch" value="24HrSwitch">
       <span class="slider round"></span>
     </label>
-    <label for="24HrSwitch" style="position: relative; left: 5px; top: 20px; width: 200px; border: 0px solid #73AD21;">24Hr Time</label>
+    <label for="24HrSwitch" class="switch-label">24HR Time</label>
   </div>
   <script src ="https://cdn.jotfor.ms/s/static/latest/static/feedback2.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -73,7 +73,7 @@
         backgroundColor: '#acdffd',
         fontColor: '#FFFFFF',
         type: 'false',
-        height: 600,
+        height: 550,
         width: 700,
         openOnLoad: false
       });
@@ -113,7 +113,7 @@
     let weekdayID = 0;
     let dateList = [];
     let minimumDay = false;
-    let is24HourFormat = false; // Default to 24-hour format
+    let is24HourFormat = false; // Whether or not to default to 24-hour format
 
     const endpoint = `https://api.airtable.com/v0/${baseId}/${tableName}`;
 
