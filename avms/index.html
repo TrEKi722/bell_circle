@@ -217,8 +217,9 @@
 
     function displayCurrentTime() {
       const now = new Date();
-      const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: !is24HourFormat };
-      currentTimeDateElement.textContent = now.toLocaleDateString() + ", " +now.toLocaleTimeString([], options);
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: !is24HourFormat };
+      const dateOptions = { weekday: "long", month: "long", day: "numeric", };
+      currentTimeDateElement.textContent = now.toLocaleDateString([], dateOptions) + ", " +now.toLocaleTimeString([], timeOptions);
       //currentDateElement.textContent = now.toLocaleDateString();
     }
 
