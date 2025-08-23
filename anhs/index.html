@@ -286,7 +286,7 @@
       const nextPeriod = todaySchedule.find(period => currentMinutes < period.start);
 
       if (currentPeriod) {
-        currentPeriodElement.textContent = `Current: ${currentPeriod.name}`;
+        currentPeriodElement.textContent = `${currentPeriod.name}`;
         const remainingSeconds = (currentPeriod.end - currentMinutes) * 60 - (now.getSeconds());
         countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
       } else if (nextPeriod) {
