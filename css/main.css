@@ -312,13 +312,58 @@ body.menu-open::before {
 
 .section h2 {
     font-family: "Comfortaa", sans-serif;
-    font-size: 28px;
+    font-size: 1.5rem;
     margin-top: 0;
 }
 
 .section p {
     font-family: 'Fira Code', monospace;
-    font-size: 20px;
+    font-size: 1.1rem;
+}
+
+.section ul, .section ol {
+    font-size: 1.1rem;
+    font-family: 'Fira Code', monospace;
+    line-height: 1.5;
+}
+
+.changelog h3 {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.changelog h4 {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #444;
+}
+
+.changelog ul {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+}
+
+.changelog ul ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.changelog hr {
+    margin: 2rem 0;
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.changelog p {
+    color: #666;
+    font-style: italic;
 }
 
 .schedule h2, .schedule h1, .schedule p {
