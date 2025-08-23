@@ -64,6 +64,40 @@
     </label>
     <label for="24HrSwitch" style="position: relative; left: 5px; top: 20px; width: 200px; border: 0px solid #73AD21;">24Hr Time</label>
   </div>
+  <script src ="https://cdn.jotfor.ms/s/static/latest/static/feedback2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var JFL_252337325834054 = new JotformFeedback({
+        formId: '252337325834054',
+        base: 'https://form.jotform.com/',
+        windowTitle: 'Missing Special Schedule',
+        backgroundColor: '#acdffd',
+        fontColor: '#FFFFFF',
+        type: 'false',
+        height: 500,
+        width: 700,
+        openOnLoad: false
+      });
+  </script>
+  <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
+  <script>window.jotformEmbedHandler("iframe[id='252337325834054']", "https://form.jotform.com/")</script>
+  <div class="section">
+    <br>
+    <h2 style="text-align: center;">Upcoming Special Schedules</h2>
+    <div>
+      <iframe class="airtable-embed" src="https://airtable.com/embed/app5kCLxN9sVAY9wA/shr3F5A3PLYkXxySB?layout=card" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+    </div>
+    <p>If a special schedule is missing, please request it be added <strong><a class="btn lightbox-252337325834054"
+      style="text-transform: uppercase; cursor: pointer; display: inline-block; font-family: inherit;">>here</a></strong></p>
+  </div>
+  <div id="footer-container" class="footer"></div>
+  <script>
+      // Load navbar from navbar.html
+      fetch('/footer.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('footer-container').innerHTML = html;
+        });
+  </script>
   <script>
     const scheduleListElement = document.getElementById("schedule-list");
     const currentTimeDateElement = document.getElementById("current-timedate");
@@ -74,7 +108,7 @@
 
     const accessToken = 'patITxf5DhDNa3n4Z.9c2b195a60fd2f5489ef4973cf5624d94c95b2f5bf1d1998705597187eaf5425';
     const baseId = 'app5kCLxN9sVAY9wA';
-    const tableName = 'AVMS_MinDays';
+    const tableName = 'AVMS';
 
     let weekdayID = 0;
     let dateList = [];
