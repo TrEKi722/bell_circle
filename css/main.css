@@ -312,13 +312,13 @@ body.menu-open::before {
 
 .section h2 {
     font-family: "Comfortaa", sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-top: 0;
 }
 
 .section p {
     font-family: 'Fira Code', monospace;
-    font-size: 1.1rem;
+    font-size: 0.75rem;
 }
 
 .section ul, .section ol {
