@@ -27,6 +27,17 @@
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
         <div id="navbar-container"></div>
+        <script>
+            fetch('/navbar.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('navbar-container').innerHTML = html;
+                    // After navbar is injected, load its script
+                    const script = document.createElement("script");
+                    script.src = "/navbar.js";
+                    document.body.appendChild(script);
+                });
+        </script>
         <div class="section" style="text-align: center; margin-top: 10vh;">
             <h2 style="font-family: 'Comfortaa', sans-serif; font-size: 3rem;">404</h2>
             <p style="font-family: 'Fira Code', monospace; font-size: 1.5rem;">
