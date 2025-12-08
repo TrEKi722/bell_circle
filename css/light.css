@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&family=TASA+Orbiter:wght@400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
 /* ROOT STYLES: Sets up the entire page layout and background */
 html, body {
     height: 100%;
@@ -11,7 +11,7 @@ html, body {
 /* BODY TEXT: Centers body content and overrides font for text elements */
 body {
     text-align: center;
-    font-family: "TASA Orbiter", sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -25,7 +25,7 @@ hr {
 
 /* PARAGRAPHS: Uses monospace font for all paragraph text */
 p {
-    font-family: 'TASA Orbiter', monospace;
+    font-family: 'Inter', monospace;
 }
 
 /* .BANNER: Page header with wood background image, centered title */
@@ -78,7 +78,7 @@ p {
     GradientType=1
   );
   color: #2f4f4f;
-  font-family: 'TASA Orbiter', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 19.2px;
   position: relative;
@@ -148,7 +148,7 @@ p {
   transition: background 0.1s;
   white-space: nowrap;
   font-size: 1em;
-  font-family: 'TASA Orbiter', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   display: block;
 }
@@ -373,14 +373,14 @@ body.menu-open::before {
 
 /* .SECTION P: Paragraph text inside sections */
 .section p {
-    font-family: 'TASA Orbiter', monospace;
+    font-family: 'Inter', monospace;
     font-size: 0.75rem;
 }
 
 /* .SECTION UL, OL: Lists inside sections */
 .section ul, .section ol {
     font-size: 1.1rem;
-    font-family: 'TASA Orbiter', monospace;
+    font-family: 'Inter', monospace;
     line-height: 1.5;
 }
 
@@ -483,7 +483,7 @@ body.menu-open::before {
 /* .SWITCH-LABEL: Label text next to toggle switch */
 .switch-label {
     font-size: 0.65rem;
-    font-family: "TASA Orbiter", sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 400;
     color: #333;
     margin: 0;
