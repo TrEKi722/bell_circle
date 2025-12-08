@@ -102,15 +102,15 @@ p {
 }
 /* .NAVBAR-LOGO: Logo image in navbar header */
 .navbar-logo {
-  height: 20px;
-  max-height: 20px;
+  height: 30px;
+  max-height: 30px;
   width: auto;
   margin-right: 10px;
 }
 
 /* .NAVBAR-LOGO-TEXT: Site name/title text next to logo */
 .navbar-logo-text {
-  font-size: 1em;
+  font-size: 1.4em;
   font-weight: 400;
   color: #2f4f4f;
   margin-left: 8px;
@@ -131,7 +131,7 @@ p {
   border-radius: 4px;
   transition: background 0.1s;
   white-space: nowrap;
-  font-size: 0.8em;
+  font-size: 1.2em;
 }
 
 /* .NAVBAR-LINKS A:HOVER: Link hover effect with dark background */
@@ -147,7 +147,7 @@ p {
   border-radius: 4px;
   transition: background 0.1s;
   white-space: nowrap;
-  font-size: 1em;
+  font-size: 1.2em;
   font-family: 'Titillium Web', sans-serif;
   font-weight: 600;
   display: block;
