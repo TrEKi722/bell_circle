@@ -436,6 +436,12 @@ body.menu-open::before {
     font-size: 1.25rem;
 }
 
+/* .SCHEDULE H2: Schedule heading with adjusted spacing */
+.schedule h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
 /* .SCHEDULE: Container for schedule display */
 .schedule {
     display: flex;
