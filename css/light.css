@@ -81,7 +81,6 @@ p {
   color: #2f4f4f;
   font-family: 'Titillium Web', sans-serif;
   font-weight: 600;
-  font-size: 0.70rem;
   position: relative;
   z-index: 100;
   box-shadow: 0 2px 6px rgba(31, 31, 31, 0.07);
@@ -102,15 +101,15 @@ p {
 }
 /* .NAVBAR-LOGO: Logo image in navbar header */
 .navbar-logo {
-  height: 40px;
-  max-height: 40px;
+  height: 20px;
+  max-height: 20px;
   width: auto;
   margin-right: 10px;
 }
 
 /* .NAVBAR-LOGO-TEXT: Site name/title text next to logo */
 .navbar-logo-text {
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: 400;
   color: #2f4f4f;
   margin-left: 8px;
