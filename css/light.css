@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
 /* ROOT STYLES: Sets up the entire page layout and background */
 html, body {
     height: 100%;
@@ -11,7 +11,7 @@ html, body {
 /* BODY TEXT: Centers body content and overrides font for text elements */
 body {
     text-align: center;
-    font-family: "Inter", sans-serif;
+    font-family: "Nunito Sans", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -25,7 +25,7 @@ hr {
 
 /* PARAGRAPHS: Uses monospace font for all paragraph text */
 p {
-    font-family: 'Inter', monospace;
+    font-family: 'Nunito Sans', monospace;
 }
 
 /* .BANNER: Page header with wood background image, centered title */
@@ -373,14 +373,14 @@ body.menu-open::before {
 
 /* .SECTION P: Paragraph text inside sections */
 .section p {
-    font-family: 'Inter', monospace;
+    font-family: 'Nunito Sans', monospace;
     font-size: 0.75rem;
 }
 
 /* .SECTION UL, OL: Lists inside sections */
 .section ul, .section ol {
     font-size: 1.1rem;
-    font-family: 'Inter', monospace;
+    font-family: 'Nunito Sans', monospace;
     line-height: 1.5;
 }
 
@@ -483,7 +483,7 @@ body.menu-open::before {
 /* .SWITCH-LABEL: Label text next to toggle switch */
 .switch-label {
     font-size: 0.65rem;
-    font-family: "Inter", sans-serif;
+    font-family: "Nunito Sans", sans-serif;
     font-weight: 400;
     color: #333;
     margin: 0;
