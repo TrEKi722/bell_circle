@@ -81,7 +81,7 @@ p {
   color: #2f4f4f;
   font-family: 'Titillium Web', sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 19.2px;
   position: relative;
   z-index: 100;
   box-shadow: 0 2px 6px rgba(31, 31, 31, 0.07);
@@ -131,7 +131,7 @@ p {
   border-radius: 4px;
   transition: background 0.1s;
   white-space: nowrap;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 /* .NAVBAR-LINKS A:HOVER: Link hover effect with dark background */
@@ -147,7 +147,7 @@ p {
   border-radius: 4px;
   transition: background 0.1s;
   white-space: nowrap;
-  font-size: 1.2em;
+  font-size: 1em;
   font-family: 'Titillium Web', sans-serif;
   font-weight: 600;
   display: block;
