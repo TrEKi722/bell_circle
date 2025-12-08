@@ -166,7 +166,7 @@ p {
 
 /* .NAVBAR-DROPBTN: Dropdown button/trigger that shows submenu */
 .navbar-dropbtn {
-  color: #fff;
+  color: #2f4f4f;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
@@ -179,7 +179,7 @@ p {
 .navbar-dropbtn:hover,
 .navbar-dropdown:focus > .navbar-dropbtn,
 .navbar-dropdown:active > .navbar-dropbtn {
-  background: #222;
+  background: #ACDFFD;
 }
 
 /* .NAVBAR-DROPDOWN-CONTENT: Submenu items (hidden by default) */
