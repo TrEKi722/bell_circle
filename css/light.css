@@ -125,7 +125,7 @@ p {
 
 /* .NAVBAR-LINKS A: Individual navigation link buttons */
 .navbar-links a {
-  color: #fff;
+  color: #2f4f4f;
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -136,7 +136,7 @@ p {
 
 /* .NAVBAR-LINKS A:HOVER: Link hover effect with dark background */
 .navbar-links a:hover {
-  background: #222;
+  background: #ACDFFD;
 }
 
 /* .NAVBAR-HAMBURGER-MENU A: Menu links inside mobile slide-out drawer */
