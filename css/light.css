@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Alice&family=Comfortaa:wght@300..700&family=Fira+Code:wght@300..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&family=TASA+Orbiter:wght@400..800&display=swap');
 /* ROOT STYLES: Sets up the entire page layout and background */
 html, body {
     height: 100%;
@@ -12,7 +11,7 @@ html, body {
 /* BODY TEXT: Centers body content and overrides font for text elements */
 body {
     text-align: center;
-    font-family: "Titillium Web", sans-serif;
+    font-family: "TASA Orbiter", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -26,7 +25,7 @@ hr {
 
 /* PARAGRAPHS: Uses monospace font for all paragraph text */
 p {
-    font-family: 'Fira Code', monospace;
+    font-family: 'TASA Orbiter', monospace;
 }
 
 /* .BANNER: Page header with wood background image, centered title */
@@ -50,7 +49,7 @@ p {
 /* .FOOTER: Dark footer bar at page bottom with text and logo image */
 .footer {
     font-size: 0.5rem;
-    font-family: "Fira Code", sans-serif;
+    font-family: "STIX Two Text", sans-serif;
     font-weight: 400;
     text-align: center;
     background-color: #000;
@@ -79,7 +78,7 @@ p {
     GradientType=1
   );
   color: #2f4f4f;
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'TASA Orbiter', sans-serif;
   font-weight: 600;
   font-size: 19.2px;
   position: relative;
@@ -148,7 +147,7 @@ p {
   transition: background 0.1s;
   white-space: nowrap;
   font-size: 1em;
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'TASA Orbiter', sans-serif;
   font-weight: 600;
   display: block;
 }
@@ -373,14 +372,14 @@ body.menu-open::before {
 
 /* .SECTION P: Paragraph text inside sections */
 .section p {
-    font-family: 'Fira Code', monospace;
+    font-family: 'TASA Orbiter', monospace;
     font-size: 0.75rem;
 }
 
 /* .SECTION UL, OL: Lists inside sections */
 .section ul, .section ol {
     font-size: 1.1rem;
-    font-family: 'Fira Code', monospace;
+    font-family: 'TASA Orbiter', monospace;
     line-height: 1.5;
 }
 
@@ -483,7 +482,7 @@ body.menu-open::before {
 /* .SWITCH-LABEL: Label text next to toggle switch */
 .switch-label {
     font-size: 0.65rem;
-    font-family: "Fira Code", sans-serif;
+    font-family: "TASA Orbiter", sans-serif;
     font-weight: 400;
     color: #333;
     margin: 0;
