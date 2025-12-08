@@ -58,7 +58,15 @@ p{
 }
 
 nav {
-    background-color: #000;
+    background: #ACDFFD;
+    background: -webkit-linear-gradient(90deg,rgba(172, 223, 253, 1) 0%, rgba(47, 79, 79, 1) 100%);
+    background: -moz-linear-gradient(90deg,rgba(172, 223, 253, 1) 0%, rgba(47, 79, 79, 1) 100%);
+    background: linear-gradient(90deg,rgba(172, 223, 253, 1) 0%, rgba(47, 79, 79, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr="#ACDFFD",
+        endColorstr="#2F4F4F",
+        GradientType=1
+    );
     display: flex;
     align-items: center;
     justify-content: space-between;
