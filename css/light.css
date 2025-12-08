@@ -109,6 +109,7 @@ p {
 
 /* .NAVBAR-LOGO-TEXT: Site name/title text next to logo */
 .navbar-logo-text {
+  font-family: "Comfortaa", sans-serif;
   font-size: 1.4em;
   font-weight: 400;
   color: #2f4f4f;
