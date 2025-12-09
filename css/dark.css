@@ -572,14 +572,14 @@ input:checked + .slider:before {
 
 /* .THEME-TOGGLE-CONTAINER .SLIDER::BEFORE: Circle positioning for theme toggle */
 .theme-toggle-container .slider:before {
-    height: 24px;
-    width: 24px;
-    left: 2px;
-    top: 2px;
-    bottom: auto;
+    height: 24px !important;
+    width: 24px !important;
+    left: 2px !important;
+    top: 2px !important;
+    bottom: auto !important;
 }
 
 /* .THEME-TOGGLE-CONTAINER INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when theme toggle ON */
 .theme-toggle-container input:checked + .slider:before {
-    transform: translateX(22px);
+    transform: translateX(22px) !important;
 }
