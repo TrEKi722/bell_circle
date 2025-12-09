@@ -50,57 +50,80 @@ window.addEventListener('resize', () => {
 
 // Theme Toggle Functionality
 function initThemeToggle() {
-  const themeToggle = document.getElementById('themeToggle');
-  const themeToggleMobile = document.getElementById('themeToggleMobile');
-  const htmlElement = document.documentElement;
-  
-  // Get current theme from localStorage or default to light
-  function getCurrentTheme() {
-    return localStorage.getItem('theme') || 'light';
-  }
-  
-  // Apply theme to document
-  function applyTheme(theme) {
-    const styleLink = document.querySelector('link[rel="stylesheet"]');
-    if (styleLink) {
-      const href = styleLink.getAttribute('href');
-      if (theme === 'dark') {
-        styleLink.setAttribute('href', href.replace('light.css', 'dark.css'));
-      } else {
-        styleLink.setAttribute('href', href.replace('dark.css', 'light.css'));
-      }
+  // Wait for theme toggle elements to be available
+  function waitForThemeToggle(callback, maxAttempts = 20) {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    
+    if (themeToggle && themeToggleMobile) {
+      callback(themeToggle, themeToggleMobile);
+    } else if (maxAttempts > 0) {
+      setTimeout(() => waitForThemeToggle(callback, maxAttempts - 1), 100);
     }
-    localStorage.setItem('theme', theme);
-    updateToggleState(theme);
   }
   
-  // Update toggle switch to reflect current theme
-  function updateToggleState(theme) {
-    const isDark = theme === 'dark';
-    if (themeToggle) themeToggle.checked = isDark;
-    if (themeToggleMobile) themeToggleMobile.checked = isDark;
-  }
-  
-  // Initialize theme on page load
-  const currentTheme = getCurrentTheme();
-  updateToggleState(currentTheme);
-  
-  // Add event listeners
-  if (themeToggle) {
+  waitForThemeToggle(function(themeToggle, themeToggleMobile) {
+    // Get current theme from localStorage or detect from page
+    function getCurrentTheme() {
+      const styleLink = document.querySelector('link[rel="stylesheet"]');
+      if (styleLink) {
+        const href = styleLink.getAttribute('href');
+        if (href.includes('dark.css')) {
+          return 'dark';
+        }
+      }
+      return localStorage.getItem('theme') || 'light';
+    }
+    
+    // Apply theme to document
+    function applyTheme(theme) {
+      const styleLink = document.querySelector('link[rel="stylesheet"]');
+      if (!styleLink) return;
+      
+      const href = styleLink.getAttribute('href');
+      let newHref = href;
+      
+      if (theme === 'dark') {
+        // Replace any occurrence of light.css with dark.css
+        newHref = href.replace(/light\.css/g, 'dark.css');
+      } else {
+        // Replace any occurrence of dark.css with light.css
+        newHref = href.replace(/dark\.css/g, 'light.css');
+      }
+      
+      // Only update if the href actually changed
+      if (newHref !== href) {
+        styleLink.setAttribute('href', newHref);
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateToggleState(theme);
+    }
+    
+    // Update toggle switch to reflect current theme
+    function updateToggleState(theme) {
+      const isDark = theme === 'dark';
+      themeToggle.checked = isDark;
+      themeToggleMobile.checked = isDark;
+    }
+    
+    // Initialize theme on page load
+    const currentTheme = getCurrentTheme();
+    updateToggleState(currentTheme);
+    
+    // Add event listeners
     themeToggle.addEventListener('change', () => {
       const newTheme = themeToggle.checked ? 'dark' : 'light';
       applyTheme(newTheme);
-      if (themeToggleMobile) themeToggleMobile.checked = themeToggle.checked;
+      themeToggleMobile.checked = themeToggle.checked;
     });
-  }
-  
-  if (themeToggleMobile) {
+    
     themeToggleMobile.addEventListener('change', () => {
       const newTheme = themeToggleMobile.checked ? 'dark' : 'light';
       applyTheme(newTheme);
-      if (themeToggle) themeToggle.checked = themeToggleMobile.checked;
+      themeToggle.checked = themeToggleMobile.checked;
     });
-  }
+  });
 }
 
 // Initialize theme toggle when DOM is ready
