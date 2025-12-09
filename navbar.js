@@ -95,6 +95,31 @@ window.applyTheme = function(theme) {
     styleLink.setAttribute('href', newHref);
     console.log('[applyTheme] Stylesheet updated successfully');
   }
+
+  // Change logo based on theme
+  const logoImg = document.querySelector('img.navbar-logo');
+  
+  if (!logoImg) {
+    console.error('[applyTheme] No logo image found!');
+    return;
+  }
+  
+  const src = logoImg.getAttribute('src');
+  console.log('[applyTheme] Current logo src:', src);
+  let newSrc = src;
+  
+  if (theme === 'dark') {
+    newSrc = src.replace(/Icon_LightPrimary\.png/g, 'Icon_Dark.png');
+  } else {
+    newSrc = src.replace(/Icon_Dark\.png/g, 'Icon_LightPrimary.png');
+  }
+  
+  console.log('[applyTheme] New logo src:', newSrc);
+  
+  if (newSrc !== src) {
+    logoImg.setAttribute('src', newSrc);
+    console.log('[applyTheme] Logo updated successfully');
+  }
   
   localStorage.setItem('theme', theme);
   console.log('[applyTheme] Theme saved to localStorage');
