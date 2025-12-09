@@ -6,6 +6,7 @@ html, body {
     font-family: "Comfortaa", sans-serif;
     font-size: 1.75rem;
     background-color: #FFFFFF;
+    transition: opacity 0.3s ease;
 }
 
 /* BODY TEXT: Centers body content and overrides font for text elements */
