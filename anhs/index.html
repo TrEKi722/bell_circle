@@ -326,22 +326,36 @@
     }
 
     function initialize() {
-      initializeVariables().then(() => {
-        displayCurrentTime();
-        updateSchedule();
-        updateCurrentPeriodAndCountdown();
-        setInterval(displayCurrentTime, 1000);
-        setInterval(updateCurrentPeriodAndCountdown, 1000);
+      // Initialize variables and ensure schedule updates even if fetching dates fails
+      initializeVariables().catch(err => {
+        console.error('[initialize] initializeVariables failed:', err);
+      }).then(() => {
+        try {
+          displayCurrentTime();
+          updateSchedule();
+          updateCurrentPeriodAndCountdown();
+          setInterval(displayCurrentTime, 1000);
+          setInterval(updateCurrentPeriodAndCountdown, 1000);
+
+          // Attach 24-hour switch listener safely (ensure element exists)
+          const hrSwitch = document.getElementById('24HrSwitch');
+          if (hrSwitch) {
+            hrSwitch.addEventListener('change', (event) => {
+              is24HourFormat = event.target.checked;
+              displayCurrentTime();
+              updateSchedule();
+            });
+          } else {
+            console.warn('[initialize] 24HrSwitch element not found');
+          }
+        } catch (err) {
+          console.error('[initialize] Error during post-init setup:', err);
+        }
       });
     }
 
-    window.onload = initialize;
-
-    document.getElementById('24HrSwitch').addEventListener('change', (event) => {
-      is24HourFormat = event.target.checked;
-      displayCurrentTime();
-      updateSchedule();
-    });
+    // Use DOMContentLoaded to ensure DOM elements are present and avoid onload overrides
+    document.addEventListener('DOMContentLoaded', initialize);
   </script>
 </body>
 </html>
