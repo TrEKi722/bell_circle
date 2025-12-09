@@ -545,3 +545,27 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+/* .THEME-TOGGLE-CONTAINER: Wrapper for theme toggle switch in navbar */
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+}
+
+/* .THEME-TOGGLE-CONTAINER .SWITCH: Theme toggle switch styling */
+.theme-toggle-container .switch {
+    width: 50px;
+    height: 28px;
+}
+
+/* .THEME-TOGGLE-CONTAINER .SLIDER: Theme toggle slider bar */
+.theme-toggle-container .slider {
+    background-color: #555;
+}
+
+/* .THEME-TOGGLE-CONTAINER INPUT:CHECKED + .SLIDER: Light theme toggle ON state */
+.theme-toggle-container input:checked + .slider {
+    background-color: #00B58B;
+}
