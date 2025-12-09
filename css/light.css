@@ -101,8 +101,8 @@ p {
 }
 /* .NAVBAR-LOGO: Logo image in navbar header */
 .navbar-logo {
-  height: 30px;
-  max-height: 30px;
+  height: 40px;
+  max-height: 40px;
   width: auto;
   margin-right: 10px;
 }
