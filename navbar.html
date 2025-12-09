@@ -66,72 +66,102 @@
 </nav>
 
 <script>
-  // Theme initialization - runs immediately after navbar is injected
-  function initThemeToggles() {
+  // Theme functions - globally accessible
+  window.getCurrentTheme = function() {
+    const styleLink = document.querySelector('link[rel="stylesheet"]');
+    if (styleLink) {
+      const href = styleLink.getAttribute('href');
+      console.log('Current stylesheet href:', href);
+      if (href.includes('dark.css')) {
+        console.log('Theme detected: dark');
+        return 'dark';
+      }
+    }
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    console.log('Theme from localStorage:', savedTheme);
+    return savedTheme;
+  };
+  
+  window.applyTheme = function(theme) {
+    console.log('Applying theme:', theme);
+    const styleLink = document.querySelector('link[rel="stylesheet"]');
+    if (!styleLink) {
+      console.error('Stylesheet link not found');
+      return;
+    }
+    
+    const href = styleLink.getAttribute('href');
+    console.log('Current href:', href);
+    let newHref = href;
+    
+    if (theme === 'dark') {
+      newHref = href.replace(/light\.css/g, 'dark.css');
+    } else {
+      newHref = href.replace(/dark\.css/g, 'light.css');
+    }
+    
+    console.log('New href:', newHref);
+    
+    if (newHref !== href) {
+      styleLink.setAttribute('href', newHref);
+      console.log('Stylesheet changed to:', newHref);
+    }
+    
+    localStorage.setItem('theme', theme);
+    console.log('Theme saved to localStorage:', theme);
+    window.updateToggles(theme);
+  };
+  
+  window.updateToggles = function(theme) {
+    console.log('Updating toggle states for theme:', theme);
     const themeToggle = document.getElementById('themeToggle');
     const themeToggleMobile = document.getElementById('themeToggleMobile');
     
-    if (!themeToggle || !themeToggleMobile) return;
+    if (!themeToggle) console.error('themeToggle not found');
+    if (!themeToggleMobile) console.error('themeToggleMobile not found');
     
-    // Get current theme from stylesheet
-    function getCurrentTheme() {
-      const styleLink = document.querySelector('link[rel="stylesheet"]');
-      if (styleLink) {
-        const href = styleLink.getAttribute('href');
-        if (href.includes('dark.css')) {
-          return 'dark';
-        }
-      }
-      return localStorage.getItem('theme') || 'light';
-    }
+    const isDark = theme === 'dark';
+    if (themeToggle) themeToggle.checked = isDark;
+    if (themeToggleMobile) themeToggleMobile.checked = isDark;
+    console.log('Toggles updated. Checked:', isDark);
+  };
+  
+  // Initialize theme
+  window.initThemeToggles = function() {
+    console.log('Initializing theme toggles...');
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
     
-    // Apply theme
-    function applyTheme(theme) {
-      const styleLink = document.querySelector('link[rel="stylesheet"]');
-      if (!styleLink) return;
-      
-      const href = styleLink.getAttribute('href');
-      let newHref = href;
-      
-      if (theme === 'dark') {
-        newHref = href.replace(/light\.css/g, 'dark.css');
-      } else {
-        newHref = href.replace(/dark\.css/g, 'light.css');
-      }
-      
-      if (newHref !== href) {
-        styleLink.setAttribute('href', newHref);
-      }
-      
-      localStorage.setItem('theme', theme);
-      updateToggles(theme);
-    }
+    console.log('themeToggle element:', themeToggle);
+    console.log('themeToggleMobile element:', themeToggleMobile);
     
-    // Update toggle states
-    function updateToggles(theme) {
-      const isDark = theme === 'dark';
-      themeToggle.checked = isDark;
-      themeToggleMobile.checked = isDark;
+    if (!themeToggle || !themeToggleMobile) {
+      console.error('Theme toggle elements not found!');
+      return;
     }
     
     // Initialize
-    const currentTheme = getCurrentTheme();
-    updateToggles(currentTheme);
+    const currentTheme = window.getCurrentTheme();
+    window.updateToggles(currentTheme);
     
     // Add listeners
     themeToggle.addEventListener('change', function() {
+      console.log('Desktop toggle changed. Checked:', this.checked);
       const newTheme = this.checked ? 'dark' : 'light';
-      applyTheme(newTheme);
+      window.applyTheme(newTheme);
       themeToggleMobile.checked = this.checked;
     });
     
     themeToggleMobile.addEventListener('change', function() {
+      console.log('Mobile toggle changed. Checked:', this.checked);
       const newTheme = this.checked ? 'dark' : 'light';
-      applyTheme(newTheme);
+      window.applyTheme(newTheme);
       themeToggle.checked = this.checked;
     });
-  }
+    
+    console.log('Theme toggle initialization complete');
+  };
   
-  // Run immediately
-  initThemeToggles();
+  // Run initialization
+  window.initThemeToggles();
 </script>
