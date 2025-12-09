@@ -1,6 +1,8 @@
 const hamburger = document.querySelector(".navbar-hamburger");
 const menu = document.querySelector(".navbar-hamburger-menu");
 
+console.log('[navbar.js] Script loaded');
+
 if (hamburger && menu) {
   hamburger.addEventListener("click", () => {
     menu.classList.toggle("open");
@@ -47,3 +49,118 @@ window.addEventListener('resize', () => {
     }
   });
 });
+
+// ===== THEME TOGGLE FUNCTIONALITY =====
+console.log('[navbar.js] Setting up theme toggle functions');
+
+window.getCurrentTheme = function() {
+  const styleLink = document.querySelector('link[rel="stylesheet"]');
+  console.log('[getCurrentTheme] Stylesheet link found:', !!styleLink);
+  
+  if (styleLink) {
+    const href = styleLink.getAttribute('href');
+    console.log('[getCurrentTheme] Stylesheet href:', href);
+    if (href.includes('dark.css')) {
+      console.log('[getCurrentTheme] Returning: dark');
+      return 'dark';
+    }
+  }
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  console.log('[getCurrentTheme] Returning from storage:', savedTheme);
+  return savedTheme;
+};
+
+window.applyTheme = function(theme) {
+  console.log('[applyTheme] Applying theme:', theme);
+  const styleLink = document.querySelector('link[rel="stylesheet"]');
+  
+  if (!styleLink) {
+    console.error('[applyTheme] No stylesheet link found!');
+    return;
+  }
+  
+  const href = styleLink.getAttribute('href');
+  console.log('[applyTheme] Current href:', href);
+  let newHref = href;
+  
+  if (theme === 'dark') {
+    newHref = href.replace(/light\.css/g, 'dark.css');
+  } else {
+    newHref = href.replace(/dark\.css/g, 'light.css');
+  }
+  
+  console.log('[applyTheme] New href:', newHref);
+  
+  if (newHref !== href) {
+    styleLink.setAttribute('href', newHref);
+    console.log('[applyTheme] Stylesheet updated successfully');
+  }
+  
+  localStorage.setItem('theme', theme);
+  console.log('[applyTheme] Theme saved to localStorage');
+  window.updateToggles(theme);
+};
+
+window.updateToggles = function(theme) {
+  console.log('[updateToggles] Updating for theme:', theme);
+  const themeToggle = document.getElementById('themeToggle');
+  const themeToggleMobile = document.getElementById('themeToggleMobile');
+  
+  console.log('[updateToggles] Found desktop toggle:', !!themeToggle);
+  console.log('[updateToggles] Found mobile toggle:', !!themeToggleMobile);
+  
+  const isDark = theme === 'dark';
+  if (themeToggle) themeToggle.checked = isDark;
+  if (themeToggleMobile) themeToggleMobile.checked = isDark;
+};
+
+window.initThemeToggles = function() {
+  console.log('[initThemeToggles] Starting initialization');
+  const themeToggle = document.getElementById('themeToggle');
+  const themeToggleMobile = document.getElementById('themeToggleMobile');
+  
+  if (!themeToggle) {
+    console.error('[initThemeToggles] Desktop toggle NOT found');
+    return false;
+  }
+  if (!themeToggleMobile) {
+    console.error('[initThemeToggles] Mobile toggle NOT found');
+    return false;
+  }
+  
+  console.log('[initThemeToggles] Both toggles found, initializing...');
+  
+  // Get current theme
+  const currentTheme = window.getCurrentTheme();
+  window.updateToggles(currentTheme);
+  
+  // Desktop toggle listener
+  themeToggle.addEventListener('change', function() {
+    console.log('[initThemeToggles] Desktop toggle changed to:', this.checked);
+    const newTheme = this.checked ? 'dark' : 'light';
+    window.applyTheme(newTheme);
+    themeToggleMobile.checked = this.checked;
+  });
+  
+  // Mobile toggle listener
+  themeToggleMobile.addEventListener('change', function() {
+    console.log('[initThemeToggles] Mobile toggle changed to:', this.checked);
+    const newTheme = this.checked ? 'dark' : 'light';
+    window.applyTheme(newTheme);
+    themeToggle.checked = this.checked;
+  });
+  
+  console.log('[initThemeToggles] Initialization complete');
+  return true;
+};
+
+// Try to initialize immediately
+console.log('[navbar.js] Attempting to initialize theme toggles');
+if (!window.initThemeToggles()) {
+  console.log('[navbar.js] Toggles not ready, will retry');
+  // If toggles aren't ready yet, try again after a short delay
+  setTimeout(function() {
+    console.log('[navbar.js] Retrying theme toggle initialization');
+    window.initThemeToggles();
+  }, 100);
+}
