@@ -3,6 +3,12 @@ const menu = document.querySelector(".navbar-hamburger-menu");
 
 console.log('[navbar.js] Script loaded');
 
+// Load Font Awesome
+const fontAwesomeScript = document.createElement('script');
+fontAwesomeScript.src = 'https://kit.fontawesome.com/6ba8d5bf94.js';
+fontAwesomeScript.crossOrigin = 'anonymous';
+document.head.appendChild(fontAwesomeScript);
+
 if (hamburger && menu) {
   hamburger.addEventListener("click", () => {
     menu.classList.toggle("open");

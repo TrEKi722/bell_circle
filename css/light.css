@@ -549,7 +549,26 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     margin-left: 15px;
+}
+
+/* .THEME-ICON: Moon and sun icons for theme toggle */
+.theme-toggle-container .theme-icon {
+    font-size: 16px;
+    color: #2f4f4f;
+}
+
+/* .MOON-ICON: Moon icon styling (appears in light mode) */
+.theme-toggle-container .moon-icon {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* .SUN-ICON: Sun icon styling (appears in dark mode) */
+.theme-toggle-container .sun-icon {
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
 }
 
 /* .THEME-TOGGLE-CONTAINER .SWITCH: Theme toggle switch styling */
@@ -580,4 +599,13 @@ input:checked + .slider:before {
 /* .THEME-TOGGLE-CONTAINER INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when theme toggle ON */
 .theme-toggle-container input:checked + .slider:before {
     transform: translateX(22px);
+}
+
+/* When theme is dark mode (toggle is checked), dim moon and brighten sun */
+.theme-toggle-container input:checked ~ .moon-icon {
+    opacity: 0.4;
+}
+
+.theme-toggle-container input:checked ~ .sun-icon {
+    opacity: 1;
 }
