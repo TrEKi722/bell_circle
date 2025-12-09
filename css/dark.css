@@ -1,0 +1,547 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
+/* ROOT STYLES: Sets up the entire page layout and background */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: "Comfortaa", sans-serif;
+    font-size: 1.75rem;
+    background-color: #1E293B;
+}
+
+/* BODY TEXT: Centers body content and overrides font for text elements */
+body {
+    text-align: center;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #FFFFFF;
+}
+
+/* HORIZONTAL RULES: Removes default hr styling */
+hr {
+    height: 1px;
+    background-color: none;
+    border: none;
+}
+
+/* PARAGRAPHS: Uses monospace font for all paragraph text */
+p {
+    font-family: 'Nunito Sans', monospace;
+}
+
+/* .BANNER: Page header with wood background image, centered title */
+.banner {
+    font-size: 2rem;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 700;
+    text-align: center;
+    background-image: url("https://freerangestock.com/sample/140799/wood-background--dark-wooden-background.jpg");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 30px 0;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* .FOOTER: Dark footer bar at page bottom with text and logo image */
+.footer {
+    font-size: 0.5rem;
+    font-family: "STIX Two Text", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    background-color: #000;
+    color: #f0f0f0;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+/* .FOOTER IMG: Constrains footer logo size */
+.footer img {
+    vertical-align: middle;
+    max-width: 175px;
+    width: 100%;
+}
+
+/* --- NAVBAR CONTAINER: Top navigation bar with dark slate to deep slate gradient --- */
+.navbar {
+  width: 100%;
+  background: #1E293B;
+  background: -webkit-linear-gradient(90deg,#1E293B 0%, #2F4F4F 100%);
+  background: -moz-linear-gradient(90deg,#1E293B 0%, #2F4F4F 100%);
+  background: linear-gradient(90deg,#1E293B 0%, #2F4F4F 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(
+    startColorstr="#1E293B",
+    endColorstr="#2F4F4F",
+    GradientType=1
+  );
+  color: #CCCCCC;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 19.2px;
+  position: relative;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+.navbar-content {
+  /* Inner wrapper, distributes navbar items (left logo/menu | right hamburger) */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.25rem;
+  min-height: 48px;
+}
+
+/* .NAVBAR-LEFT: Groups logo and text on left side of navbar */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+/* .NAVBAR-LOGO: Logo image in navbar header */
+.navbar-logo {
+  height: 30px;
+  max-height: 30px;
+  width: auto;
+  margin-right: 10px;
+}
+
+/* .NAVBAR-LOGO-TEXT: Site name/title text next to logo */
+.navbar-logo-text {
+  font-family: "Comfortaa", sans-serif;
+  font-size: 1.4em;
+  font-weight: 400;
+  color: #CCCCCC;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+/* .NAVBAR-LINKS: Horizontal menu links (shown on desktop, hidden on mobile) */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* .NAVBAR-LINKS A: Individual navigation link buttons */
+.navbar-links a {
+  color: #CCCCCC;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.1s;
+  white-space: nowrap;
+  font-size: 1em;
+}
+
+/* .NAVBAR-LINKS A:HOVER: Link hover effect with deep slate background */
+.navbar-links a:hover {
+  background: #2F4F4F;
+}
+
+/* .NAVBAR-HAMBURGER-MENU A: Menu links inside mobile slide-out drawer */
+.navbar-hamburger-menu a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.1s;
+  white-space: nowrap;
+  font-size: 1em;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  display: block;
+}
+
+/* .NAVBAR-HAMBURGER-MENU A:HOVER: Mobile menu link hover effect */
+.navbar-hamburger-menu a:hover {
+  background: #222;
+}
+
+/* .NAVBAR-DROPDOWN: Container for dropdown menu (needs js to toggle) */
+.navbar-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* .NAVBAR-DROPBTN: Dropdown button/trigger that shows submenu */
+.navbar-dropbtn {
+  color: #CCCCCC;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.1s;
+  display: inline-block;
+}
+
+/* .NAVBAR-DROPBTN HOVER/FOCUS: Highlight dropdown button when opened */
+.navbar-dropbtn:hover,
+.navbar-dropdown:focus > .navbar-dropbtn,
+.navbar-dropdown:active > .navbar-dropbtn {
+  background: #2F4F4F;
+}
+
+/* .NAVBAR-DROPDOWN-CONTENT: Submenu items (hidden by default) */
+.navbar-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+  background: #222;
+  min-width: 180px;
+  max-width: 90vw;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  z-index: 9999;
+  border-radius: 4px;
+  margin-top: 2px;
+  overflow-x: auto;
+}
+
+/* .NAVBAR-DROPDOWN-CONTENT (VISIBLE): Shows submenu on hover/focus/active */
+.navbar-dropdown:focus > .navbar-dropdown-content,
+.navbar-dropdown:active > .navbar-dropdown-content,
+.navbar-dropdown:hover > .navbar-dropdown-content {
+  display: block;
+}
+
+/* .NAVBAR-DROPDOWN-CONTENT.OPEN: Alternative way to show submenu via js class */
+.navbar-dropdown-content.open {
+  display: block;
+}
+
+/* .NAVBAR-DROPDOWN-CONTENT A: Individual submenu item links */
+.navbar-dropdown-content a {
+  color: #fff;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  border-radius: 4px;
+  transition: background 0.1s;
+}
+
+/* .NAVBAR-DROPDOWN-CONTENT A:HOVER: Submenu link hover effect */
+.navbar-dropdown-content a:hover {
+  background: #333;
+}
+
+/* .NAVBAR-HAMBURGER: Menu button (three horizontal lines) - hidden on desktop */
+.navbar-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 10px;
+  z-index: 10000;
+}
+
+/* .NAVBAR-HAMBURGER SPAN: Individual lines of hamburger icon */
+.navbar-hamburger span {
+  display: block;
+  width: 28px;
+  height: 4px;
+  margin: 4px 0;
+  background: #fff;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+
+/* .NAVBAR-HAMBURGER-MENU: Mobile slide-out navigation drawer (right side) */
+.navbar-hamburger-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;        /* start off-screen */
+  width: 75%;          /* covers 75% of screen width */
+  max-width: 320px;    /* cap drawer size */
+  height: 100vh;
+  background: #111;
+  color: #fff;
+  z-index: 9999;
+  padding: 32px 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: right 0.3s ease; /* smooth slide */
+}
+
+/* HAMBURGER MENU DROPDOWN ADJUSTMENTS: Stacks dropdowns vertically in mobile menu */
+.navbar-hamburger-menu .navbar-dropdown {
+  position: static;
+  width: 100%;
+}
+
+/* HAMBURGER MENU DROPDOWN CONTENT: Removes positioning for vertical stack */
+.navbar-hamburger-menu .navbar-dropdown-content {
+  position: static;
+  width: 100%;
+  background: transparent;
+  box-shadow: none;
+  margin: 0;
+  padding-left: 16px;
+}
+
+/* HAMBURGER MENU DROPDOWN BUTTON: Full width centered button in mobile menu */
+.navbar-hamburger-menu .navbar-dropbtn {
+  width: 100%;
+  text-align: center;
+  padding-left: 0;
+}
+
+/* .NAVBAR-HAMBURGER-MENU.OPEN: Slides menu in from right when active */
+.navbar-hamburger-menu.open {
+  right: 0;  /* slide into view */
+}
+
+/* BODY.MENU-OPEN::BEFORE: Semi-transparent overlay behind mobile menu */
+body.menu-open::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 9998;
+}
+
+/* HAMBURGER "X" ANIMATION: Transforms hamburger icon into X when menu open */
+.navbar-hamburger.active span:nth-child(1) {
+  /* Top line rotates 45deg */
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.navbar-hamburger.active span:nth-child(2) {
+  /* Middle line disappears */
+  opacity: 0;
+}
+.navbar-hamburger.active span:nth-child(3) {
+  /* Bottom line rotates -45deg to form X */
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* RESPONSIVE RULES: Switches between desktop menu and mobile hamburger */
+@media (max-width: 1100px) {
+  /* MOBILE: Hide desktop links, show hamburger button */
+  .navbar-links {
+    display: none;
+  }
+  .navbar-hamburger {
+    display: flex;
+  }
+}
+
+@media (min-width: 1101px) {
+  /* DESKTOP: Hide hamburger button, show desktop links */
+  .navbar-hamburger {
+    display: none;
+  }
+  .navbar-links {
+    display: flex;
+  }
+  .navbar-hamburger-menu {
+    display: none !important;
+  }
+}
+
+/* --- End Navbar Styles --- */
+
+/* .SECTION: Content container box (used for main content areas) */
+.section {
+    width: 80vw;
+    margin: 40px auto;
+    background: #2F4F4F;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    padding: 16px;
+    text-align: left;
+    color: #FFFFFF;
+}
+
+/* .SECTION H2: Section heading */
+.section h2 {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 1.4rem;
+    margin-top: 0;
+}
+
+/* .SECTION P: Paragraph text inside sections */
+.section p {
+    font-family: 'Nunito Sans', monospace;
+    font-size: 0.75rem;
+}
+
+/* .SECTION UL, OL: Lists inside sections */
+.section ul, .section ol {
+    font-size: 1.1rem;
+    font-family: 'Nunito Sans', monospace;
+    line-height: 1.5;
+}
+
+/* .CHANGELOG H3: Major version heading in changelog */
+.changelog h3 {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+}
+
+/* .CHANGELOG H4: Minor category heading in changelog */
+.changelog h4 {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #CCCCCC;
+}
+
+/* .CHANGELOG UL: Changelog bullet list */
+.changelog ul {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    font-size: 0.6rem;
+}
+
+/* .CHANGELOG UL UL: Nested changelog list */
+.changelog ul ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* .CHANGELOG HR: Separator line between changelog versions */
+.changelog hr {
+    margin: 2rem 0;
+    border: none;
+    height: 5px;
+    background-color: #00B58B;
+}
+
+/* .CHANGELOG P: Descriptive text in changelog */
+.changelog p {
+    color: #AAAAAA;
+    font-style: italic;
+}
+
+/* .SCHEDULE H2/H1/P: Schedule text elements */
+.schedule h2, .schedule h1, .schedule p {
+    margin-bottom: 0;
+    font-size: 1.25rem;
+}
+
+/* .SCHEDULE H2: Schedule heading with adjusted spacing */
+.schedule h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* .SCHEDULE: Container for schedule display */
+.schedule {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .SCHEDULE-ITEM: Individual schedule time slot in list */
+.schedule-item {
+    list-style-type: none;
+    text-align: center;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+}
+
+/* #SCHEDULE-LIST: Main schedule list container */
+#schedule-list {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* .SWITCH-CONTAINER: Wraps toggle switch and its label */
+.switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+/* .SWITCH: Toggle switch wrapper (contains checkbox and slider) */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* .SWITCH INPUT: Hidden checkbox that controls toggle state */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+/* .SWITCH-LABEL: Label text next to toggle switch */
+.switch-label {
+    font-size: 0.65rem;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+/* .SLIDER: Visual toggle switch background bar */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+/* .SLIDER::BEFORE: Movable circle button inside toggle */
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+/* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
+input:checked + .slider {
+    background-color: #00B58B;
+}
+
+/* INPUT:FOCUS + .SLIDER: Slider shows blue outline when focused */
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+/* INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when toggle ON */
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* .SLIDER.ROUND: Rounded style toggle switch */
+.slider.round {
+    border-radius: 34px;
+}
+
+/* .SLIDER.ROUND::BEFORE: Rounded circle button */
+.slider.round:before {
+    border-radius: 50%;
+}
