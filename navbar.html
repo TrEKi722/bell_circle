@@ -64,3 +64,74 @@
     </div>
   </div>
 </nav>
+
+<script>
+  // Theme initialization - runs immediately after navbar is injected
+  function initThemeToggles() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    
+    if (!themeToggle || !themeToggleMobile) return;
+    
+    // Get current theme from stylesheet
+    function getCurrentTheme() {
+      const styleLink = document.querySelector('link[rel="stylesheet"]');
+      if (styleLink) {
+        const href = styleLink.getAttribute('href');
+        if (href.includes('dark.css')) {
+          return 'dark';
+        }
+      }
+      return localStorage.getItem('theme') || 'light';
+    }
+    
+    // Apply theme
+    function applyTheme(theme) {
+      const styleLink = document.querySelector('link[rel="stylesheet"]');
+      if (!styleLink) return;
+      
+      const href = styleLink.getAttribute('href');
+      let newHref = href;
+      
+      if (theme === 'dark') {
+        newHref = href.replace(/light\.css/g, 'dark.css');
+      } else {
+        newHref = href.replace(/dark\.css/g, 'light.css');
+      }
+      
+      if (newHref !== href) {
+        styleLink.setAttribute('href', newHref);
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateToggles(theme);
+    }
+    
+    // Update toggle states
+    function updateToggles(theme) {
+      const isDark = theme === 'dark';
+      themeToggle.checked = isDark;
+      themeToggleMobile.checked = isDark;
+    }
+    
+    // Initialize
+    const currentTheme = getCurrentTheme();
+    updateToggles(currentTheme);
+    
+    // Add listeners
+    themeToggle.addEventListener('change', function() {
+      const newTheme = this.checked ? 'dark' : 'light';
+      applyTheme(newTheme);
+      themeToggleMobile.checked = this.checked;
+    });
+    
+    themeToggleMobile.addEventListener('change', function() {
+      const newTheme = this.checked ? 'dark' : 'light';
+      applyTheme(newTheme);
+      themeToggle.checked = this.checked;
+    });
+  }
+  
+  // Run immediately
+  initThemeToggles();
+</script>
