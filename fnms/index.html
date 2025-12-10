@@ -124,7 +124,6 @@
     const currentTimeDateElement = document.getElementById("current-timedate");
     const currentDateElement = document.getElementById("current-date");
     const currentPeriodElement = document.getElementById("current-period");
-    const nextPeriodElement = document.getElementById("next-period");
     const countdownElement = document.getElementById("countdown");
 
     const accessToken = 'patITxf5DhDNa3n4Z.9c2b195a60fd2f5489ef4973cf5624d94c95b2f5bf1d1998705597187eaf5425';
@@ -261,7 +260,8 @@
 
     function updateCurrentPeriodAndCountdown() {
       const now = new Date();
-      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const currentSecondsOfDay = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+
       let todaySchedule;
       if (minimumDay && weeklySchedule[minimumDay]) {
         todaySchedule = weeklySchedule[minimumDay];
@@ -269,22 +269,33 @@
         todaySchedule = weeklySchedule["Standard"];
       }
 
-      const currentPeriod = todaySchedule.find(period => currentMinutes >= period.start && currentMinutes < period.end);
-      const nextPeriod = todaySchedule.find(period => currentMinutes < period.start);
+      // Find the current period (using seconds for precision) and the next period
+      const currentPeriod = todaySchedule.find(period => {
+        const startSec = period.start * 60;
+        const endSec = period.end * 60;
+        return currentSecondsOfDay >= startSec && currentSecondsOfDay < endSec;
+      });
+
+      const nextPeriod = todaySchedule.find(period => currentSecondsOfDay < period.start * 60);
+
+      function formatCountdown(seconds) {
+        if (seconds <= 0) return '0h 0m 0s';
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = seconds % 60;
+        return `${h}h ${m}m ${s}s`;
+      }
 
       if (currentPeriod) {
         currentPeriodElement.textContent = `Current: ${currentPeriod.name}`;
-        nextPeriodElement.textContent = `Ends in:`;
-        const remainingSeconds = (currentPeriod.end - currentMinutes) * 60 - (now.getSeconds());
-        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
+        const remainingSeconds = currentPeriod.end * 60 - currentSecondsOfDay;
+        countdownElement.textContent = formatCountdown(remainingSeconds);
       } else if (nextPeriod) {
         currentPeriodElement.textContent = `Next: ${nextPeriod.name}`;
-        nextPeriodElement.textContent = `Starts in:`;
-        const remainingSeconds = (nextPeriod.start - currentMinutes) * 60 - (now.getSeconds());
-        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
+        const remainingSeconds = nextPeriod.start * 60 - currentSecondsOfDay;
+        countdownElement.textContent = formatCountdown(remainingSeconds);
       } else {
         currentPeriodElement.textContent = "School is over for today!";
-        nextPeriodElement.textContent = "";
         countdownElement.textContent = "";
       }
     }
