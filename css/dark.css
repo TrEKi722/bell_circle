@@ -606,9 +606,9 @@ input:checked + .slider:before {
 
 /* When theme toggle is unchecked in dark mode (reverting to light), dim sun and brighten moon */
 .theme-toggle-container input:not(:checked) ~ .moon-icon {
-    opacity: 1;
+    opacity: 0.4;
 }
 
 .theme-toggle-container input:not(:checked) ~ .sun-icon {
-    opacity: 0.4;
+    opacity: 1;
 }

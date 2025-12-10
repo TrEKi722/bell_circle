@@ -604,9 +604,9 @@ input:checked + .slider:before {
 
 /* When theme is dark mode (toggle is checked), dim moon and brighten sun */
 .theme-toggle-container input:checked ~ .moon-icon {
-    opacity: 0.4;
+    opacity: 1;
 }
 
 .theme-toggle-container input:checked ~ .sun-icon {
-    opacity: 1;
+    opacity: 0.4;
 }
