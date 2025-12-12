@@ -564,13 +564,13 @@ input:checked + .slider:before {
 
 /* .MOON-ICON: Moon icon styling (appears in light mode, dimmed in dark) */
 .theme-toggle-container .moon-icon {
-    opacity: 0.4;
+    opacity: 1;
     transition: opacity 0.3s ease;
 }
 
 /* .SUN-ICON: Sun icon styling (appears in dark mode) */
 .theme-toggle-container .sun-icon {
-    opacity: 1;
+    opacity: 0.4;
     transition: opacity 0.3s ease;
 }
 
@@ -606,7 +606,7 @@ input:checked + .slider:before {
 
 /* When theme toggle is unchecked in dark mode (reverting to light), dim sun and brighten moon */
 .theme-toggle-container input:not(:checked) ~ .moon-icon {
-    opacity: 1;
+    opacity: 0.4;
 }
 
 .theme-toggle-container input:not(:checked) ~ .sun-icon {
