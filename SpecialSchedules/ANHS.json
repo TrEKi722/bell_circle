@@ -1,42 +1,42 @@
 [
   {
-    "Date": "2025-09-05",
-    "Details": "Special Minimum Day Block"
+    "date": "2025-09-05",
+    "details": "Special Minimum Day Block"
   },
   {
-    "Date": "2025-11-10",
-    "Details": "Late Start Block"
+    "date": "2025-11-10",
+    "details": "Late Start Block"
   },
   {
-    "Date": "2025-12-16",
-    "Details": "Finals"
+    "date": "2025-12-16",
+    "details": "Finals"
   },
   {
-    "Date": "2025-12-17",
-    "Details": "Finals"
+    "date": "2025-12-17",
+    "details": "Finals"
   },
   {
-    "Date": "2025-12-18",
-    "Details": "Finals"
+    "date": "2025-12-18",
+    "details": "Finals"
   },
   {
-    "Date": "2025-02-09",
-    "Details": "Late Start Block"
+    "date": "2025-02-09",
+    "details": "Late Start Block"
   },
   {
-    "Date": "2025-02-12",
-    "Details": "Special Minimum Day Block"
+    "date": "2025-02-12",
+    "details": "Special Minimum Day Block"
   },
   {
-    "Date": "2025-06-03",
-    "Details": "Finals"
+    "date": "2025-06-03",
+    "details": "Finals"
   },
   {
-    "Date": "2025-06-04",
-    "Details": "Finals"
+    "date": "2025-06-04",
+    "details": "Finals"
   },
   {
-    "Date": "2025-06-05",
-    "Details": "Finals"
+    "date": "2025-06-05",
+    "details": "Finals"
   }
 ]
