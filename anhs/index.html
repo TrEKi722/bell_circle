@@ -106,10 +106,28 @@
   <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
   <script>window.jotformEmbedHandler("iframe[id='252337325834054']", "https://form.jotform.com/")</script>
   <div class="section">
-    <p>View upcoming irregular schedules <strong><a href="https://airtable.com/app5kCLxN9sVAY9wA/shr52NNsDhq9wzpHV/tblVK57g2zdiDZEpA" style="color:white ; text-transform: uppercase; cursor: pointer; display: inline-block; font-family: inherit;">here</a></strong></p>
+    <p>View upcoming irregular schedules <strong><a onclick="openLightbox()" style="color:white ; text-transform: uppercase; cursor: pointer; display: inline-block; font-family: inherit;">here</a></strong></p>
     <p>If a special schedule is missing, please request it be added <strong><a class="btn lightbox-252337325834054"
       style="text-transform: uppercase; cursor: pointer; display: inline-block; font-family: inherit;">here</a></strong></p>
   </div>
+  <div id="myLightbox" class="modal">
+    <!-- Close button -->
+    <span class="close cursor" onclick="closeLightbox()">&times;</span>
+    
+    <!-- Lightbox Content -->
+    <div class="modal-content">
+      <iframe src="https://airtable.com/app5kCLxN9sVAY9wA/shr52NNsDhq9wzpHV/tblVK57g2zdiDZEpA"></ifram>
+    </div>
+  </div>
+  <script>
+    function openLightbox() {
+      document.getElementById("myLightbox").style.display = "block";
+    }
+
+    function closeLightbox() {
+      document.getElementById("myLightbox").style.display = "none";
+    }
+  </script>
   <div id="footer-container" class="footer"></div>
   <script>
       // Load navbar from navbar.html
