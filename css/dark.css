@@ -640,16 +640,31 @@ input:checked + .slider:before {
   border-radius: 15px;
   position: relative;
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  background-color: #1E293B; 
+  background-color: #1E293B;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The Close Button (X) */
+/* Matches HTML class: class="close-btn" */
+.close-btn {
+  color: #ff9800;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-bottom: 10px;
+  padding: 0;
+  line-height: 1;
 }
 
 /* The Iframe Container */
 /* Matches HTML class: class="iframe-container" */
 .iframe-container {
-  flex-grow: 1;      /* Fill the remaining space */
+  flex: 1;
   overflow: hidden;  /* Prevents double scrollbars */
-  margin-top: 10px;
   background: #fff; /* Clean background for loading */
+  border-radius: 8px;
 }
 
 /* The Iframe itself */
@@ -657,17 +672,6 @@ input:checked + .slider:before {
     width: 100%;
     height: 100%;
     border: none;
-}
-
-/* The Close Button (X) */
-/* Matches HTML class: class="close-btn" */
-.close-btn {
-  color: #ff9800;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  align-self: flex-end; /* Pushes it to the right in flexbox */
 }
 
 .close-btn:hover,
