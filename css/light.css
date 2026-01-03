@@ -637,7 +637,6 @@ input:checked + .slider:before {
   position: relative;
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   background-color: #ACDFFD;
-  border: 1px solid #80d0ff;
   display: flex;
   flex-direction: column;
 }
