@@ -636,7 +636,7 @@ input:checked + .slider:before {
   background-color: #fefefe;
   margin: 5% auto; /* 5% from top, centered horizontally */
   padding: 15px; 
-  border: 1px solid #888;
+  border: 1px solid #2F4F4F;
   width: 95%; /* Responsive width */
   max-width: 700px; /* Max width for desktop */
   height: 80vh; /* Fixed height: 80% of screen */
@@ -652,7 +652,7 @@ input:checked + .slider:before {
   flex-grow: 1;      /* Fill the remaining space */
   overflow: hidden;  /* Prevents double scrollbars */
   margin-top: 10px;
-  background: white; /* Clean background for loading */
+  background: #2F4F4F; /* Clean background for loading */
 }
 
 /* The Iframe itself */
