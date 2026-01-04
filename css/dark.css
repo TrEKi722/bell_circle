@@ -612,3 +612,71 @@ input:checked + .slider:before {
 .theme-toggle-container input:not(:checked) ~ .sun-icon {
     opacity: 1;
 }
+
+/* --- MODAL / LIGHTBOX STYLES --- */
+
+/* The Modal (background overlay) */
+/* Matches HTML class: class="modal-overlay" */
+.modal-overlay {
+  display: none;
+  position: fixed; 
+  z-index: 10001; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0,0,0,0.7); /* Slightly darker for better contrast */
+  backdrop-filter: blur(5px);
+}
+
+/* The White Box */
+/* Matches HTML class: class="modal-content" */
+.modal-content {
+  margin: 10vh auto;
+  padding: 20px; 
+  width: 90%; 
+  max-width: 600px;
+  height: 70vh;
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  background-color: #1E293B;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The Close Button (X) */
+/* Matches HTML class: class="close-btn" */
+.close-btn {
+  color: #ff9800;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-bottom: 10px;
+  padding: 0;
+  line-height: 1;
+}
+
+/* The Iframe Container */
+/* Matches HTML class: class="iframe-container" */
+.iframe-container {
+  flex: 1;
+  overflow: hidden;  /* Prevents double scrollbars */
+  background: #fff; /* Clean background for loading */
+  border-radius: 8px;
+}
+
+/* The Iframe itself */
+.iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}

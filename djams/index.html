@@ -103,14 +103,56 @@
   <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
   <script>window.jotformEmbedHandler("iframe[id='252337325834054']", "https://form.jotform.com/")</script>
   <div class="section">
-    <br>
-    <h2 style="text-align: center;">Upcoming Special Schedules</h2>
-    <div>
-        <iframe class="airtable-embed" src="https://airtable.com/embed/app5kCLxN9sVAY9wA/shrOl6yJNN22hQ8Xu" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>    </div>
+    <p>View upcoming irregular schedules <strong><a style="cursor:pointer;" id="irregular-btn">HERE</a></strong></p>
     <p>If a special schedule is missing, please request it be added <strong><a class="btn lightbox-252337325834054"
       style="text-transform: uppercase; cursor: pointer; display: inline-block; font-family: inherit;">here</a></strong></p>
   </div>
-  <div id="footer-container" class="footer"></div>
+<div id="schedule-modal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <div class="iframe-container">
+      <iframe 
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTH472iMPTxbxqWAC2EJE4x-7ShgBjwBtH7fNfpLy9g7_9RCoWFGQARvu7fuDfzlc2OLwiFY3r95YGh/pubhtml?gid=104980769&amp;single=true&amp;widget=false&amp;headers=false&amp;chrome=false"
+        width="100%" 
+        height="100%" 
+        frameborder="0">
+      </iframe>
+    </div>
+  </div>
+</div> 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the modal elements
+      var modal = document.getElementById("schedule-modal");
+      var btn = document.getElementById("irregular-btn");
+      var span = document.getElementsByClassName("close-btn")[0];
+
+      // Open the modal when the button is clicked
+      btn.onclick = function(e) {
+        e.preventDefault(); // Prevent default link behavior if it's an <a> tag
+        modal.style.display = "block";
+      }
+
+      // Close the modal when 'x' is clicked
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      // Close the modal when clicking outside of the box
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+      
+      // Optional: Close on 'Esc' key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape" && modal.style.display === "block") {
+            modal.style.display = "none";
+        }
+      });
+    });
+  </script>
   <script>
       // Load footer from footer.html
       fetch('/footer.html')
