@@ -88,40 +88,6 @@
     </label>
     <label for="24HrSwitch" class="switch-label">24Hr Time</label>
   </div>
-  <!-- Special Schedule Request Form -->
-  <script src ="https://cdn.jotfor.ms/s/static/latest/static/feedback2.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      var JFL_252337325834054 = new JotformFeedback({
-        formId: '252337325834054',
-        base: 'https://form.jotform.com/',
-        windowTitle: 'Missing Special Schedule',
-        backgroundColor: '#acdffd',
-        fontColor: '#FFFFFF',
-        type: 'false',
-        height: 550,
-        width: 700,
-        openOnLoad: false
-      });
-  </script>
-  <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
-  <script>window.jotformEmbedHandler("iframe[id='252337325834054']", "https://form.jotform.com/")</script>
-  <div class="section">
-    <p>View upcoming irregular schedules <strong><a style="cursor:pointer;" id="irregular-btn">HERE</a></strong></p>
-    <p>If a special schedule is missing, please request it be added <strong><a class="btn lightbox-252337325834054"
-      style="text-transform: uppercase; cursor: pointer; display: inline-block; font-family: inherit;">here</a></strong></p>
-  </div>
-<div id="schedule-modal" class="modal-overlay">
-  <div class="modal-content">
-    <span class="close-btn">&times;</span>
-    <div class="iframe-container">
-      <iframe 
-        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTH472iMPTxbxqWAC2EJE4x-7ShgBjwBtH7fNfpLy9g7_9RCoWFGQARvu7fuDfzlc2OLwiFY3r95YGh/pubhtml?gid=0&amp;single=true&amp;widget=false&amp;headers=false&amp;chrome=false" 
-        width="100%" 
-        height="100%" 
-        frameborder="0">
-      </iframe>
-    </div>
-  </div>
 </div> 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -221,6 +187,57 @@
       console.log("Today's Schedule:", minimumDay);
     }
 
+    const weeklySchedule = {
+      // MONDAY LATE START 1-6
+      "Monday": [
+        { start: 9 * 60 + 10, end: 9 * 60 + 55, name: "First Period" }, // 9:10-9:55
+        { start: 10 * 60 + 5, end: 10 * 60 + 50, name: "Second Period" }, // 10:05-10:50
+        { start: 11 * 60, end: 12 * 60, name: "Third Period" }, // 11:00-12:00
+        { start: 12 * 60 + 10, end: 12 * 60 + 55, name: "Fourth Period" }, // 12:10-12:55
+        { start: 12 * 60 + 55, end: 13 * 60 + 25, name: "Lunch"},
+        { start: 13 * 60 + 35, end: 14 * 60 + 20, name: "Fifth Period" }, // 1:35-2:20
+        { start: 14 * 60 + 30, end: 15 * 60 + 15, name: "Sixth Period" } // 2:30-3:15
+      ],
+      // BLOCK SCHEDULES
+      "Block": [
+        { start: 7 * 60 + 20, end: 8 * 60 + 20, name: "Zero Period" }, // 7:20-8:20
+        { start: 8 * 60 + 30, end: 10 * 60 + 10, name: "First or Second Period" }, // 8:30-10:10
+        { start: 10 * 60 + 20, end: 11 * 60, name: "Wolverine+" }, // 10:20-11:00
+        { start: 11 * 60 + 10, end: 12 * 60 + 50, name: "Third or Fourth Period" }, // 11:10-12:50
+        { start: 12 * 60 + 50, end: 13 * 60 + 25, name: "Lunch"},
+        { start: 13 * 60 + 35, end: 15 * 60 + 15, name: "Fifth or Sixth Period" } // 1:35-3:15
+      ],
+      // CAASPP SPECIAL BLOCK
+      "CAASPP": [
+        { start: 7 * 60 + 20, end: 8 * 60 + 20, name: "Zero Period" }, // 7:20-8:20
+        { start: 8 * 60 + 30, end: 10 * 60 + 5, name: "First or Second Period" }, // 8:30-10:05
+        { start: 10 * 60 + 15, end: 11 * 60 + 10, name: "Wolverine+" }, // 10:15-11:10
+        { start: 11 * 60 + 25, end: 13 * 60, name: "Third or Fourth Period" }, // 11:25-1:00
+        { start: 13 * 60, end: 13 * 60 + 30, name: "Lunch"},
+        { start: 13 * 60 + 40, end: 15 * 60 + 15, name: "Fifth or Sixth Period" } // 1:40-3:15
+      ],
+      // FINAL EXAM SCHEDULE
+      "Finals": [
+        { start: 8 * 60 + 30, end: 10 * 60 + 55, name: "First Exam" }, // 8:30-10:55
+        { start: 11 * 60 + 5, end: 13 * 60 + 30, name: "Second Exam" } // 11:05-1:30
+      ],
+      // SPECIAL MINIMUM DAY BLOCK
+      "Special Minimum Day Block": [
+        { start: 7 * 60 + 20, end: 8 * 60 + 20, name: "Zero Period" }, // 7:20-8:20
+        { start: 8 * 60 + 30, end: 10 * 60, name: "First or Second Period" }, // 8:30-10:00
+        { start: 10 * 60 + 10, end: 11 * 60 + 40, name: "Third or Fourth Period" }, // 10:10-11:40
+        { start: 11 * 60 + 50, end: 13 * 60 + 20, name: "Fifth or Sixth Period" } // 11:50-1:20
+      ],
+      // LATE START BLOCK SCHEDULE
+      "Late Start Block": [
+        { start: 9 * 60 + 10, end: 10 * 60 + 50, name: "First or Second Period" }, // 9:10-10:50
+        { start: 11 * 60, end: 11 * 60 + 15, name: "Wolverine+" }, // 11:00-11:15
+        { start: 11 * 60 + 15, end: 12 * 60 + 55, name: "Third or Fourth Period" }, // 11:15-12:55
+        { start: 12 * 60 + 55, end: 13 * 60 + 25, name: "Lunch"},
+        { start: 13 * 60 + 35, end: 15 * 60 + 15, name: "Fifth or Sixth Period" } // 1:35-3:15
+      ]
+    };
+
     function formatTime(minutes) {
       if (is24HourFormat) {
         const hour = Math.floor(minutes / 60);
@@ -305,7 +322,7 @@
         countdownElement.textContent = "";
       }
     }
-
+    
     // -------- Custom schedule via URL (/custom?items=...) --------
     //
     // Spec:
