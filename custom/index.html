@@ -73,14 +73,14 @@
     <p>Add your custom schedule periods here. Put both a start and end time for all periods.</p>
 	<p>We started the first few lines for you. Edit them, and add as many lines as you need. You don't have to fill in all the lines. Click <em>Submit</em> when done. Note: enter all times in <strong>24 HR format</strong></p>
     <div id="input-container">
-        <label for="p01" class="builder-label">Start: </label><input type="text" class="sinput" id="s01" value="07:20"><label for="e01" class="builder-label"> End: </label><input type="text" class="einput" id="e01" value="08:20"><label for="n01" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n01" value="First Period"><br>
+        <!-- <label for="p01" class="builder-label">Start: </label><input type="text" class="sinput" id="s01" value="07:20"><label for="e01" class="builder-label"> End: </label><input type="text" class="einput" id="e01" value="08:20"><label for="n01" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n01" value="First Period"><br>
         <label for="p02" class="builder-label">Start: </label><input type="text" class="sinput" id="s02" value="08:30"><label for="e02" class="builder-label"> End: </label><input type="text" class="einput" id="e02" value="10:10"><label for="n02" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n02" value="Second Period"><br>
         <label for="p03" class="builder-label">Start: </label><input type="text" class="sinput" id="s03" value="13:35"><label for="e03" class="builder-label"> End: </label><input type="text" class="einput" id="e03" value="15:15"><label for="n03" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n03" value="Sixth Period"><br>
         <label for="p04" class="builder-label">Start: </label><input type="text" class="sinput" id="s04"><label for="e04" class="builder-label"> End: </label><input type="text" class="einput" id="e04"><label for="n04" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n04"><br>
         <label for="p05" class="builder-label">Start: </label><input type="text" class="sinput" id="s05"><label for="e05" class="builder-label"> End: </label><input type="text" class="einput" id="e05"><label for="n05" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n05"><br>
         <label for="p06" class="builder-label">Start: </label><input type="text" class="sinput" id="s06"><label for="e06" class="builder-label"> End: </label><input type="text" class="einput" id="e06"><label for="n06" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n06"><br>
         <label for="p07" class="builder-label">Start: </label><input type="text" class="sinput" id="s07"><label for="e07" class="builder-label"> End: </label><input type="text" class="einput" id="e07"><label for="n07" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n07"><br>
-        <label for="p08" class="builder-label">Start: </label><input type="text" class="sinput" id="s08"><label for="e08" class="builder-label"> End: </label><input type="text" class="einput" id="e08"><label for="n08" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n08"><br>
+        <label for="p08" class="builder-label">Start: </label><input type="text" class="sinput" id="s08"><label for="e08" class="builder-label"> End: </label><input type="text" class="einput" id="e08"><label for="n08" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n08"><br> -->
     </div>
     <div>
         <i class="fa-solid fa-minus" onClick=removeRow() style="font-size:.5em;"></i>
@@ -91,6 +91,13 @@
     </div>
   </div>
   <script>
+    function initializeBuilder(){
+        // Add initial 8 rows
+        for (var i = 0; i < 8; i++){
+            addRow();
+        }
+    }
+    window.onload = initializeBuilder;
     function removeRow(){
         var starts = document.getElementsByClassName("sinput");
         var ends = document.getElementsByClassName("einput");
@@ -116,6 +123,7 @@
         var ends = document.getElementsByClassName("einput");
         var names = document.getElementsByClassName("ninput");
         var tl = starts.length + 1;
+        var br = document.createElement("br");
 
         var labelStart = document.createElement("label");
         labelStart.setAttribute("for", "p" + (tl < 10 ? "0" + tl : tl));
@@ -150,6 +158,7 @@
         container.appendChild(inputEnd);
         container.appendChild(labelName);
         container.appendChild(inputName);
+        container.appendChild(br);
     }
     function timeToMinutes24h(timeStr) {
       // Parse "HH:MM" format (24-hour)
@@ -241,7 +250,7 @@
     <h2>Today's Schedule:</h2>
     <ul id="schedule-list"></ul>
   </div>
-  <div class="switch-container">
+  <div class="switch-container" id="24-switch-container">
     <label class="switch">
       <input type="checkbox" id="24HrSwitch" name="24HrSwitch" value="24HrSwitch">
       <span class="slider round"></span>
@@ -421,13 +430,16 @@
     function toggleView() {
       const builderSection = document.getElementById('builder-section');
       const scheduleSection = document.getElementById('schedule-section');
+      const switchContainer = document.getElementById('24-switch-container');
       
       if (hasItemsQuery()) {
         builderSection.style.display = 'none';
         scheduleSection.style.display = 'block';
+        switchContainer.style.display = 'block';
       } else {
         builderSection.style.display = 'block';
         scheduleSection.style.display = 'none';
+        switchContainer.style.display = 'none';
       }
     }
 
