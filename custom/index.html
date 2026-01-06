@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+  <!-- End Google Tag Manager --> 
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../css/light.css">
+  <script>
+    // Apply saved theme from localStorage immediately
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        const link = document.querySelector('link[rel="stylesheet"]');
+        if (link) {
+          link.href = link.href.replace('light.css', 'dark.css');
+        }
+      }
+    })();
+  </script>
+  <link rel="icon" type="image/png" href="/Media/Logos/Icon_LightPrimary.png">
+  <title>Aliso Niguel - Bell Circle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <meta name="description" content="Bell Circle - Your hub for school schedules, updates, and resources."> -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+  <body>
+    <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+  <!-- End Google Tag Manager --> 
+  <div id="navbar-container"></div>
+  <script>
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        // After navbar is injected, load its script
+        const script = document.createElement("script");
+        script.src = "/navbar.js";
+        document.body.appendChild(script);
+      });
+  </script>
+  <div class="banner">
+      <h1>
+          <script>
+              var today = new Date();
+              var dayOfWeek = today.getDay();
+
+              var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+              var dayText = weekdays[dayOfWeek];
+              var iconUrl = "../Media/SchoolIcons/an.png";
+
+              var img = new Image();
+              img.src = iconUrl;
+              img.width = 85;
+              img.margin = "20px";
+
+              var container = document.createElement("div");
+              container.style.display = "flex";
+              container.style.alignItems = "center";
+              container.appendChild(img);
+              container.appendChild(document.createTextNode(" " + dayText));
+
+              document.querySelector(".banner").appendChild(container);
+          </script>
+      </h1>
+  </div>
+  <div class="schedule">
+    <h1 id="current-date"></h1>
+    <h1 id="current-timedate"></h1>
+    <p id="current-period" style="font-size:40px"></p>
+    <p id="countdown"></p>
+    <h2>Today's Schedule:</h2>
+    <ul id="schedule-list"></ul>
+  </div>
+  <div class="switch-container">
+    <label class="switch">
+      <input type="checkbox" id="24HrSwitch" name="24HrSwitch" value="24HrSwitch">
+      <span class="slider round"></span>
+    </label>
+    <label for="24HrSwitch" class="switch-label">24Hr Time</label>
+  </div>
+  <!-- Special Schedule Request Form -->
+  <script src ="https://cdn.jotfor.ms/s/static/latest/static/feedback2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var JFL_252337325834054 = new JotformFeedback({
+        formId: '252337325834054',
+        base: 'https://form.jotform.com/',
+        windowTitle: 'Missing Special Schedule',
+        backgroundColor: '#acdffd',
+        fontColor: '#FFFFFF',
+        type: 'false',
+        height: 550,
+        width: 700,
+        openOnLoad: false
+      });
+  </script>
+  <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>
+  <script>window.jotformEmbedHandler("iframe[id='252337325834054']", "https://form.jotform.com/")</script>
+  <div class="section">
+    <p>View upcoming irregular schedules <strong><a style="cursor:pointer;" id="irregular-btn">HERE</a></strong></p>
+    <p>If a special schedule is missing, please request it be added <strong><a class="btn lightbox-252337325834054"
+      style="text-transform: uppercase; cursor: pointer; display: inline-block; font-family: inherit;">here</a></strong></p>
+  </div>
+<div id="schedule-modal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <div class="iframe-container">
+      <iframe 
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTH472iMPTxbxqWAC2EJE4x-7ShgBjwBtH7fNfpLy9g7_9RCoWFGQARvu7fuDfzlc2OLwiFY3r95YGh/pubhtml?gid=0&amp;single=true&amp;widget=false&amp;headers=false&amp;chrome=false" 
+        width="100%" 
+        height="100%" 
+        frameborder="0">
+      </iframe>
+    </div>
+  </div>
+</div> 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the modal elements
+      var modal = document.getElementById("schedule-modal");
+      var btn = document.getElementById("irregular-btn");
+      var span = document.getElementsByClassName("close-btn")[0];
+
+      // Open the modal when the button is clicked
+      btn.onclick = function(e) {
+        e.preventDefault(); // Prevent default link behavior if it's an <a> tag
+        modal.style.display = "block";
+      }
+
+      // Close the modal when 'x' is clicked
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      // Close the modal when clicking outside of the box
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+      
+      // Optional: Close on 'Esc' key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape" && modal.style.display === "block") {
+            modal.style.display = "none";
+        }
+      });
+    });
+  </script>
+  <div id="footer-container" class="footer"></div>
+  <script>
+      // Load navbar from navbar.html
+      fetch('/footer.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('footer-container').innerHTML = html;
+        });
+  </script>
+
+  <script>
+    const scheduleListElement = document.getElementById("schedule-list");
+    const currentTimeDateElement = document.getElementById("current-timedate");
+    const currentDateElement = document.getElementById("current-date");
+    const currentPeriodElement = document.getElementById("current-period");
+    const countdownElement = document.getElementById("countdown");
+
+    let weekdayID = 0;
+    let dateList = [];
+    let minimumDay = false;
+    let is24HourFormat = false; // Whether or not to default to 24-hour format
+
+    async function fetchDateList() {
+      try {
+        const response = await fetch('../SpecialSchedules/ANHS.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        // Expecting an array of objects with properties: date (yyyy-mm-dd) and details (schedule name)
+        dateList = data.map(item => ({
+          date: item.date,
+          details: item.details
+        }));
+        console.log("Fetched dates from JSON:", dateList);
+      } catch (error) {
+        console.error('Error fetching local JSON schedule data:', error.message);
+      }
+    }
+
+    function fetchWeekdayNumber() {
+      const now = new Date();
+      const temp = now.toLocaleDateString('en-US', {weekday: 'short'});
+      weekdayID = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(temp);
+    }
+
+    function isMinimumDay() {
+      const todayDate = new Date().toISOString().split('T')[0];
+      // Find if today matches a date in the list and get its details (schedule name)
+      const found = dateList.find(item => item.date === todayDate);
+      if (found) {
+        console.log("Schedule for today:", found.details);
+        return found.details;
+      }
+      return null;
+    }
+
+    async function initializeVariables() {
+      await fetchDateList();
+      fetchWeekdayNumber();
+      minimumDay = isMinimumDay(); // now returns schedule name or null
+      console.log("Weekday ID:", weekdayID);
+      console.log("Today's Schedule:", minimumDay);
+    }
+
+    function formatTime(minutes) {
+      if (is24HourFormat) {
+        const hour = Math.floor(minutes / 60);
+        const minute = minutes % 60;
+        return `${hour}:${minute < 10 ? '0' : ''}${minute}`;
+      } else {
+        const hour = Math.floor(minutes / 60);
+        const minute = minutes % 60;
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const formattedHour = hour % 12 || 12;
+        return `${formattedHour}:${minute < 10 ? '0' : ''}${minute} ${period}`;
+      }
+    }
+
+    function displayCurrentTime() {
+      const now = new Date();
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: !is24HourFormat };
+      const dateOptions = { weekday: "long", month: "long", day: "numeric", };
+      currentTimeDateElement.textContent = now.toLocaleDateString([], dateOptions) + ", " +now.toLocaleTimeString([], timeOptions);
+      //currentDateElement.textContent = now.toLocaleDateString();
+    }
+
+    function updateSchedule() {
+      let todaySchedule;
+      if (minimumDay) {
+        if (weeklySchedule[minimumDay]) {
+          // If the string matches one of your defined schedules
+          todaySchedule = weeklySchedule[minimumDay];
+        } else {
+          // Debugging case: Airtable returned something you don't handle
+          console.warn(`Unknown schedule type from Airtable: "${minimumDay}"`);
+          todaySchedule = weeklySchedule["Block"]; // fallback
+        }
+      } else if (weekdayID === 1) {
+        todaySchedule = weeklySchedule["Monday"];
+      } else {
+        todaySchedule = weeklySchedule["Block"];
+      }
+      console.log("Using schedule:", minimumDay || (weekdayID === 1 ? "Monday" : "Block"));
+      scheduleListElement.innerHTML = '';
+      // scheduleListElement.appendChild(header);
+      todaySchedule.forEach(period => {
+        const listItem = document.createElement('li');
+        listItem.className = 'schedule-item';
+        listItem.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.name}`;
+        scheduleListElement.appendChild(listItem);
+      });
+    }
+
+    function updateCurrentPeriodAndCountdown() {
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      let todaySchedule;
+      if (minimumDay) {
+        if (weeklySchedule[minimumDay]) {
+          // If the string matches one of your defined schedules
+          todaySchedule = weeklySchedule[minimumDay];
+        } else {
+          // Debugging case: Airtable returned something you don't handle
+          console.warn(`Unknown schedule type from Airtable: "${minimumDay}"`);
+          todaySchedule = weeklySchedule["Block"]; // fallback
+        }
+      } else if (weekdayID === 1) {
+        todaySchedule = weeklySchedule["Monday"];
+      } else {
+        todaySchedule = weeklySchedule["Block"];
+      }
+
+      const currentPeriod = todaySchedule.find(period => currentMinutes >= period.start && currentMinutes < period.end);
+      const nextPeriod = todaySchedule.find(period => currentMinutes < period.start);
+
+      if (currentPeriod) {
+        currentPeriodElement.textContent = `${currentPeriod.name}`;
+        const remainingSeconds = (currentPeriod.end - currentMinutes) * 60 - (now.getSeconds());
+        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
+      } else if (nextPeriod) {
+        currentPeriodElement.textContent = `Next: ${nextPeriod.name}`;
+        const remainingSeconds = (nextPeriod.start - currentMinutes) * 60 - (now.getSeconds());
+        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
+      } else {
+        currentPeriodElement.textContent = "School is over for today!";
+        countdownElement.textContent = "";
+      }
+    }
+
+    // -------- Custom schedule via URL (/custom?items=...) --------
+    //
+    // Spec:
+    // - Endpoint: /custom
+    // - Query: ?items=<item>+<item>+...
+    // - Item format: "HH%3AMM-HH%3AMM@Name_with_underscores"
+    // - 24-hour time only
+    // - Spaces are underscores ("_")
+    // - Colons are %3A (we decode them)
+    //
+    // Example:
+    // /custom?items=07%3A20-08%3A20@Zero_Period+08%3A30-10%3A10@First_or_Second+10%3A20-11%3A00@Wolverine%2B
+    //
+    // Notes:
+    // - We URL-decode the full string safely.
+    // - Invalid items are rendered as error lines but do not break the page.
+
+    function isCustomRoute() {
+    return window.location.pathname === "/custom";
+    }
+
+    function safeDecode(str) {
+    try { return decodeURIComponent(str); } catch { return str; }
+    }
+
+    function toMinutes24h(hhmm) {
+    // hhmm is like "07:20" (after decoding)
+    const m = hhmm.match(/^(\d{1,2}):(\d{2})$/);
+    if (!m) return null;
+    const h = parseInt(m[1], 10);
+    const min = parseInt(m[2], 10);
+    if (h < 0 || h > 23 || min < 0 || min > 59) return null;
+    return h * 60 + min;
+    }
+
+    function parseCustomScheduleFromQuery() {
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get("items"); // e.g. "07%3A20-08%3A20@Zero_Period+08%3A30-10%3A10@First_or_Second"
+    if (!raw) return null;
+
+    const decoded = safeDecode(raw);
+    const items = decoded.split("+").map(s => s.trim()).filter(Boolean);
+    if (items.length === 0) return null;
+
+    const result = [];
+    for (const item of items) {
+        // Split "start-end@name"
+        const atIdx = item.indexOf("@");
+        if (atIdx === -1) {
+        result.push({ error: `Missing "@": "${item}"` });
+        continue;
+        }
+        const timeSpec = item.slice(0, atIdx).trim();  // "07:20-08:20"
+        const rawName = item.slice(atIdx + 1).trim();  // "Zero_Period"
+
+        const dashIdx = timeSpec.indexOf("-");
+        if (dashIdx === -1) {
+        result.push({ error: `Missing "-" between start and end: "${item}"` });
+        continue;
+        }
+
+        const startStr = timeSpec.slice(0, dashIdx).trim(); // "07:20"
+        const endStr = timeSpec.slice(dashIdx + 1).trim();  // "08:20"
+
+        const startMin = toMinutes24h(startStr);
+        const endMin = toMinutes24h(endStr);
+        if (startMin == null || endMin == null) {
+        result.push({ error: `Invalid time(s): "${timeSpec}"` });
+        continue;
+        }
+        if (endMin <= startMin) {
+        result.push({ error: `End must be after start: "${timeSpec}"` });
+        continue;
+        }
+
+        // Replace underscores with spaces for display
+        const name = rawName.replace(/_/g, " ");
+
+        result.push({ start: startMin, end: endMin, name });
+    }
+
+    return result.length ? result : null;
+    }
+
+    // Returns the schedule to render.
+    // If on /custom with valid items, return those; otherwise fall back to existing logic.
+    function getTodayScheduleWithCustomFallback() {
+    if (isCustomRoute()) {
+        const custom = parseCustomScheduleFromQuery();
+        if (custom && custom.length > 0) return custom;
+        // If route is /custom but items missing/invalid, show a helpful message
+        return [{ error: 'Use ?items=HH%3AMM-HH%3AMM@Name_with_underscores joined by + (24-hour). Example: ?items=07%3A20-08%3A20@Zero_Period+08%3A30-10%3A10@First_or_Second' }];
+    }
+
+    // Original selection logic
+    let todaySchedule;
+    if (minimumDay) {
+        if (weeklySchedule[minimumDay]) {
+        todaySchedule = weeklySchedule[minimumDay];
+        } else {
+        console.warn(`Unknown schedule type from Airtable: "${minimumDay}"`);
+        todaySchedule = weeklySchedule["Block"];
+        }
+    } else if (weekdayID === 1) {
+        todaySchedule = weeklySchedule["Monday"];
+    } else {
+        todaySchedule = weeklySchedule["Block"];
+    }
+    return todaySchedule;
+    }
+
+    // Patch updateSchedule() to use the custom fallback:
+    function updateSchedule() {
+    const todaySchedule = getTodayScheduleWithCustomFallback();
+    scheduleListElement.innerHTML = '';
+
+    todaySchedule.forEach(period => {
+        const li = document.createElement('li');
+        li.className = 'schedule-item';
+        if (period.error) {
+        li.innerHTML = `<span style="color:#b00020">${period.error}</span>`;
+        } else {
+        li.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.name}`;
+        }
+        scheduleListElement.appendChild(li);
+    });
+    }
+
+    // Patch updateCurrentPeriodAndCountdown() similarly:
+    function updateCurrentPeriodAndCountdown() {
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const todaySchedule = getTodayScheduleWithCustomFallback();
+
+    const validPeriods = todaySchedule.filter(p => !p.error);
+    const currentPeriod = validPeriods.find(p => currentMinutes >= p.start && currentMinutes < p.end);
+    const nextPeriod = validPeriods.find(p => currentMinutes < p.start);
+
+    if (currentPeriod) {
+        currentPeriodElement.textContent = `${currentPeriod.name}`;
+        const remainingSeconds = (currentPeriod.end - currentMinutes) * 60 - now.getSeconds();
+        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
+    } else if (nextPeriod) {
+        currentPeriodElement.textContent = `Next: ${nextPeriod.name}`;
+        const remainingSeconds = (nextPeriod.start - currentMinutes) * 60 - now.getSeconds();
+        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
+    } else {
+        currentPeriodElement.textContent = isCustomRoute() ? "Custom schedule complete." : "School is over for today!";
+        countdownElement.textContent = "";
+    }
+    }
+
+    function initialize() {
+      // Initialize variables and ensure schedule updates even if fetching dates fails
+      initializeVariables().catch(err => {
+        console.error('[initialize] initializeVariables failed:', err);
+      }).then(() => {
+        try {
+          displayCurrentTime();
+          updateSchedule();
+          updateCurrentPeriodAndCountdown();
+          setInterval(displayCurrentTime, 1000);
+          setInterval(updateCurrentPeriodAndCountdown, 1000);
+
+          // Attach 24-hour switch listener safely (ensure element exists)
+          const hrSwitch = document.getElementById('24HrSwitch');
+          if (hrSwitch) {
+            hrSwitch.addEventListener('change', (event) => {
+              is24HourFormat = event.target.checked;
+              displayCurrentTime();
+              updateSchedule();
+            });
+          } else {
+            console.warn('[initialize] 24HrSwitch element not found');
+          }
+        } catch (err) {
+          console.error('[initialize] Error during post-init setup:', err);
+        }
+      });
+    }
+
+    // Use DOMContentLoaded to ensure DOM elements are present and avoid onload overrides
+    document.addEventListener('DOMContentLoaded', initialize);
+  </script>
+</body>
+</html>
