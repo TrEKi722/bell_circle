@@ -239,12 +239,20 @@
             body: JSON.stringify({ longURL: customURL })
         })
         .then(r => r.json())
+        .then(r => {
+            if (r.short) {
+                var shortUrl = r.short;
+                alert("Your custom schedule URL:\n\n" + shortUrl + "\n\nSave this so you can return to your schedule. You will now be taken to your schedule.");
+                window.location.href = shortUrl;
+            } else {
+                alert("Error generating URL. Please try again.");
+            }
+        })
         .then(console.log)
         .catch(console.error);
-        var shortUrl = r.short;
 
         // Display the URL and navigate
-        alert("Your custom schedule URL:\n\n" + shortUrl + "\n\nSave this so you can return to your schedule. You will now be taken to your schedule.");
+        alert("Your custom schedule URL:\n\n" + customURL + "\n\nSave this so you can return to your schedule. You will now be taken to your schedule.");
         window.location.href = shortUrl;
     }
   </script>
