@@ -48,7 +48,7 @@
         document.body.appendChild(script);
       });
   </script>
-  <div class="banner">
+  <!-- <div class="banner">
       <h1>
           <script>
               var today = new Date();
@@ -66,34 +66,36 @@
               document.querySelector(".banner").appendChild(container);
           </script>
       </h1>
-  </div>
+  </div> -->
   <!-- Builder Section (shown when no ?items= query) -->
   <div id="builder-section" class="section" style="display:none;">
     <h2>Schedule Builder</h2>
     <p>Add your custom schedule periods here. Put both a start and end time for all periods.</p>
 	<p>We started the first few lines for you. Edit them, and add as many lines as you need. You don't have to fill in all the lines. Click <em>Submit</em> when done. Note: enter all times in <strong>24 HR format</strong></p>
-    <label for="p01" class="builder-label">Start: </label><input type="text" class="sinput" id="s01" value="07:20"><label for="e01" class="builder-label"> End: </label><input type="text" class="einput" id="e01" value="08:20"><label for="n01" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n01" value="First Period"><br>
-    <label for="p02" class="builder-label">Start: </label><input type="text" class="sinput" id="s02" value="08:30"><label for="e02" class="builder-label"> End: </label><input type="text" class="einput" id="e02" value="10:10"><label for="n02" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n02" value="Second Period"><br>
-    <label for="p03" class="builder-label">Start: </label><input type="text" class="sinput" id="s03" value="13:35"><label for="e03" class="builder-label"> End: </label><input type="text" class="einput" id="e03" value="15:15"><label for="n03" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n03" value="Sixth Period"><br>
-    <label for="p04" class="builder-label">Start: </label><input type="text" class="sinput" id="s04"><label for="e04" class="builder-label"> End: </label><input type="text" class="einput" id="e04"><label for="n04" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n04"><br>
-    <label for="p05" class="builder-label">Start: </label><input type="text" class="sinput" id="s05"><label for="e05" class="builder-label"> End: </label><input type="text" class="einput" id="e05"><label for="n05" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n05"><br>
-    <label for="p06" class="builder-label">Start: </label><input type="text" class="sinput" id="s06"><label for="e06" class="builder-label"> End: </label><input type="text" class="einput" id="e06"><label for="n06" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n06"><br>
-    <label for="p07" class="builder-label">Start: </label><input type="text" class="sinput" id="s07"><label for="e07" class="builder-label"> End: </label><input type="text" class="einput" id="e07"><label for="n07" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n07"><br>
-    <label for="p08" class="builder-label">Start: </label><input type="text" class="sinput" id="s08"><label for="e08" class="builder-label"> End: </label><input type="text" class="einput" id="e08"><label for="n08" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n08"><br>
-    <label for="p09" class="builder-label">Start: </label><input type="text" class="sinput" id="s09"><label for="e09" class="builder-label"> End: </label><input type="text" class="einput" id="e09"><label for="n09" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n09"><br>
-    <label for="p10" class="builder-label">Start: </label><input type="text" class="sinput" id="s10"><label for="e10" class="builder-label"> End: </label><input type="text" class="einput" id="e10"><label for="n10" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n10"><br>
-    <label for="p11" class="builder-label">Start: </label><input type="text" class="sinput" id="s11"><label for="e11" class="builder-label"> End: </label><input type="text" class="einput" id="e11"><label for="n11" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n11"><br>
-    <label for="p12" class="builder-label">Start: </label><input type="text" class="sinput" id="s12"><label for="e12" class="builder-label"> End: </label><input type="text" class="einput" id="e12"><label for="n12" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n12"><br>
-    <label for="p13" class="builder-label">Start: </label><input type="text" class="sinput" id="s13"><label for="e13" class="builder-label"> End: </label><input type="text" class="einput" id="e13"><label for="n13" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n13"><br>
-    <label for="p14" class="builder-label">Start: </label><input type="text" class="sinput" id="s14"><label for="e14" class="builder-label"> End: </label><input type="text" class="einput" id="e14"><label for="n14" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n14"><br>
-    <label for="p15" class="builder-label">Start: </label><input type="text" class="sinput" id="s15"><label for="e15" class="builder-label"> End: </label><input type="text" class="einput" id="e15"><label for="n15" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n15"><br>
-    <div>
-        <i class="fa-solid fa-minus" onClick=removeRow()></i>
-        <i class="fa-solid fa-plus" onClick=addRow()></i>
+    <div id="input-container">
+        <label for="p01" class="builder-label">Start: </label><input type="text" class="sinput" id="s01" value="07:20"><label for="e01" class="builder-label"> End: </label><input type="text" class="einput" id="e01" value="08:20"><label for="n01" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n01" value="First Period"><br>
+        <label for="p02" class="builder-label">Start: </label><input type="text" class="sinput" id="s02" value="08:30"><label for="e02" class="builder-label"> End: </label><input type="text" class="einput" id="e02" value="10:10"><label for="n02" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n02" value="Second Period"><br>
+        <label for="p03" class="builder-label">Start: </label><input type="text" class="sinput" id="s03" value="13:35"><label for="e03" class="builder-label"> End: </label><input type="text" class="einput" id="e03" value="15:15"><label for="n03" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n03" value="Sixth Period"><br>
+        <label for="p04" class="builder-label">Start: </label><input type="text" class="sinput" id="s04"><label for="e04" class="builder-label"> End: </label><input type="text" class="einput" id="e04"><label for="n04" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n04"><br>
+        <label for="p05" class="builder-label">Start: </label><input type="text" class="sinput" id="s05"><label for="e05" class="builder-label"> End: </label><input type="text" class="einput" id="e05"><label for="n05" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n05"><br>
+        <label for="p06" class="builder-label">Start: </label><input type="text" class="sinput" id="s06"><label for="e06" class="builder-label"> End: </label><input type="text" class="einput" id="e06"><label for="n06" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n06"><br>
+        <label for="p07" class="builder-label">Start: </label><input type="text" class="sinput" id="s07"><label for="e07" class="builder-label"> End: </label><input type="text" class="einput" id="e07"><label for="n07" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n07"><br>
+        <label for="p08" class="builder-label">Start: </label><input type="text" class="sinput" id="s08"><label for="e08" class="builder-label"> End: </label><input type="text" class="einput" id="e08"><label for="n08" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n08"><br>
+        <label for="p09" class="builder-label">Start: </label><input type="text" class="sinput" id="s09"><label for="e09" class="builder-label"> End: </label><input type="text" class="einput" id="e09"><label for="n09" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n09"><br>
+        <label for="p10" class="builder-label">Start: </label><input type="text" class="sinput" id="s10"><label for="e10" class="builder-label"> End: </label><input type="text" class="einput" id="e10"><label for="n10" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n10"><br>
+        <label for="p11" class="builder-label">Start: </label><input type="text" class="sinput" id="s11"><label for="e11" class="builder-label"> End: </label><input type="text" class="einput" id="e11"><label for="n11" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n11"><br>
+        <label for="p12" class="builder-label">Start: </label><input type="text" class="sinput" id="s12"><label for="e12" class="builder-label"> End: </label><input type="text" class="einput" id="e12"><label for="n12" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n12"><br>
+        <label for="p13" class="builder-label">Start: </label><input type="text" class="sinput" id="s13"><label for="e13" class="builder-label"> End: </label><input type="text" class="einput" id="e13"><label for="n13" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n13"><br>
+        <label for="p14" class="builder-label">Start: </label><input type="text" class="sinput" id="s14"><label for="e14" class="builder-label"> End: </label><input type="text" class="einput" id="e14"><label for="n14" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n14"><br>
+        <label for="p15" class="builder-label">Start: </label><input type="text" class="sinput" id="s15"><label for="e15" class="builder-label"> End: </label><input type="text" class="einput" id="e15"><label for="n15" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n15"><br>
     </div>
-	<br>
-	<button onclick="checkfields()" type="button">Submit</button>
-	</div>
+    <div>
+        <i class="fa-solid fa-minus" onClick=removeRow() style="font-size:.5em;"></i>
+        <i class="fa-solid fa-plus" onClick=addRow() style="font-size:.5em;"></i>
+    </div>
+    <div>
+	    <button onclick="checkfields()" type="button">Submit</button>
+    </div>
   </div>
   <script>
     function removeRow(){
@@ -116,7 +118,7 @@
         }
     }
     function addRow(){
-        var container = document.getElementById("builder-section");
+        var container = document.getElementById("input-container");
         var starts = document.getElementsByClassName("sinput");
         var ends = document.getElementsByClassName("einput");
         var names = document.getElementsByClassName("ninput");
@@ -146,15 +148,12 @@
         inputName.className = "ninput";
         inputName.id = "n" + (tl < 10 ? "0" + tl : tl);
 
-        var br = document.createElement("br");
-
         container.appendChild(labelStart);
         container.appendChild(inputStart);
         container.appendChild(labelEnd);
         container.appendChild(inputEnd);
         container.appendChild(labelName);
         container.appendChild(inputName);
-        container.appendChild(br);
     }
     function timeToMinutes24h(timeStr) {
       // Parse "HH:MM" format (24-hour)
