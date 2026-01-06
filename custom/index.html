@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().gecurstart(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+  <!-- End Google Tag Manager --> 
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../css/light.css">
+  <script>
+    // Apply saved theme from localStorage immediately
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        const link = document.querySelector('link[rel="stylesheet"]');
+        if (link) {
+          link.href = link.href.replace('light.css', 'dark.css');
+        }
+      }
+    })();
+  </script>
+  <link rel="icon" type="image/png" href="/Media/Logos/Icon_LightPrimary.png">
+  <title>Custom - Bell Circle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <meta name="description" content="Bell Circle - Your hub for school schedules, updates, and resources."> -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+  <body>
+    <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().gecurstart(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+  <!-- End Google Tag Manager --> 
+  <div id="navbar-container"></div>
+  <script>
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        // After navbar is injected, load its script
+        const script = document.createElement("script");
+        script.src = "/navbar.js";
+        document.body.appendChild(script);
+      });
+  </script>
+  <!-- <div class="banner">
+      <h1>
+          <script>
+              var today = new Date();
+              var dayOfWeek = today.getDay();
+
+              var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+              var dayText = weekdays[dayOfWeek];
+
+              var container = document.createElement("div");
+              container.style.display = "flex";
+              container.style.alignItems = "center";
+              container.appendChild(img);
+              container.appendChild(document.createTextNode(" " + dayText));
+
+              document.querySelector(".banner").appendChild(container);
+          </script>
+      </h1>
+  </div> -->
+  <!-- Builder Section (shown when no ?items= query) -->
+  <div id="builder-section" class="section" style="display:none;">
+    <h2>Schedule Builder</h2>
+    <p>Add your custom schedule periods here. Put both a start and end time for all periods. Add as many lines as you need. You don't have to fill in all the lines. Click <em>Submit</em> when done. Note: enter all times in <strong>24 HR format</strong></p>
+    <div id="input-container">
+        <label for="p01" class="builder-label">Start: </label><input type="text" class="sinput" id="s01" value="07:20"><label for="e01" class="builder-label"> End: </label><input type="text" class="einput" id="e01" value="08:20"><label for="n01" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n01" value="First Period"><br>
+    </div>
+    <div>
+        <i class="fa-solid fa-minus" onClick=removeRow() style="font-size:.5em; cursor:pointer;"></i>
+        <i class="fa-solid fa-plus" onClick=addRow() style="font-size:.5em; cursor:pointer;"></i>
+    </div>
+    <div>
+	    <button onclick="checkfields()" class="builder-submit" type="button">Submit</button>
+    </div>
+    <div>
+        <p id="custom-answer" display="none"></p>
+    </div>
+  </div>
+  <script>
+    function initializeBuilder(){
+        // Add initial 7 rows
+        for (var i = 0; i < 7; i++){
+            addRow();
+        }
+    }
+    window.onload = initializeBuilder;
+
+    function removeRow(){
+        var starts = document.getElementsByClassName("sinput");
+        var ends = document.getElementsByClassName("einput");
+        var names = document.getElementsByClassName("ninput");
+        var tl = starts.length;
+
+        if (tl > 1){
+            starts[tl - 1].parentNode.removeChild(starts[tl - 1]);
+            ends[tl - 1].parentNode.removeChild(ends[tl - 1]);
+            names[tl - 1].parentNode.removeChild(names[tl - 1]);
+        }
+        // Remove labels
+        var labels = document.querySelectorAll("#builder-section label");
+        if (labels.length > 3){
+            labels[labels.length - 1].parentNode.removeChild(labels[labels.length - 1]);
+            labels[labels.length - 2].parentNode.removeChild(labels[labels.length - 2]);
+            labels[labels.length - 3].parentNode.removeChild(labels[labels.length - 3]);
+        }
+        // Remove the <br> element
+        var brs = document.querySelectorAll("#input-container br");
+        if (brs.length > 1) {
+          brs[brs.length - 1].parentNode.removeChild(brs[brs.length - 1]);
+        }
+    }
+    function addRow(){
+        var container = document.getElementById("input-container");
+        var starts = document.getElementsByClassName("sinput");
+        var ends = document.getElementsByClassName("einput");
+        var names = document.getElementsByClassName("ninput");
+        var tl = starts.length + 1;
+        var br = document.createElement("br");
+
+        var labelStart = document.createElement("label");
+        labelStart.setAttribute("for", "p" + (tl < 10 ? "0" + tl : tl));
+        labelStart.className = "builder-label";
+        labelStart.textContent = "Start: ";
+        var inputStart = document.createElement("input");
+        inputStart.type = "text";
+        inputStart.className = "sinput";
+        inputStart.id = "s" + (tl < 10 ? "0" + tl : tl);
+
+        var labelEnd = document.createElement("label");
+        labelEnd.setAttribute("for", "e" + (tl < 10 ? "0" + tl : tl));
+        labelEnd.className = "builder-label";
+        labelEnd.textContent = " End: ";
+        var inputEnd = document.createElement("input");
+        inputEnd.type = "text";
+        inputEnd.className = "einput";
+        inputEnd.id = "e" + (tl < 10 ? "0" + tl : tl);
+
+        var labelName = document.createElement("label");
+        labelName.setAttribute("for", "n" + (tl < 10 ? "0" + tl : tl));
+        labelName.className = "builder-label";
+        labelName.textContent = " Name: ";
+        var inputName = document.createElement("input");
+        inputName.type = "text";
+        inputName.className = "ninput";
+        inputName.id = "n" + (tl < 10 ? "0" + tl : tl);
+
+        container.appendChild(labelStart);
+        container.appendChild(inputStart);
+        container.appendChild(labelEnd);
+        container.appendChild(inputEnd);
+        container.appendChild(labelName);
+        container.appendChild(inputName);
+        container.appendChild(br);
+    }
+    function timeToMinutes24h(timeStr) {
+      // Parse "HH:MM" format (24-hour)
+      const m = timeStr.trim().match(/^(\d{1,2}):(\d{2})$/);
+      if (!m) return null;
+      const h = parseInt(m[1], 10);
+      const min = parseInt(m[2], 10);
+      if (h < 0 || h > 23 || min < 0 || min > 59) return null;
+      return h * 60 + min;
+    }
+
+    function checkfields(){
+        var starts = document.getElementsByClassName("sinput");
+        var ends = document.getElementsByClassName("einput");
+        var names = document.getElementsByClassName("ninput");
+        var tl = starts.length;
+
+        var timereg = new RegExp("^([01]?[0-9]|2[0-3]):[0-5][0-9]$");
+        var descripreg = new RegExp("^[A-Za-z0-9 \\!\\'\\'\\#\\(\\)\\.\,\\-\\+]{1,40}$");
+        var goodfields = true;
+        var items = [];
+
+        for (x = 0; x < tl; x++){
+            if (starts[x].value.length > 0){
+                // Validate start time
+                if (!timereg.test(starts[x].value)){
+                    goodfields = false;
+                    alert("Invalid start time in period " + (x + 1) + ". Enter time in HH:MM format (24-hour).");
+                    return;
+                }
+                // Validate end time
+                if (ends[x].value.length < 1){
+                    goodfields = false;
+                    alert("Missing end time for period " + (x + 1) + ". All periods with a start time must have an end time.");
+                    return;
+                }
+                if (!timereg.test(ends[x].value)){
+                    goodfields = false;
+                    alert("Invalid end time in period " + (x + 1) + ". Enter time in HH:MM format (24-hour).");
+                    return;
+                }
+                // Validate name
+                if (names[x].value.length < 1){
+                    goodfields = false;
+                    alert("Missing name for period " + (x + 1) + ". All periods with times must have a description.");
+                    return;
+                }
+                if (!descripreg.test(names[x].value)){
+                    goodfields = false;
+                    alert("Invalid name value in period " + (x + 1) + ". You may enter from 1 to 40 letters, numbers, spaces, and these characters: '-#(),!.+");
+                    return;
+                }
+                // Check that end time is after start time
+                var startMin = timeToMinutes24h(starts[x].value);
+                var endMin = timeToMinutes24h(ends[x].value);
+                if (endMin <= startMin){
+                    goodfields = false;
+                    alert("Invalid times in period " + (x + 1) + ". End time must be after start time.");
+                    return;
+                }
+                // Build item: "HH:MM-HH:MM@Name_with_underscores"
+                var nameEncoded = names[x].value.replace(/ /g, "_");
+                var item = starts[x].value + "-" + ends[x].value + "@" + nameEncoded;
+                items.push(item);
+            }
+        }
+
+        if (items.length === 0){
+            alert("Please enter at least one period with both start and end times and a name.");
+            return;
+        }
+
+        // Build the URL
+        var itemsString = items.join("+");
+        var encodedItems = encodeURIComponent(itemsString);
+        var customUrl = window.location.origin + window.location.pathname + "?items=" + encodedItems;
+        const answer = document.getElementById("custom-answer");
+        answer.style.display = "block";
+
+        fetch("https://c.bell-circle.com/api/shorten", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ longURL: customUrl })
+        })
+        .then(r => r.json())
+        .then(r => {
+            if (r.short) {
+                var shortUrl = r.short;
+                answer.innerHTML = `Your custom schedule URL:<br><br><a href="${shortUrl}">${shortUrl}</a><br><br>Save this so you can return to your schedule.`;
+            } else {
+                alert("Error generating URL. Please try again.");
+            }
+        })
+        .then(console.log)
+        .catch(console.error);
+
+    }
+  </script>
+  <!-- Schedule Display Section (shown when ?items= query exists) -->
+  <div id="schedule-section" class="schedule" style="display:none;">
+    <h1 id="current-date"></h1>
+    <h1 id="current-timedate"></h1>
+    <p id="current-period" style="font-size:40px"></p>
+    <p id="countdown"></p>
+    <h2>Today's Schedule:</h2>
+    <ul id="schedule-list"></ul>
+  </div>
+  <div class="switch-container" id="24-switch-container">
+    <label class="switch">
+      <input type="checkbox" id="24HrSwitch" name="24HrSwitch" value="24HrSwitch">
+      <span class="slider round"></span>
+    </label>
+    <label for="24HrSwitch" class="switch-label">24Hr Time</label>
+  </div>
+</div> 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the modal elements
+      var modal = document.getElementById("schedule-modal");
+      var btn = document.getElementById("irregular-btn");
+      var span = document.getElementsByClassName("close-btn")[0];
+
+      // Open the modal when the button is clicked
+      btn.onclick = function(e) {
+        e.preventDefault(); // Prevent default link behavior if it's an <a> tag
+        modal.style.display = "block";
+      }
+
+      // Close the modal when 'x' is clicked
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      // Close the modal when clicking outside of the box
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+      
+      // Optional: Close on 'Esc' key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape" && modal.style.display === "block") {
+            modal.style.display = "none";
+        }
+      });
+    });
+  </script>
+  <div id="footer-container" class="footer"></div>
+  <script>
+      // Load navbar from navbar.html
+      fetch('/footer.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('footer-container').innerHTML = html;
+        });
+  </script>
+
+  <script>
+    const scheduleListElement = document.getElementById("schedule-list");
+    const currencurstartDateElement = document.getElementById("current-timedate");
+    const currentPeriodElement = document.getElementById("current-period");
+    const countdownElement = document.getElementById("countdown");
+
+    let is24HourFormat = false;
+
+    function isCustomRoute() {
+      return window.location.pathname.startsWith('/custom');
+    }
+
+    function safeDecode(str) {
+      try { return decodeURIComponent(str); } catch { return str; }
+    }
+
+    function toMinutes24h(hhmm) {
+      const m = hhmm.match(/^(\d{1,2}):(\d{2})$/);
+      if (!m) return null;
+      const h = parseInt(m[1], 10);
+      const min = parseInt(m[2], 10);
+      if (h < 0 || h > 23 || min < 0 || min > 59) return null;
+      return h * 60 + min;
+    }
+
+    function parseCustomScheduleFromQuery() {
+      // Try to preserve literal '+' separators by reading raw query string.
+      const m = window.location.search.match(/[?&]items=([^&]*)/);
+      let raw = m ? m[1] : null;
+      // Fallback to URLSearchParams if nothing found
+      if (!raw) {
+        const params = new URLSearchParams(window.location.search);
+        raw = params.get('items');
+        if (!raw) return null;
+      }
+
+      // raw now contains the raw (percent-encoded) value where '+' are separators
+      const parts = raw.split('+').map(s => s.trim()).filter(Boolean);
+      if (parts.length === 0) return null;
+
+      const result = [];
+      for (const part of parts) {
+        // Decode percent-encodings for this part, preserving spaces that may be encoded as + originally
+        const item = safeDecode(part);
+        const atIdx = item.indexOf('@');
+        if (atIdx === -1) { result.push({ error: `Missing \"@\": \"${item}\"` }); continue; }
+        const timeSpec = item.slice(0, atIdx).trim();
+        const rawName = item.slice(atIdx + 1).trim();
+        const dashIdx = timeSpec.indexOf('-');
+        if (dashIdx === -1) { result.push({ error: `Missing \"-\" between start and end: \"${item}\"` }); continue; }
+        const startStr = timeSpec.slice(0, dashIdx).trim();
+        const endStr = timeSpec.slice(dashIdx + 1).trim();
+        const startMin = toMinutes24h(startStr);
+        const endMin = toMinutes24h(endStr);
+        if (startMin == null || endMin == null) { result.push({ error: `Invalid time(s): \"${timeSpec}\"` }); continue; }
+        if (endMin <= startMin) { result.push({ error: `End must be after start: \"${timeSpec}\"` }); continue; }
+        const name = rawName.replace(/_/g, ' ');
+        result.push({ start: startMin, end: endMin, name });
+      }
+      return result.length ? result : null;
+    }
+
+    function formacurstart(minutes) {
+      const hour = Math.floor(minutes / 60);
+      const minute = minutes % 60;
+      if (is24HourFormat) {
+        return `${hour}:${minute < 10 ? '0' : ''}${minute}`;
+      } else {
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const formattedHour = hour % 12 || 12;
+        return `${formattedHour}:${minute < 10 ? '0' : ''}${minute} ${period}`;
+      }
+    }
+
+    function displayCurrencurstart() {
+      const now = new Date();
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: !is24HourFormat };
+      const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+      currencurstartDateElement.textContent = now.toLocaleDateString([], dateOptions) + ', ' + now.toLocaleTimeString([], timeOptions);
+    }
+
+    function updateSchedule() {
+      const schedule = parseCustomScheduleFromQuery();
+      scheduleListElement.innerHTML = '';
+      if (!schedule) {
+        const li = document.createElement('li');
+        li.className = 'schedule-item';
+        li.innerHTML = `<span style="color:#b00020">No custom items supplied. Use ?items=HH%3AMM-HH%3AMM@Name_with_underscores joined by +</span>`;
+        scheduleListElement.appendChild(li);
+        return;
+      }
+      schedule.forEach(p => {
+        const li = document.createElement('li');
+        li.className = 'schedule-item';
+        if (p.error) li.innerHTML = `<span style="color:#b00020">${p.error}</span>`;
+        else li.textContent = `${formacurstart(p.start)} - ${formacurstart(p.end)}: ${p.name}`;
+        scheduleListElement.appendChild(li);
+      });
+    }
+
+    function updateCurrentPeriodAndCountdown() {
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const schedule = parseCustomScheduleFromQuery() || [];
+      const validPeriods = schedule.filter(p => !p.error);
+      const current = validPeriods.find(p => currentMinutes >= p.start && currentMinutes < p.end);
+      const next = validPeriods.find(p => currentMinutes < p.start);
+
+      if (current) {
+        currentPeriodElement.textContent = `${current.name}`;
+        const remainingSeconds = (current.end - currentMinutes) * 60 - now.getSeconds();
+        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
+      } else if (next) {
+        currentPeriodElement.textContent = `Next: ${next.name}`;
+        const remainingSeconds = (next.start - currentMinutes) * 60 - now.getSeconds();
+        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
+      } else {
+        currentPeriodElement.textContent = 'Done for the day!';
+        countdownElement.textContent = '';
+      }
+    }
+
+    function hasItemsQuery() {
+      return window.location.search.includes('items=');
+    }
+
+    function toggleView() {
+      const builderSection = document.getElementById('builder-section');
+      const scheduleSection = document.getElementById('schedule-section');
+      const switchContainer = document.getElementById('24-switch-container');
+      
+      if (hasItemsQuery()) {
+        builderSection.style.display = 'none';
+        scheduleSection.style.display = 'block';
+        switchContainer.style.display = 'flex';
+      } else {
+        builderSection.style.display = 'block';
+        scheduleSection.style.display = 'none';
+        switchContainer.style.display = 'none';
+      }
+    }
+
+    function initialize() {
+      toggleView();
+
+      if (hasItemsQuery()) {
+        displayCurrencurstart();
+        updateSchedule();
+        updateCurrentPeriodAndCountdown();
+        setInterval(displayCurrencurstart, 1000);
+        setInterval(updateCurrentPeriodAndCountdown, 1000);
+      }
+
+      const hrSwitch = document.getElementById('24HrSwitch');
+      if (hrSwitch) {
+        is24HourFormat = hrSwitch.checked;
+        hrSwitch.addEventListener('change', (e) => { is24HourFormat = e.target.checked; displayCurrencurstart(); updateSchedule(); });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initialize);
+  </script>
+</body>
+</html>
