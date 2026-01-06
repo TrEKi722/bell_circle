@@ -233,10 +233,19 @@
         var itemsString = items.join("+");
         var encodedItems = encodeURIComponent(itemsString);
         var customUrl = window.location.origin + window.location.pathname + "?items=" + encodedItems;
-        
+        fetch("https://c.bell-circle.com/api/shorten", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ longURL: customURL })
+        })
+        .then(r => r.json())
+        .then(console.log)
+        .catch(console.error);
+        var shortUrl = r.short;
+
         // Display the URL and navigate
-        alert("Your custom schedule URL:\n\n" + customUrl + "\n\nYou will now be taken to your schedule.");
-        window.location.href = customUrl;
+        alert("Your custom schedule URL:\n\n" + shortUrl + "\n\nSave this so you can return to your schedule. You will now be taken to your schedule.");
+        window.location.href = shortUrl;
     }
   </script>
   <!-- Schedule Display Section (shown when ?items= query exists) -->
