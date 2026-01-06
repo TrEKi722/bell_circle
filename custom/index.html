@@ -71,7 +71,7 @@
   <div id="builder-section" class="section" style="display:none;">
     <h2>Schedule Builder</h2>
     <p>Add your custom schedule periods here. Put both a start and end time for all periods.</p>
-	<p>We started the first few lines for you. Edit them, and add as many lines as you need. You don't have to fill in all the lines. Click <em>Submit</em> when done. Note: enter all times in <strong>24 HR format</strong></p>
+	<p>Add as many lines as you need. You don't have to fill in all the lines. Click <em>Submit</em> when done. Note: enter all times in <strong>24 HR format</strong></p>
     <div id="input-container">
         <!-- <label for="p01" class="builder-label">Start: </label><input type="text" class="sinput" id="s01" value="07:20"><label for="e01" class="builder-label"> End: </label><input type="text" class="einput" id="e01" value="08:20"><label for="n01" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n01" value="First Period"><br>
         <label for="p02" class="builder-label">Start: </label><input type="text" class="sinput" id="s02" value="08:30"><label for="e02" class="builder-label"> End: </label><input type="text" class="einput" id="e02" value="10:10"><label for="n02" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n02" value="Second Period"><br>
@@ -115,6 +115,11 @@
             labels[labels.length - 1].parentNode.removeChild(labels[labels.length - 1]);
             labels[labels.length - 2].parentNode.removeChild(labels[labels.length - 2]);
             labels[labels.length - 3].parentNode.removeChild(labels[labels.length - 3]);
+        }
+        // Remove the <br> element
+        var brs = document.querySelectorAll("#input-container br");
+        if (brs.length > 0) {
+          brs[brs.length - 1].parentNode.removeChild(brs[brs.length - 1]);
         }
     }
     function addRow(){
