@@ -23,7 +23,7 @@
     })();
   </script>
   <link rel="icon" type="image/png" href="/Media/Logos/Icon_LightPrimary.png">
-  <title>Aliso Niguel - Bell Circle</title>
+  <title>Custom - Bell Circle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <meta name="description" content="Bell Circle - Your hub for school schedules, updates, and resources."> -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -56,12 +56,6 @@
 
               var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
               var dayText = weekdays[dayOfWeek];
-              var iconUrl = "../Media/SchoolIcons/an.png";
-
-              var img = new Image();
-              img.src = iconUrl;
-              img.width = 85;
-              img.margin = "20px";
 
               var container = document.createElement("div");
               container.style.display = "flex";
@@ -158,16 +152,24 @@
     }
 
     function parseCustomScheduleFromQuery() {
-      const params = new URLSearchParams(window.location.search);
-      const raw = params.get('items');
-      if (!raw) return null;
+      // Try to preserve literal '+' separators by reading raw query string.
+      const m = window.location.search.match(/[?&]items=([^&]*)/);
+      let raw = m ? m[1] : null;
+      // Fallback to URLSearchParams if nothing found
+      if (!raw) {
+        const params = new URLSearchParams(window.location.search);
+        raw = params.get('items');
+        if (!raw) return null;
+      }
 
-      const decoded = safeDecode(raw);
-      const items = decoded.split('+').map(s => s.trim()).filter(Boolean);
-      if (items.length === 0) return null;
+      // raw now contains the raw (percent-encoded) value where '+' are separators
+      const parts = raw.split('+').map(s => s.trim()).filter(Boolean);
+      if (parts.length === 0) return null;
 
       const result = [];
-      for (const item of items) {
+      for (const part of parts) {
+        // Decode percent-encodings for this part, preserving spaces that may be encoded as + originally
+        const item = safeDecode(part);
         const atIdx = item.indexOf('@');
         if (atIdx === -1) { result.push({ error: `Missing \"@\": \"${item}\"` }); continue; }
         const timeSpec = item.slice(0, atIdx).trim();
