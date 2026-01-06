@@ -6,7 +6,7 @@ html, body {
     font-family: "Comfortaa", sans-serif;
     font-size: 1.75rem;
     background-color: #1E293B;
-    transition: opacity 0.3s ease;
+    transition: opacity, background-color 0.3s ease;
 }
 
 /* BODY TEXT: Centers body content and overrides font for text elements */
@@ -365,6 +365,7 @@ body.menu-open::before {
     padding: 16px;
     text-align: left;
     color: #FFFFFF;
+    transition: background 0.3s ease;
 }
 
 /* .SECTION H2: Section heading */
