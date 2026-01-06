@@ -236,7 +236,7 @@
         fetch("https://c.bell-circle.com/api/shorten", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ longURL: customURL })
+            body: JSON.stringify({ longURL: customUrl })
         })
         .then(r => r.json())
         .then(r => {
