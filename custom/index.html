@@ -70,8 +70,7 @@
   <!-- Builder Section (shown when no ?items= query) -->
   <div id="builder-section" class="section" style="display:none;">
     <h2>Schedule Builder</h2>
-    <p>Add your custom schedule periods here. Put both a start and end time for all periods.</p>
-	<p>Add as many lines as you need. You don't have to fill in all the lines. Click <em>Submit</em> when done. Note: enter all times in <strong>24 HR format</strong></p>
+    <p>Add your custom schedule periods here. Put both a start and end time for all periods. Add as many lines as you need. You don't have to fill in all the lines. Click <em>Submit</em> when done. Note: enter all times in <strong>24 HR format</strong></p>
     <div id="input-container">
         <label for="p01" class="builder-label">Start: </label><input type="text" class="sinput" id="s01" value="07:20"><label for="e01" class="builder-label"> End: </label><input type="text" class="einput" id="e01" value="08:20"><label for="n01" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n01" value="First Period"><br>
     </div>
@@ -80,7 +79,7 @@
         <i class="fa-solid fa-plus" onClick=addRow() style="font-size:.5em; cursor:pointer;"></i>
     </div>
     <div>
-	    <button onclick="checkfields()" type="button">Submit</button>
+	    <button onclick="checkfields()" class="builder-submit" type="button">Submit</button>
     </div>
   </div>
   <script>
