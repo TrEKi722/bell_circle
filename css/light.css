@@ -676,3 +676,9 @@ input:checked + .slider:before {
   text-decoration: none;
   cursor: pointer;
 }
+
+/* Custom builder css */
+.builder-label {
+  font-size: 0.75rem;
+  font-family: "Nunito Sans", sans-serif;
+}
