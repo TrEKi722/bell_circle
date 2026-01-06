@@ -81,13 +81,6 @@
         <label for="p06" class="builder-label">Start: </label><input type="text" class="sinput" id="s06"><label for="e06" class="builder-label"> End: </label><input type="text" class="einput" id="e06"><label for="n06" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n06"><br>
         <label for="p07" class="builder-label">Start: </label><input type="text" class="sinput" id="s07"><label for="e07" class="builder-label"> End: </label><input type="text" class="einput" id="e07"><label for="n07" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n07"><br>
         <label for="p08" class="builder-label">Start: </label><input type="text" class="sinput" id="s08"><label for="e08" class="builder-label"> End: </label><input type="text" class="einput" id="e08"><label for="n08" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n08"><br>
-        <label for="p09" class="builder-label">Start: </label><input type="text" class="sinput" id="s09"><label for="e09" class="builder-label"> End: </label><input type="text" class="einput" id="e09"><label for="n09" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n09"><br>
-        <label for="p10" class="builder-label">Start: </label><input type="text" class="sinput" id="s10"><label for="e10" class="builder-label"> End: </label><input type="text" class="einput" id="e10"><label for="n10" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n10"><br>
-        <label for="p11" class="builder-label">Start: </label><input type="text" class="sinput" id="s11"><label for="e11" class="builder-label"> End: </label><input type="text" class="einput" id="e11"><label for="n11" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n11"><br>
-        <label for="p12" class="builder-label">Start: </label><input type="text" class="sinput" id="s12"><label for="e12" class="builder-label"> End: </label><input type="text" class="einput" id="e12"><label for="n12" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n12"><br>
-        <label for="p13" class="builder-label">Start: </label><input type="text" class="sinput" id="s13"><label for="e13" class="builder-label"> End: </label><input type="text" class="einput" id="e13"><label for="n13" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n13"><br>
-        <label for="p14" class="builder-label">Start: </label><input type="text" class="sinput" id="s14"><label for="e14" class="builder-label"> End: </label><input type="text" class="einput" id="e14"><label for="n14" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n14"><br>
-        <label for="p15" class="builder-label">Start: </label><input type="text" class="sinput" id="s15"><label for="e15" class="builder-label"> End: </label><input type="text" class="einput" id="e15"><label for="n15" class="builder-label"> Name:&nbsp;</label><input type="text" class="ninput" id="n15"><br>
     </div>
     <div>
         <i class="fa-solid fa-minus" onClick=removeRow() style="font-size:.5em;"></i>
@@ -126,6 +119,7 @@
 
         var labelStart = document.createElement("label");
         labelStart.setAttribute("for", "p" + (tl < 10 ? "0" + tl : tl));
+        labelStart.className = "builder-label";
         labelStart.textContent = "Start: ";
         var inputStart = document.createElement("input");
         inputStart.type = "text";
@@ -134,6 +128,7 @@
 
         var labelEnd = document.createElement("label");
         labelEnd.setAttribute("for", "e" + (tl < 10 ? "0" + tl : tl));
+        labelEnd.className = "builder-label";
         labelEnd.textContent = " End: ";
         var inputEnd = document.createElement("input");
         inputEnd.type = "text";
@@ -142,6 +137,7 @@
 
         var labelName = document.createElement("label");
         labelName.setAttribute("for", "n" + (tl < 10 ? "0" + tl : tl));
+        labelName.className = "builder-label";
         labelName.textContent = " Name: ";
         var inputName = document.createElement("input");
         inputName.type = "text";
