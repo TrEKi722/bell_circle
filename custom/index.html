@@ -98,6 +98,7 @@
         }
     }
     window.onload = initializeBuilder;
+
     function removeRow(){
         var starts = document.getElementsByClassName("sinput");
         var ends = document.getElementsByClassName("einput");
@@ -111,14 +112,14 @@
         }
         // Remove labels
         var labels = document.querySelectorAll("#builder-section label");
-        if (labels.length >= 3){
+        if (labels.length > 3){
             labels[labels.length - 1].parentNode.removeChild(labels[labels.length - 1]);
             labels[labels.length - 2].parentNode.removeChild(labels[labels.length - 2]);
             labels[labels.length - 3].parentNode.removeChild(labels[labels.length - 3]);
         }
         // Remove the <br> element
         var brs = document.querySelectorAll("#input-container br");
-        if (brs.length > 0) {
+        if (brs.length > 1) {
           brs[brs.length - 1].parentNode.removeChild(brs[brs.length - 1]);
         }
     }
