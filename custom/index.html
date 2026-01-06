@@ -81,6 +81,9 @@
     <div>
 	    <button onclick="checkfields()" class="builder-submit" type="button">Submit</button>
     </div>
+    <div>
+        <p id="custom-answer" display="none"></p>
+    </div>
   </div>
   <script>
     function initializeBuilder(){
@@ -233,6 +236,9 @@
         var itemsString = items.join("+");
         var encodedItems = encodeURIComponent(itemsString);
         var customUrl = window.location.origin + window.location.pathname + "?items=" + encodedItems;
+        const answer = document.getElementById("custom-answer");
+        answer.style.display = "block";
+
         fetch("https://c.bell-circle.com/api/shorten", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -242,7 +248,7 @@
         .then(r => {
             if (r.short) {
                 var shortUrl = r.short;
-                alert("Your custom schedule URL:\n\n" + shortUrl + "\n\nSave this so you can return to your schedule. You will now be taken to your schedule.");
+                answer.textContent="Your custom schedule URL:\n\n<a href=shortUrl>" + shortUrl + "</a>\n\nSave this so you can return to your schedule.";
                 window.location.href = shortUrl;
             } else {
                 alert("Error generating URL. Please try again.");
@@ -251,9 +257,6 @@
         .then(console.log)
         .catch(console.error);
 
-        // Display the URL and navigate
-        alert("Your custom schedule URL:\n\n" + customURL + "\n\nSave this so you can return to your schedule. You will now be taken to your schedule.");
-        window.location.href = shortUrl;
     }
   </script>
   <!-- Schedule Display Section (shown when ?items= query exists) -->
