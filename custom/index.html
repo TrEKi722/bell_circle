@@ -135,117 +135,63 @@
   <script>
     const scheduleListElement = document.getElementById("schedule-list");
     const currentTimeDateElement = document.getElementById("current-timedate");
-    const currentDateElement = document.getElementById("current-date");
     const currentPeriodElement = document.getElementById("current-period");
     const countdownElement = document.getElementById("countdown");
 
-    let weekdayID = 0;
-    let dateList = [];
-    let minimumDay = false;
-    let is24HourFormat = false; // Whether or not to default to 24-hour format
+    let is24HourFormat = false;
 
-    async function fetchDateList() {
-      try {
-        const response = await fetch('../SpecialSchedules/ANHS.json');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        // Expecting an array of objects with properties: date (yyyy-mm-dd) and details (schedule name)
-        dateList = data.map(item => ({
-          date: item.date,
-          details: item.details
-        }));
-        console.log("Fetched dates from JSON:", dateList);
-      } catch (error) {
-        console.error('Error fetching local JSON schedule data:', error.message);
+    function isCustomRoute() {
+      return window.location.pathname.startsWith('/custom');
+    }
+
+    function safeDecode(str) {
+      try { return decodeURIComponent(str); } catch { return str; }
+    }
+
+    function toMinutes24h(hhmm) {
+      const m = hhmm.match(/^(\d{1,2}):(\d{2})$/);
+      if (!m) return null;
+      const h = parseInt(m[1], 10);
+      const min = parseInt(m[2], 10);
+      if (h < 0 || h > 23 || min < 0 || min > 59) return null;
+      return h * 60 + min;
+    }
+
+    function parseCustomScheduleFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const raw = params.get('items');
+      if (!raw) return null;
+
+      const decoded = safeDecode(raw);
+      const items = decoded.split('+').map(s => s.trim()).filter(Boolean);
+      if (items.length === 0) return null;
+
+      const result = [];
+      for (const item of items) {
+        const atIdx = item.indexOf('@');
+        if (atIdx === -1) { result.push({ error: `Missing \"@\": \"${item}\"` }); continue; }
+        const timeSpec = item.slice(0, atIdx).trim();
+        const rawName = item.slice(atIdx + 1).trim();
+        const dashIdx = timeSpec.indexOf('-');
+        if (dashIdx === -1) { result.push({ error: `Missing \"-\" between start and end: \"${item}\"` }); continue; }
+        const startStr = timeSpec.slice(0, dashIdx).trim();
+        const endStr = timeSpec.slice(dashIdx + 1).trim();
+        const startMin = toMinutes24h(startStr);
+        const endMin = toMinutes24h(endStr);
+        if (startMin == null || endMin == null) { result.push({ error: `Invalid time(s): \"${timeSpec}\"` }); continue; }
+        if (endMin <= startMin) { result.push({ error: `End must be after start: \"${timeSpec}\"` }); continue; }
+        const name = rawName.replace(/_/g, ' ');
+        result.push({ start: startMin, end: endMin, name });
       }
+      return result.length ? result : null;
     }
-
-    function fetchWeekdayNumber() {
-      const now = new Date();
-      const temp = now.toLocaleDateString('en-US', {weekday: 'short'});
-      weekdayID = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(temp);
-    }
-
-    function isMinimumDay() {
-      const todayDate = new Date().toISOString().split('T')[0];
-      // Find if today matches a date in the list and get its details (schedule name)
-      const found = dateList.find(item => item.date === todayDate);
-      if (found) {
-        console.log("Schedule for today:", found.details);
-        return found.details;
-      }
-      return null;
-    }
-
-    async function initializeVariables() {
-      await fetchDateList();
-      fetchWeekdayNumber();
-      minimumDay = isMinimumDay(); // now returns schedule name or null
-      console.log("Weekday ID:", weekdayID);
-      console.log("Today's Schedule:", minimumDay);
-    }
-
-    const weeklySchedule = {
-      // MONDAY LATE START 1-6
-      "Monday": [
-        { start: 9 * 60 + 10, end: 9 * 60 + 55, name: "First Period" }, // 9:10-9:55
-        { start: 10 * 60 + 5, end: 10 * 60 + 50, name: "Second Period" }, // 10:05-10:50
-        { start: 11 * 60, end: 12 * 60, name: "Third Period" }, // 11:00-12:00
-        { start: 12 * 60 + 10, end: 12 * 60 + 55, name: "Fourth Period" }, // 12:10-12:55
-        { start: 12 * 60 + 55, end: 13 * 60 + 25, name: "Lunch"},
-        { start: 13 * 60 + 35, end: 14 * 60 + 20, name: "Fifth Period" }, // 1:35-2:20
-        { start: 14 * 60 + 30, end: 15 * 60 + 15, name: "Sixth Period" } // 2:30-3:15
-      ],
-      // BLOCK SCHEDULES
-      "Block": [
-        { start: 7 * 60 + 20, end: 8 * 60 + 20, name: "Zero Period" }, // 7:20-8:20
-        { start: 8 * 60 + 30, end: 10 * 60 + 10, name: "First or Second Period" }, // 8:30-10:10
-        { start: 10 * 60 + 20, end: 11 * 60, name: "Wolverine+" }, // 10:20-11:00
-        { start: 11 * 60 + 10, end: 12 * 60 + 50, name: "Third or Fourth Period" }, // 11:10-12:50
-        { start: 12 * 60 + 50, end: 13 * 60 + 25, name: "Lunch"},
-        { start: 13 * 60 + 35, end: 15 * 60 + 15, name: "Fifth or Sixth Period" } // 1:35-3:15
-      ],
-      // CAASPP SPECIAL BLOCK
-      "CAASPP": [
-        { start: 7 * 60 + 20, end: 8 * 60 + 20, name: "Zero Period" }, // 7:20-8:20
-        { start: 8 * 60 + 30, end: 10 * 60 + 5, name: "First or Second Period" }, // 8:30-10:05
-        { start: 10 * 60 + 15, end: 11 * 60 + 10, name: "Wolverine+" }, // 10:15-11:10
-        { start: 11 * 60 + 25, end: 13 * 60, name: "Third or Fourth Period" }, // 11:25-1:00
-        { start: 13 * 60, end: 13 * 60 + 30, name: "Lunch"},
-        { start: 13 * 60 + 40, end: 15 * 60 + 15, name: "Fifth or Sixth Period" } // 1:40-3:15
-      ],
-      // FINAL EXAM SCHEDULE
-      "Finals": [
-        { start: 8 * 60 + 30, end: 10 * 60 + 55, name: "First Exam" }, // 8:30-10:55
-        { start: 11 * 60 + 5, end: 13 * 60 + 30, name: "Second Exam" } // 11:05-1:30
-      ],
-      // SPECIAL MINIMUM DAY BLOCK
-      "Special Minimum Day Block": [
-        { start: 7 * 60 + 20, end: 8 * 60 + 20, name: "Zero Period" }, // 7:20-8:20
-        { start: 8 * 60 + 30, end: 10 * 60, name: "First or Second Period" }, // 8:30-10:00
-        { start: 10 * 60 + 10, end: 11 * 60 + 40, name: "Third or Fourth Period" }, // 10:10-11:40
-        { start: 11 * 60 + 50, end: 13 * 60 + 20, name: "Fifth or Sixth Period" } // 11:50-1:20
-      ],
-      // LATE START BLOCK SCHEDULE
-      "Late Start Block": [
-        { start: 9 * 60 + 10, end: 10 * 60 + 50, name: "First or Second Period" }, // 9:10-10:50
-        { start: 11 * 60, end: 11 * 60 + 15, name: "Wolverine+" }, // 11:00-11:15
-        { start: 11 * 60 + 15, end: 12 * 60 + 55, name: "Third or Fourth Period" }, // 11:15-12:55
-        { start: 12 * 60 + 55, end: 13 * 60 + 25, name: "Lunch"},
-        { start: 13 * 60 + 35, end: 15 * 60 + 15, name: "Fifth or Sixth Period" } // 1:35-3:15
-      ]
-    };
 
     function formatTime(minutes) {
+      const hour = Math.floor(minutes / 60);
+      const minute = minutes % 60;
       if (is24HourFormat) {
-        const hour = Math.floor(minutes / 60);
-        const minute = minutes % 60;
         return `${hour}:${minute < 10 ? '0' : ''}${minute}`;
       } else {
-        const hour = Math.floor(minutes / 60);
-        const minute = minutes % 60;
         const period = hour >= 12 ? 'PM' : 'AM';
         const formattedHour = hour % 12 || 12;
         return `${formattedHour}:${minute < 10 ? '0' : ''}${minute} ${period}`;
@@ -255,256 +201,65 @@
     function displayCurrentTime() {
       const now = new Date();
       const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: !is24HourFormat };
-      const dateOptions = { weekday: "long", month: "long", day: "numeric", };
-      currentTimeDateElement.textContent = now.toLocaleDateString([], dateOptions) + ", " +now.toLocaleTimeString([], timeOptions);
-      //currentDateElement.textContent = now.toLocaleDateString();
+      const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+      currentTimeDateElement.textContent = now.toLocaleDateString([], dateOptions) + ', ' + now.toLocaleTimeString([], timeOptions);
     }
 
     function updateSchedule() {
-      let todaySchedule;
-      if (minimumDay) {
-        if (weeklySchedule[minimumDay]) {
-          // If the string matches one of your defined schedules
-          todaySchedule = weeklySchedule[minimumDay];
-        } else {
-          // Debugging case: Airtable returned something you don't handle
-          console.warn(`Unknown schedule type from Airtable: "${minimumDay}"`);
-          todaySchedule = weeklySchedule["Block"]; // fallback
-        }
-      } else if (weekdayID === 1) {
-        todaySchedule = weeklySchedule["Monday"];
-      } else {
-        todaySchedule = weeklySchedule["Block"];
-      }
-      console.log("Using schedule:", minimumDay || (weekdayID === 1 ? "Monday" : "Block"));
+      const schedule = parseCustomScheduleFromQuery();
       scheduleListElement.innerHTML = '';
-      // scheduleListElement.appendChild(header);
-      todaySchedule.forEach(period => {
-        const listItem = document.createElement('li');
-        listItem.className = 'schedule-item';
-        listItem.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.name}`;
-        scheduleListElement.appendChild(listItem);
+      if (!schedule) {
+        const li = document.createElement('li');
+        li.className = 'schedule-item';
+        li.innerHTML = `<span style="color:#b00020">No custom items supplied. Use ?items=HH%3AMM-HH%3AMM@Name_with_underscores joined by +</span>`;
+        scheduleListElement.appendChild(li);
+        return;
+      }
+      schedule.forEach(p => {
+        const li = document.createElement('li');
+        li.className = 'schedule-item';
+        if (p.error) li.innerHTML = `<span style="color:#b00020">${p.error}</span>`;
+        else li.textContent = `${formatTime(p.start)} - ${formatTime(p.end)}: ${p.name}`;
+        scheduleListElement.appendChild(li);
       });
     }
 
     function updateCurrentPeriodAndCountdown() {
       const now = new Date();
       const currentMinutes = now.getHours() * 60 + now.getMinutes();
-      let todaySchedule;
-      if (minimumDay) {
-        if (weeklySchedule[minimumDay]) {
-          // If the string matches one of your defined schedules
-          todaySchedule = weeklySchedule[minimumDay];
-        } else {
-          // Debugging case: Airtable returned something you don't handle
-          console.warn(`Unknown schedule type from Airtable: "${minimumDay}"`);
-          todaySchedule = weeklySchedule["Block"]; // fallback
-        }
-      } else if (weekdayID === 1) {
-        todaySchedule = weeklySchedule["Monday"];
-      } else {
-        todaySchedule = weeklySchedule["Block"];
-      }
+      const schedule = parseCustomScheduleFromQuery() || [];
+      const validPeriods = schedule.filter(p => !p.error);
+      const current = validPeriods.find(p => currentMinutes >= p.start && currentMinutes < p.end);
+      const next = validPeriods.find(p => currentMinutes < p.start);
 
-      const currentPeriod = todaySchedule.find(period => currentMinutes >= period.start && currentMinutes < period.end);
-      const nextPeriod = todaySchedule.find(period => currentMinutes < period.start);
-
-      if (currentPeriod) {
-        currentPeriodElement.textContent = `${currentPeriod.name}`;
-        const remainingSeconds = (currentPeriod.end - currentMinutes) * 60 - (now.getSeconds());
+      if (current) {
+        currentPeriodElement.textContent = `${current.name}`;
+        const remainingSeconds = (current.end - currentMinutes) * 60 - now.getSeconds();
         countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
-      } else if (nextPeriod) {
-        currentPeriodElement.textContent = `Next: ${nextPeriod.name}`;
-        const remainingSeconds = (nextPeriod.start - currentMinutes) * 60 - (now.getSeconds());
+      } else if (next) {
+        currentPeriodElement.textContent = `Next: ${next.name}`;
+        const remainingSeconds = (next.start - currentMinutes) * 60 - now.getSeconds();
         countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
       } else {
-        currentPeriodElement.textContent = "School is over for today!";
-        countdownElement.textContent = "";
+        currentPeriodElement.textContent = isCustomRoute() ? 'Custom schedule complete.' : 'School is over for today!';
+        countdownElement.textContent = '';
       }
-    }
-    
-    // -------- Custom schedule via URL (/custom?items=...) --------
-    //
-    // Spec:
-    // - Endpoint: /custom
-    // - Query: ?items=<item>+<item>+...
-    // - Item format: "HH%3AMM-HH%3AMM@Name_with_underscores"
-    // - 24-hour time only
-    // - Spaces are underscores ("_")
-    // - Colons are %3A (we decode them)
-    //
-    // Example:
-    // /custom?items=07%3A20-08%3A20@Zero_Period+08%3A30-10%3A10@First_or_Second+10%3A20-11%3A00@Wolverine%2B
-    //
-    // Notes:
-    // - We URL-decode the full string safely.
-    // - Invalid items are rendered as error lines but do not break the page.
-
-    function isCustomRoute() {
-    return window.location.pathname === "/custom";
-    }
-
-    function safeDecode(str) {
-    try { return decodeURIComponent(str); } catch { return str; }
-    }
-
-    function toMinutes24h(hhmm) {
-    // hhmm is like "07:20" (after decoding)
-    const m = hhmm.match(/^(\d{1,2}):(\d{2})$/);
-    if (!m) return null;
-    const h = parseInt(m[1], 10);
-    const min = parseInt(m[2], 10);
-    if (h < 0 || h > 23 || min < 0 || min > 59) return null;
-    return h * 60 + min;
-    }
-
-    function parseCustomScheduleFromQuery() {
-    const params = new URLSearchParams(window.location.search);
-    const raw = params.get("items"); // e.g. "07%3A20-08%3A20@Zero_Period+08%3A30-10%3A10@First_or_Second"
-    if (!raw) return null;
-
-    const decoded = safeDecode(raw);
-    const items = decoded.split("+").map(s => s.trim()).filter(Boolean);
-    if (items.length === 0) return null;
-
-    const result = [];
-    for (const item of items) {
-        // Split "start-end@name"
-        const atIdx = item.indexOf("@");
-        if (atIdx === -1) {
-        result.push({ error: `Missing "@": "${item}"` });
-        continue;
-        }
-        const timeSpec = item.slice(0, atIdx).trim();  // "07:20-08:20"
-        const rawName = item.slice(atIdx + 1).trim();  // "Zero_Period"
-
-        const dashIdx = timeSpec.indexOf("-");
-        if (dashIdx === -1) {
-        result.push({ error: `Missing "-" between start and end: "${item}"` });
-        continue;
-        }
-
-        const startStr = timeSpec.slice(0, dashIdx).trim(); // "07:20"
-        const endStr = timeSpec.slice(dashIdx + 1).trim();  // "08:20"
-
-        const startMin = toMinutes24h(startStr);
-        const endMin = toMinutes24h(endStr);
-        if (startMin == null || endMin == null) {
-        result.push({ error: `Invalid time(s): "${timeSpec}"` });
-        continue;
-        }
-        if (endMin <= startMin) {
-        result.push({ error: `End must be after start: "${timeSpec}"` });
-        continue;
-        }
-
-        // Replace underscores with spaces for display
-        const name = rawName.replace(/_/g, " ");
-
-        result.push({ start: startMin, end: endMin, name });
-    }
-
-    return result.length ? result : null;
-    }
-
-    // Returns the schedule to render.
-    // If on /custom with valid items, return those; otherwise fall back to existing logic.
-    function getTodayScheduleWithCustomFallback() {
-    if (isCustomRoute()) {
-        const custom = parseCustomScheduleFromQuery();
-        if (custom && custom.length > 0) return custom;
-        // If route is /custom but items missing/invalid, show a helpful message
-        return [{ error: 'Use ?items=HH%3AMM-HH%3AMM@Name_with_underscores joined by + (24-hour). Example: ?items=07%3A20-08%3A20@Zero_Period+08%3A30-10%3A10@First_or_Second' }];
-    }
-
-    // Original selection logic
-    let todaySchedule;
-    if (minimumDay) {
-        if (weeklySchedule[minimumDay]) {
-        todaySchedule = weeklySchedule[minimumDay];
-        } else {
-        console.warn(`Unknown schedule type from Airtable: "${minimumDay}"`);
-        todaySchedule = weeklySchedule["Block"];
-        }
-    } else if (weekdayID === 1) {
-        todaySchedule = weeklySchedule["Monday"];
-    } else {
-        todaySchedule = weeklySchedule["Block"];
-    }
-    return todaySchedule;
-    }
-
-    // Patch updateSchedule() to use the custom fallback:
-    function updateSchedule() {
-    const todaySchedule = getTodayScheduleWithCustomFallback();
-    scheduleListElement.innerHTML = '';
-
-    todaySchedule.forEach(period => {
-        const li = document.createElement('li');
-        li.className = 'schedule-item';
-        if (period.error) {
-        li.innerHTML = `<span style="color:#b00020">${period.error}</span>`;
-        } else {
-        li.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.name}`;
-        }
-        scheduleListElement.appendChild(li);
-    });
-    }
-
-    // Patch updateCurrentPeriodAndCountdown() similarly:
-    function updateCurrentPeriodAndCountdown() {
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
-    const todaySchedule = getTodayScheduleWithCustomFallback();
-
-    const validPeriods = todaySchedule.filter(p => !p.error);
-    const currentPeriod = validPeriods.find(p => currentMinutes >= p.start && currentMinutes < p.end);
-    const nextPeriod = validPeriods.find(p => currentMinutes < p.start);
-
-    if (currentPeriod) {
-        currentPeriodElement.textContent = `${currentPeriod.name}`;
-        const remainingSeconds = (currentPeriod.end - currentMinutes) * 60 - now.getSeconds();
-        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
-    } else if (nextPeriod) {
-        currentPeriodElement.textContent = `Next: ${nextPeriod.name}`;
-        const remainingSeconds = (nextPeriod.start - currentMinutes) * 60 - now.getSeconds();
-        countdownElement.textContent = `${Math.floor(remainingSeconds / 3600)}h ${Math.floor((remainingSeconds % 3600) / 60)}m ${remainingSeconds % 60}s`;
-    } else {
-        currentPeriodElement.textContent = isCustomRoute() ? "Custom schedule complete." : "School is over for today!";
-        countdownElement.textContent = "";
-    }
     }
 
     function initialize() {
-      // Initialize variables and ensure schedule updates even if fetching dates fails
-      initializeVariables().catch(err => {
-        console.error('[initialize] initializeVariables failed:', err);
-      }).then(() => {
-        try {
-          displayCurrentTime();
-          updateSchedule();
-          updateCurrentPeriodAndCountdown();
-          setInterval(displayCurrentTime, 1000);
-          setInterval(updateCurrentPeriodAndCountdown, 1000);
+      displayCurrentTime();
+      updateSchedule();
+      updateCurrentPeriodAndCountdown();
+      setInterval(displayCurrentTime, 1000);
+      setInterval(updateCurrentPeriodAndCountdown, 1000);
 
-          // Attach 24-hour switch listener safely (ensure element exists)
-          const hrSwitch = document.getElementById('24HrSwitch');
-          if (hrSwitch) {
-            hrSwitch.addEventListener('change', (event) => {
-              is24HourFormat = event.target.checked;
-              displayCurrentTime();
-              updateSchedule();
-            });
-          } else {
-            console.warn('[initialize] 24HrSwitch element not found');
-          }
-        } catch (err) {
-          console.error('[initialize] Error during post-init setup:', err);
-        }
-      });
+      const hrSwitch = document.getElementById('24HrSwitch');
+      if (hrSwitch) {
+        is24HourFormat = hrSwitch.checked;
+        hrSwitch.addEventListener('change', (e) => { is24HourFormat = e.target.checked; displayCurrentTime(); updateSchedule(); });
+      }
     }
 
-    // Use DOMContentLoaded to ensure DOM elements are present and avoid onload overrides
     document.addEventListener('DOMContentLoaded', initialize);
   </script>
 </body>
