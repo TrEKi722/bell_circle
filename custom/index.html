@@ -248,8 +248,7 @@
         .then(r => {
             if (r.short) {
                 var shortUrl = r.short;
-                answer.textContent="Your custom schedule URL:\n\n<a href=shortUrl>" + shortUrl + "</a>\n\nSave this so you can return to your schedule.";
-                window.location.href = shortUrl;
+                answer.innerHTML = `Your custom schedule URL:<br><br><a href="${shortUrl}">${shortUrl}</a><br><br>Save this so you can return to your schedule.`;
             } else {
                 alert("Error generating URL. Please try again.");
             }
