@@ -32,7 +32,7 @@ p {
 
 /* .BANNER: Page header with wood background image, centered title */
 .banner {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-family: "Comfortaa", sans-serif;
     font-weight: 700;
     text-align: center;
@@ -40,8 +40,8 @@ p {
     background-size: cover;
     background-position: center;
     color: white;
-    padding: 30px 0;
-    height: 200px;
+    padding: 30px 5px;
+    height: 175px;
     display: flex;
     align-items: center;
     justify-content: center;
