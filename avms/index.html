@@ -289,6 +289,8 @@
       let todaySchedule;
       if (minimumDay && weeklySchedule[minimumDay]) {
         todaySchedule = weeklySchedule[minimumDay];
+      } else if (weekdayID === 1) {
+        todaySchedule = weeklySchedule["Monday"];
       } else {
         todaySchedule = weeklySchedule["Standard"];
       }
