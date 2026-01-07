@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Google Tag Manager -->
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
-        <!-- End Google Tag Manager --> 
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/light.css">
-        <script>
-          // Apply saved theme from localStorage immediately
-          (function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-              const link = document.querySelector('link[rel="stylesheet"]');
-              if (link) {
-                link.href = link.href.replace('light.css', 'dark.css');
-                console.log('[theme-init] Applied dark theme from localStorage');
-              }
-            }
-          })();
-        </script>
-        <link rel="icon" type="image/png" href="/Media/Logos/Icon_LightPrimary.png">
-        <title>Bell Circle</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Bell Circle - Your hub for school schedules, updates, and resources.">
-    </head>
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Stylesheet -->
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../css/light.css">
+
+  <!-- Theme switcher script -->
+  <script>
+    // Apply saved theme from localStorage immediately
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        const link = document.querySelector('link[rel="stylesheet"]');
+        if (link) {
+          link.href = link.href.replace('light.css', 'dark.css');
+        }
+      }
+    })();
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- SEO title & description -->
+  <title>School Bell Schedules -- Live Class Countdown | Bell Circle</title>
+  <meta name="description" content="Find your school's bell schedule and get a live countdown to the next class. Clear daily and special schedules, plus custom schedules -- free on Bell Circle.">
+
+  <!-- Utility -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
     <body>
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWWN534W"

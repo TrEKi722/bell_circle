@@ -7,9 +7,13 @@
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
-  <!-- End Google Tag Manager --> 
+  <!-- End Google Tag Manager -->
+
+  <!-- Stylesheet -->
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../css/light.css">
+
+  <!-- Theme switcher script -->
   <script>
     // Apply saved theme from localStorage immediately
     (function() {
@@ -22,23 +26,29 @@
       }
     })();
   </script>
-  <link rel="icon" type="image/png" href="/Media/Logos/Icon_LightPrimary.png">
-  <title>Aliso Niguel - Bell Circle</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- SEO title & description -->
+  <title>Aliso Niguel Bell Schedule - Aliso Viejo</title>
+  <meta name="description" content="Aliso Niguel High School schedule times for your day. Live countdown and period-by-period overview on Bell Circle.">
+
+  <!-- Utility -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <meta name="description" content="Bell Circle - Your hub for school schedules, updates, and resources."> -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
   <body>
     <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
-  <!-- End Google Tag Manager --> 
-  <div id="navbar-container"></div>
-  <script>
-    fetch('/navbar.html')
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+    <!-- End Google Tag Manager --> 
+    <div id="navbar-container"></div>
+    <script>
+      fetch('/navbar.html')
       .then(response => response.text())
       .then(html => {
         document.getElementById('navbar-container').innerHTML = html;
@@ -47,8 +57,8 @@
         script.src = "/navbar.js";
         document.body.appendChild(script);
       });
-  </script>
-  <div class="banner">
+    </script>
+    <div class="banner">
       <h1>
           <script>
               var today = new Date();
@@ -67,7 +77,7 @@
               container.style.display = "flex";
               container.style.alignItems = "center";
               container.appendChild(img);
-              container.appendChild(document.createTextNode(" " + dayText));
+              container.appendChild(document.createTextNode(" Aliso Niguel\n" + dayText));
 
               document.querySelector(".banner").appendChild(container);
           </script>
@@ -301,8 +311,6 @@
           // If the string matches one of your defined schedules
           todaySchedule = weeklySchedule[minimumDay];
         } else {
-          // Debugging case: Airtable returned something you don't handle
-          console.warn(`Unknown schedule type from Airtable: "${minimumDay}"`);
           todaySchedule = weeklySchedule["Block"]; // fallback
         }
       } else if (weekdayID === 1) {

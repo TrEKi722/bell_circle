@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Google Tag Manager -->
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
-        <!-- End Google Tag Manager --> 
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/css/light.css">
-        <script>
-          // Apply saved theme from localStorage immediately
-          (function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-              const link = document.querySelector('link[rel="stylesheet"]');
-              if (link) {
-                link.href = link.href.replace('light.css', 'dark.css');
-              }
-            }
-          })();
-        </script>
-        <link rel="icon" type="image/png" href="/Media/Logos/Icon_LightPrimary.png">
-        <title>Bell Circle - Change Log</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Bell Circle Change Log - See recent updates and improvements.">
-    </head>
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Stylesheet -->
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../css/light.css">
+
+  <!-- Theme switcher script -->
+  <script>
+    // Apply saved theme from localStorage immediately
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        const link = document.querySelector('link[rel="stylesheet"]');
+        if (link) {
+          link.href = link.href.replace('light.css', 'dark.css');
+        }
+      }
+    })();
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- SEO title & description -->
+  <title>Bell Circle - Changelog</title>
+  <meta name="description" content="Bell Circle -- View your school's daily schedule as a live countdown -- changelog.">
+
+  <!-- Utility -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
     <body>
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWWN534W"
@@ -59,6 +71,9 @@
                     <li>Updated copyright to TWENTY TWENTY SIX!!!</li>
                     <li>Updated email address to bellcircle@ekinney.com</li>
                     <li>Added custom schedule system & builder</li>
+                    <li>Fixed Monday schedule for AVMS</li>
+                    <li>Updated Titles & Descriptions for SEO</li>
+                    <li>Updated Banner to include school name</li>
                 </ul>
 
                 <h4>December 2025</h4>
