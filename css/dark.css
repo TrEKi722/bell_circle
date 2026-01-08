@@ -546,7 +546,7 @@ input:hover + .slider {
 /* INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when toggle ON */
 input:checked + .slider:before {
     transform: translateX(26px);
-    z-index: 3;
+    z-index: 1;
 }
 
 /* .SLIDER.ROUND: Rounded style toggle switch */

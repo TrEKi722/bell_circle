@@ -515,7 +515,6 @@ body.menu-open::before {
     bottom: 0;
     background-color: #ccc;
     transition: .4s;
-    z-index: 1;
 }
 
 /* .SLIDER::BEFORE: Movable circle button inside toggle */
