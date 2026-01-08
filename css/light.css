@@ -556,22 +556,22 @@ input:checked + .slider:before {
 } */
 
 /* .THEME-ICON: Moon and sun icons for theme toggle */
-.theme-toggle-container .theme-icon {
+/* .theme-toggle-container .theme-icon {
     font-size: 16px;
     color: #2f4f4f;
-}
+} */
 
 /* .MOON-ICON: Moon icon styling (appears in light mode) */
-.theme-toggle-container .moon-icon {
+/* .theme-toggle-container .moon-icon {
     opacity: 0.4;
     transition: opacity 0.3s ease;
-}
+} */
 
 /* .SUN-ICON: Sun icon styling (appears in dark mode) */
-.theme-toggle-container .sun-icon {
+/* .theme-toggle-container .sun-icon {
     opacity: 1;
     transition: opacity 0.3s ease;
-}
+} */
 
 .sun-icon,
 .moon-icon {
@@ -584,8 +584,8 @@ input:checked + .slider:before {
   padding: 0 10px; /* space from edges */
 }
 
-.sun-icon .left,
-.moon-icon .right {
+.sun-icon.left,
+.moon-icon.right {
   display: flex;
   align-items: center;
   justify-content: center;
