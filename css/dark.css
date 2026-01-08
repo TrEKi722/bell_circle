@@ -535,10 +535,11 @@ body.menu-open::before {
 /* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
 input:checked + .slider {
     background-color: #00B58B;
+    z-index: 1;
 }
 
-/* INPUT:FOCUS + .SLIDER: Slider shows blue outline when focused */
-input:focus + .slider {
+/* INPUT:HOVER + .SLIDER: Slider shows blue outline when hovered over */
+input:hover + .slider {
     box-shadow: 0 0 10px #2196F3;
 }
 

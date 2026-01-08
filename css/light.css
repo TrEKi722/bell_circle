@@ -515,6 +515,7 @@ body.menu-open::before {
     bottom: 0;
     background-color: #ccc;
     transition: .4s;
+    z-index: 1;
 }
 
 /* .SLIDER::BEFORE: Movable circle button inside toggle */
@@ -535,8 +536,8 @@ input:checked + .slider {
     background-color: #00B58B;
 }
 
-/* INPUT:FOCUS + .SLIDER: Slider shows blue outline when focused */
-input:focus + .slider {
+/* INPUT:HOVER + .SLIDER: Slider shows blue outline when hovered over */
+input:hover + .slider {
     box-shadow: 0 0 10px #2196F3;
 }
 
