@@ -515,7 +515,6 @@ body.menu-open::before {
     bottom: 0;
     background-color: #ccc;
     transition: .4s;
-    z-index: 3;
 }
 
 /* .SLIDER::BEFORE: Movable circle button inside toggle */
@@ -528,6 +527,7 @@ body.menu-open::before {
     bottom: 4px;
     background-color: white;
     transition: .4s;
+    z-index: 3;
 }
 
 /* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
@@ -587,7 +587,7 @@ input:checked + .slider:before {
   inset: 0;
   width: 60px;  /* Match .switch width */
   height: 34px; /* Match .switch height */
-  left: -20px;      /* Or adjust based on layout */
+  left: -5px;      /* Or adjust based on layout */
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
