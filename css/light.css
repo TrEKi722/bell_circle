@@ -587,7 +587,7 @@ input:checked + .slider:before {
   inset: 0;
   width: 60px;  /* Match .switch width */
   height: 34px; /* Match .switch height */
-  left: -5px;      /* Or adjust based on layout */
+  left: -6px;      /* Or adjust based on layout */
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
