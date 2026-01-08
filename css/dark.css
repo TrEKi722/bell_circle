@@ -539,12 +539,13 @@ input:checked + .slider {
 
 /* INPUT:FOCUS + .SLIDER: Slider shows blue outline when focused */
 input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 10px #2196F3;
 }
 
 /* INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when toggle ON */
 input:checked + .slider:before {
     transform: translateX(26px);
+    z-index: 3;
 }
 
 /* .SLIDER.ROUND: Rounded style toggle switch */
@@ -556,6 +557,7 @@ input:checked + .slider:before {
 /* .SLIDER.ROUND::BEFORE: Rounded circle button */
 .slider.round:before {
     border-radius: 50%;
+    z-index: 3;
 }
 
 /* .THEME-TOGGLE-CONTAINER: Wrapper for theme toggle switch in navbar
