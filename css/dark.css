@@ -519,7 +519,7 @@ body.menu-open::before {
     transition: .4s;
 }
 
-/* .SLIDER::BEFORE: Movable circle button inside toggle */
+/* .SLIDER:BEFORE : Movable circle button inside toggle */
 .slider:before {
     position: absolute;
     content: "";
@@ -550,6 +550,7 @@ input:checked + .slider:before {
 /* .SLIDER.ROUND: Rounded style toggle switch */
 .slider.round {
     border-radius: 34px;
+    z-index: 3;
 }
 
 /* .SLIDER.ROUND::BEFORE: Rounded circle button */
@@ -586,7 +587,7 @@ input:checked + .slider:before {
 
 .theme-icons {
   position: absolute;
-  inset: 0;
+  /* inset: 0; */
   width: 60px;  /* Match .switch width */
   height: 34px; /* Match .switch height */
   left: -6px;      /* Or adjust based on layout */
