@@ -573,8 +573,7 @@ input:checked + .slider:before {
     transition: opacity 0.3s ease;
 } */
 
-.sun-icon,
-.moon-icon {
+.theme-icons {
   position: absolute;
   inset: 0;
   display: grid;
@@ -584,8 +583,8 @@ input:checked + .slider:before {
   padding: 0 10px; /* space from edges */
 }
 
-.sun-icon.left,
-.moon-icon.right {
+.theme-icons .left,
+.theme-icons .right {
   display: flex;
   align-items: center;
   justify-content: center;
