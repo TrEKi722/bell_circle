@@ -573,6 +573,27 @@ input:checked + .slider:before {
     transition: opacity 0.3s ease;
 }
 
+.sun-icon,
+.moon-icon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  pointer-events: none; /* purely decorative */
+  padding: 0 10px; /* space from edges */
+}
+
+.sun-icon .left,
+.moon-icon .right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.85;
+  filter: drop-shadow(0 1px 1px var(--icon-dim));
+  transition: opacity var(--transition-slow);
+}
+
 /* .THEME-TOGGLE-CONTAINER .SWITCH: Theme toggle switch styling */
 /* .theme-toggle-container .switch {
     width: 50px;
