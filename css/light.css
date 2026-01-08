@@ -468,6 +468,7 @@ body.menu-open::before {
 }
 /* .SWITCH-CONTAINER: Wraps toggle switch and its label */
 .switch-container {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -583,11 +584,15 @@ input:checked + .slider:before {
 .theme-icons {
   position: absolute;
   inset: 0;
+  width: 60px;  /* Match .switch width */
+  height: 34px; /* Match .switch height */
+  left: 0;      /* Or adjust based on layout */
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  pointer-events: none; /* purely decorative */
-  padding: 0 10px; /* space from edges */
+  pointer-events: none;
+  padding: 0 10px;
+  z-index: 2;   /* Above the switch */
 }
 
 .theme-icons .left,
