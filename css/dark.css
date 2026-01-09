@@ -479,7 +479,7 @@ body.menu-open::before {
     justify-content: center;
     place-items: center;
     gap: 10px;
-    margin: 20px 0;
+    margin: 0 0;
     display: grid;
 }
 /* .SWITCH: Toggle switch wrapper (contains checkbox and slider) */
