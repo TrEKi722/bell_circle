@@ -468,6 +468,9 @@ body.menu-open::before {
     flex-direction: column;
     align-items: center;
 }
+
+/* --- TOGGLE SWITCH STYLES --- */
+
 /* .SWITCH-CONTAINER: Wraps toggle switch and its label */
 .switch-container {
     position: relative;
@@ -533,10 +536,10 @@ body.menu-open::before {
 }
 
 /* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
-/* input:checked + .slider {
+input:checked + .slider {
   background-color: #00B58B;
   z-index: 1;
-} */
+}
 
 /* INPUT:HOVER + .SLIDER: Slider shows blue outline when hovered over */
 input:hover + .slider {
@@ -557,34 +560,8 @@ input:checked + .slider:before {
 /* .SLIDER.ROUND::BEFORE: Rounded circle button */
 .slider.round:before {
     border-radius: 50%;
+    z-index: 3;
 }
-
-/* .THEME-TOGGLE-CONTAINER: Wrapper for theme toggle switch in navbar
-.theme-toggle-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-left: 15px;
-} */
-
-/* .THEME-ICON: Moon and sun icons for theme toggle */
-/* .theme-toggle-container .theme-icon {
-    font-size: 16px;
-    color: #2f4f4f;
-} */
-
-/* .MOON-ICON: Moon icon styling (appears in light mode) */
-/* .theme-toggle-container .moon-icon {
-    opacity: 0.4;
-    transition: opacity 0.3s ease;
-} */
-
-/* .SUN-ICON: Sun icon styling (appears in dark mode) */
-/* .theme-toggle-container .sun-icon {
-    opacity: 1;
-    transition: opacity 0.3s ease;
-} */
 
 .theme-icons {
   position: absolute;
@@ -610,45 +587,6 @@ input:checked + .slider:before {
   filter: drop-shadow(0 1px 1px var(--icon-dim));
   transition: opacity var(--transition-slow);
 }
-
-/* .THEME-TOGGLE-CONTAINER .SWITCH: Theme toggle switch styling */
-/* .theme-toggle-container .switch {
-    width: 50px;
-    height: 28px;
-} */
-
-/* .THEME-TOGGLE-CONTAINER .SLIDER: Theme toggle slider bar */
-/* .theme-toggle-container .slider {
-    background-color: #ff6b6b;
-} */
-
-/* .THEME-TOGGLE-CONTAINER INPUT:CHECKED + .SLIDER: Dark theme toggle ON state */
-/* .theme-toggle-container input:checked + .slider {
-    background-color: #ff9800;
-} */
-
-/* .THEME-TOGGLE-CONTAINER .SLIDER::BEFORE: Circle positioning for theme toggle */
-/* .theme-toggle-container .slider:before {
-    height: 24px;
-    width: 24px;
-    left: 2px;
-    top: 2px;
-    bottom: auto;
-} */
-
-/* .THEME-TOGGLE-CONTAINER INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when theme toggle ON */
-/* .theme-toggle-container input:checked + .slider:before {
-    transform: translateX(22px);
-} */
-
-/* When theme is dark mode (toggle is checked), dim moon and brighten sun */
-/* .theme-toggle-container input:checked ~ .moon-icon {
-    opacity: 1;
-}
-
-.theme-toggle-container input:checked ~ .sun-icon {
-    opacity: 0.4;
-} */
 
 /* --- MODAL / LIGHTBOX STYLES --- */
 
