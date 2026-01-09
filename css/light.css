@@ -564,12 +564,12 @@ input:checked + .slider:before {
   inset: 0;
   width: 60px;  /* Match .switch width */
   height: 34px; /* Match .switch height */
-  left: -6px;      /* Or adjust based on layout */
+  left: -5.5px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   pointer-events: none;
-  padding: 0 10px;
+  padding: 0 9px;
   font-size: 0.8em;
   z-index: 2;   /* Above the switch */
 }
