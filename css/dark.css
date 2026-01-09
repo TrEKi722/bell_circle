@@ -533,10 +533,10 @@ body.menu-open::before {
 }
 
 /* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
-input:checked + .slider {
+/* input:checked + .slider {
   background-color: #00B58B;
   z-index: 1;
-}
+} */
 
 /* INPUT:HOVER + .SLIDER: Slider shows blue outline when hovered over */
 input:hover + .slider {
