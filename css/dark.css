@@ -532,7 +532,7 @@ body.menu-open::before {
     bottom: 4px;
     background-color: white;
     transition: .4s;
-    z-index: 1;
+    z-index: 3
 }
 
 /* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
