@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+        <!-- End Google Tag Manager --> 
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/light.css">
+        <script>
+          // Apply saved theme from localStorage immediately
+          (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+              const link = document.querySelector('link[rel="stylesheet"]');
+              if (link) {
+                link.href = link.href.replace('light.css', 'dark.css');
+              }
+            }
+          })();
+        </script>
+        <link rel="icon" type="image/png" href="/Media/Logos/Icon_LightPrimary.png">
+        <title>FAQ - Bell Circle</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Frequently Asked Questions about Bell Circle and school bell schedules.">
+    </head>
+    <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWWN534W"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+        <div id="navbar-container"></div>
+        <script>
+            fetch('/navbar.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('navbar-container').innerHTML = html;
+                    const script = document.createElement("script");
+                    script.src = "/navbar.js";
+                    document.body.appendChild(script);
+                });
+        </script>
+
+        <div class="banner">
+            Frequently Asked Questions
+        </div>
+
+        <div class="section">
+            <h2>General Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>What is Bell Circle?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Bell Circle is a simple, fast way to view school bell schedules and time-based information without digging through PDFs, announcements, or outdated web pages. It's built to be clear, reliable, and easy to use on any device.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>Who is Bell Circle for?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Bell Circle is designed for students, teachers, and staff who want to quickly know what schedule is running today and what time each period starts and ends. It's especially useful on special schedules like minimum days, assemblies, or testing days.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>Is Bell Circle affiliated with my school?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Bell Circle is an independent project and is not officially affiliated with any school unless explicitly stated. It exists to make schedule information easier to access.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>Is Bell Circle free to use?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. Bell Circle is free to access and does not require payment to view schedules.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Account & Access</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>Do I need an account to use Bell Circle?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No account is required for basic use. You can open the site and immediately see the current schedule and bell times.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>Does Bell Circle work on phones?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. Bell Circle is fully responsive and works well on phones, tablets, and desktops. It's designed to be readable at a glance, even between classes.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>Does Bell Circle collect personal data?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Bell Circle does not require personal information for basic use. Any data collection is minimal and focused on improving site performance and reliability.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Schedules & Updates</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>How accurate are the schedules?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Schedules are sourced directly from the school's published information and updated as changes occur. While Bell Circle aims to be highly accurate, it's always smart to double-check official announcements for last-minute changes.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>How often is the site updated?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Updates are made whenever new schedules are released or changes are announced. Special schedules are typically added as soon as they're confirmed.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>What should I do if a schedule looks wrong?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>If you notice an error or outdated information, report it using the contact method listed on the site. Corrections are prioritized to keep the information accurate.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>Can my school be added to Bell Circle?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Support for additional schools depends on demand and available data. If your school isn't supported yet, you can request it through the site's contact page.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Features & Support</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>Can Bell Circle send notifications?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Notification features depend on the current version of the site. Some schedules may support alerts or indicators for special days, while others focus on fast, visual access to times.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleAnswer(this)">
+                    <span>How can I contact the team behind Bell Circle?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>You can reach out using the contact information provided on bell-circle.com for questions, feedback, or bug reports. You can also visit our <a href="/feedback">feedback page</a> to submit your input.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-container"></div>
+        <script>
+            function toggleAnswer(element) {
+                const answer = element.nextElementSibling;
+                const toggle = element.querySelector('.faq-toggle');
+                
+                // Close all other answers
+                document.querySelectorAll('.faq-answer.active').forEach(item => {
+                    if (item !== answer) {
+                        item.classList.remove('active');
+                        item.previousElementSibling.querySelector('.faq-toggle').textContent = '+';
+                    }
+                });
+                
+                // Toggle current answer
+                answer.classList.toggle('active');
+                toggle.textContent = answer.classList.contains('active') ? '−' : '+';
+            }
+
+            // Load footer from footer.html
+            fetch('/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                });
+        </script>
+    </body>
+</html>
