@@ -672,3 +672,44 @@ input:checked + .slider::before {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
+/* FAQ Styles */
+
+.faq-item {
+  margin-bottom: 15px;
+  border-left: 4px solid #007bff;
+  padding-left: 20px;
+}
+
+.faq-question {
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ccc;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.faq-question:hover {
+  color: #007bff;
+}
+
+.faq-answer {
+  display: none;
+  padding: 10px 0;
+  color: #aeaeae;
+  line-height: 1.6;
+}
+
+.faq-answer.active {
+  display: block;
+}
+
+.faq-toggle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+}
