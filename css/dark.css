@@ -551,13 +551,11 @@ input:checked + .slider:before {
 /* .SLIDER.ROUND: Rounded style toggle switch */
 .slider.round {
     border-radius: 34px;
-    z-index: 3;
 }
 
 /* .SLIDER.ROUND::BEFORE: Rounded circle button */
 .slider.round:before {
     border-radius: 50%;
-    z-index: 3;
 }
 
 /* .THEME-TOGGLE-CONTAINER: Wrapper for theme toggle switch in navbar
