@@ -593,6 +593,7 @@ input:checked + .slider:before {
   align-items: center;
   pointer-events: none;
   padding: 0 10px;
+  font-size: 0.9rem;
   z-index: 2;   /* Above the switch */
 }
 
