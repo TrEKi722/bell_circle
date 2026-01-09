@@ -529,12 +529,13 @@ body.menu-open::before {
     bottom: 4px;
     background-color: white;
     transition: .4s;
-  z-index: 3;
+    z-index: 3;
 }
 
 /* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
 input:checked + .slider {
   background-color: #00B58B;
+  z-index: 1;
 }
 
 /* INPUT:HOVER + .SLIDER: Slider shows blue outline when hovered over */
@@ -597,7 +598,7 @@ input:checked + .slider:before {
   pointer-events: none;
   padding: 0 10px;
   font-size: 0.8em;
-  z-index: 2;   /* Match light.css: above track, below knob */
+  z-index: 2;  
 }
 
 .theme-icons .left,
