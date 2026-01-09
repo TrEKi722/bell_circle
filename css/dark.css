@@ -470,6 +470,7 @@ body.menu-open::before {
 }
 
 /* --- TOGGLE SWITCH STYLES --- */
+/* --- C results from the toggle switch stacking having issues. C means correct and don't change */
 
 /* .SWITCH-CONTAINER: Wraps toggle switch and its label */
 .switch-container {
@@ -532,13 +533,13 @@ body.menu-open::before {
     bottom: 4px;
     background-color: white;
     transition: .4s;
-    z-index: 3
+    z-index: 1;
 }
 
 /* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
 input:checked + .slider {
   background-color: #00B58B;
-  z-index: 3;
+  z-index: 1; /* C */
 }
 
 /* INPUT:HOVER + .SLIDER: Slider shows blue outline when hovered over */
