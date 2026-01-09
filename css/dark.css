@@ -529,13 +529,13 @@ body.menu-open::before {
     bottom: 4px;
     background-color: white;
     transition: .4s;
-    z-index: 3;
+    z-index: 4;
 }
 
 /* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
 input:checked + .slider {
     background-color: #00B58B;
-    z-index: 3;
+    z-index: 4;
 }
 
 /* INPUT:HOVER + .SLIDER: Slider shows blue outline when hovered over */
@@ -546,7 +546,7 @@ input:hover + .slider {
 /* INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when toggle ON */
 input:checked + .slider:before {
     transform: translateX(26px);
-    z-index: 3;
+    z-index: 4;
 }
 
 /* .SLIDER.ROUND: Rounded style toggle switch */
@@ -599,8 +599,8 @@ input:checked + .slider:before {
   align-items: center;
   pointer-events: none;
   padding: 0 10px;
-  font-size: 0.9rem;
-  z-index: 2;   /* Above the switch */
+  font-size: 0.9em;
+  z-index: 0;   /* Put icons behind the switch */
 }
 
 .theme-icons .left,
