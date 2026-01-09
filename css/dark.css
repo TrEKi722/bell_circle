@@ -32,7 +32,7 @@ p {
 
 /* .BANNER: Page header with wood background image, centered title */
 .banner {
-    font-size: 1rem;
+    font-size: 2rem;
     font-family: "Comfortaa", sans-serif;
     font-weight: 700;
     text-align: center;
@@ -127,7 +127,7 @@ p {
 
 /* .NAVBAR-LINKS A: Individual navigation link buttons */
 .navbar-links a {
-  color: #CCCCCC;
+  color: whitesmoke;
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -168,7 +168,7 @@ p {
 
 /* .NAVBAR-DROPBTN: Dropdown button/trigger that shows submenu */
 .navbar-dropbtn {
-  color: #CCCCCC;
+  color: whitesmoke;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
@@ -565,7 +565,7 @@ input:checked + .slider::before {
   inset: 0;
   width: 60px;  /* Match .switch width */
   height: 34px; /* Match .switch height */
-  left: -5.5px;
+  left: -2px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -580,7 +580,7 @@ input:checked + .slider::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.85;
+  opacity: 1;
   filter: drop-shadow(0 1px 1px var(--icon-dim));
   transition: opacity var(--transition-slow);
 }

@@ -32,7 +32,7 @@ p {
 
 /* .BANNER: Page header with wood background image, centered title */
 .banner {
-    font-size: 1rem;
+    font-size: 2rem;
     font-family: "Comfortaa", sans-serif;
     font-weight: 700;
     text-align: center;
@@ -92,7 +92,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.25rem 0.25rem;
+  padding: 10px;
   min-height: 48px;
 }
 
@@ -478,7 +478,7 @@ body.menu-open::before {
     justify-content: center;
     place-items: center;
     gap: 10px;
-    margin: 20px 0;
+    margin: 0 0;
     display: grid;
 }
 /* .SWITCH: Toggle switch wrapper (contains checkbox and slider) */
@@ -564,7 +564,7 @@ input:checked + .slider:before {
   inset: 0;
   width: 60px;  /* Match .switch width */
   height: 34px; /* Match .switch height */
-  left: -5.5px;
+  left: -2px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -579,7 +579,7 @@ input:checked + .slider:before {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.85;
+  opacity: 1;
   filter: drop-shadow(0 1px 1px var(--icon-dim));
   transition: opacity var(--transition-slow);
 }
