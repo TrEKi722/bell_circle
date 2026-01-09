@@ -679,6 +679,7 @@ input:checked + .slider:before {
 
 .faq-question {
   cursor: pointer;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #333;
   padding: 10px 0;
@@ -704,7 +705,7 @@ input:checked + .slider:before {
 }
 
 .faq-toggle {
-  font-size: 14px;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #007bff;
 }
