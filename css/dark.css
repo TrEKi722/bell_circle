@@ -32,7 +32,7 @@ p {
 
 /* .BANNER: Page header with wood background image, centered title */
 .banner {
-    font-size: 2rem;
+    font-size: 1rem;
     font-family: "Comfortaa", sans-serif;
     font-weight: 700;
     text-align: center;
@@ -40,8 +40,8 @@ p {
     background-size: cover;
     background-position: center;
     color: white;
-    padding: 30px 0;
-    height: 200px;
+    padding: 30px 5px;
+    height: 175px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,7 +127,7 @@ p {
 
 /* .NAVBAR-LINKS A: Individual navigation link buttons */
 .navbar-links a {
-  color: #CCCCCC;
+  color: whitesmoke;
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -168,7 +168,7 @@ p {
 
 /* .NAVBAR-DROPBTN: Dropdown button/trigger that shows submenu */
 .navbar-dropbtn {
-  color: #CCCCCC;
+  color: whitesmoke;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
@@ -468,20 +468,31 @@ body.menu-open::before {
     flex-direction: column;
     align-items: center;
 }
+
+/* --- TOGGLE SWITCH STYLES --- */
+
 /* .SWITCH-CONTAINER: Wraps toggle switch and its label */
 .switch-container {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    place-items: center;
     gap: 10px;
-    margin: 20px 0;
+    margin: 0 0;
+    display: grid;
 }
 /* .SWITCH: Toggle switch wrapper (contains checkbox and slider) */
 .switch {
     position: relative;
-    display: inline-block;
+    display: inline-grid;
     width: 60px;
     height: 34px;
+    align-items: center;
+    justify-items: left;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
 }
 
 /* .SWITCH INPUT: Hidden checkbox that controls toggle state */
@@ -495,7 +506,7 @@ body.menu-open::before {
     font-size: 0.65rem;
     font-family: "Nunito Sans", sans-serif;
     font-weight: 400;
-    color: #FFFFFF;
+    color: whitesmoke;
     margin: 0;
     padding: 0;
 }
@@ -511,7 +522,7 @@ body.menu-open::before {
     transition: .4s;
 }
 
-/* .SLIDER::BEFORE: Movable circle button inside toggle */
+/* .SLIDER:BEFORE : Movable circle button inside toggle */
 .slider:before {
     position: absolute;
     content: "";
@@ -521,21 +532,22 @@ body.menu-open::before {
     bottom: 4px;
     background-color: white;
     transition: .4s;
+    z-index: 3; /* For light mode, doesn't affect dark mode */
 }
 
 /* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
 input:checked + .slider {
-    background-color: #00B58B;
+  background-color: #00B58B;
 }
 
-/* INPUT:FOCUS + .SLIDER: Slider shows blue outline when focused */
-input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+/* INPUT:HOVER + .SLIDER: Slider shows blue outline when hovered over */
+input:hover + .slider {
+    box-shadow: 0 0 10px #2196F3;
 }
 
 /* INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when toggle ON */
-input:checked + .slider:before {
-    transform: translateX(26px);
+input:checked + .slider::before {
+  transform: translateX(26px);
 }
 
 /* .SLIDER.ROUND: Rounded style toggle switch */
@@ -544,74 +556,34 @@ input:checked + .slider:before {
 }
 
 /* .SLIDER.ROUND::BEFORE: Rounded circle button */
-.slider.round:before {
+.slider.round::before {
     border-radius: 50%;
 }
 
-/* .THEME-TOGGLE-CONTAINER: Wrapper for theme toggle switch in navbar */
-.theme-toggle-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-left: 15px;
+.theme-icons {
+  position: absolute;
+  inset: 0;
+  width: 60px;  /* Match .switch width */
+  height: 34px; /* Match .switch height */
+  left: -2px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  pointer-events: none;
+  padding: 0 9px;
+  font-size: 0.8em;
+  z-index: 2;  
+  color: whitesmoke;
 }
 
-/* .THEME-ICON: Moon and sun icons for theme toggle */
-.theme-toggle-container .theme-icon {
-    font-size: 16px;
-    color: #E0FFFF;
-}
-
-/* .MOON-ICON: Moon icon styling (appears in light mode, dimmed in dark) */
-.theme-toggle-container .moon-icon {
-    opacity: 1;
-    transition: opacity 0.3s ease;
-}
-
-/* .SUN-ICON: Sun icon styling (appears in dark mode) */
-.theme-toggle-container .sun-icon {
-    opacity: 0.4;
-    transition: opacity 0.3s ease;
-}
-
-/* .THEME-TOGGLE-CONTAINER .SWITCH: Theme toggle switch styling */
-.theme-toggle-container .switch {
-    width: 50px;
-    height: 28px;
-}
-
-/* .THEME-TOGGLE-CONTAINER .SLIDER: Theme toggle slider bar */
-.theme-toggle-container .slider {
-    background-color: #ff6b6b;
-}
-
-/* .THEME-TOGGLE-CONTAINER INPUT:CHECKED + .SLIDER: Light theme toggle ON state */
-.theme-toggle-container input:checked + .slider {
-    background-color: #ff9800;
-}
-
-/* .THEME-TOGGLE-CONTAINER .SLIDER::BEFORE: Circle positioning for theme toggle */
-.theme-toggle-container .slider:before {
-    height: 24px !important;
-    width: 24px !important;
-    left: 2px !important;
-    top: 2px !important;
-    bottom: auto !important;
-}
-
-/* .THEME-TOGGLE-CONTAINER INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when theme toggle ON */
-.theme-toggle-container input:checked + .slider:before {
-    transform: translateX(22px) !important;
-}
-
-/* When theme toggle is unchecked in dark mode (reverting to light), dim sun and brighten moon */
-.theme-toggle-container input:not(:checked) ~ .moon-icon {
-    opacity: 0.4;
-}
-
-.theme-toggle-container input:not(:checked) ~ .sun-icon {
-    opacity: 1;
+.theme-icons .left,
+.theme-icons .right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  filter: drop-shadow(0 1px 1px var(--icon-dim));
+  transition: opacity var(--transition-slow);
 }
 
 /* --- MODAL / LIGHTBOX STYLES --- */
@@ -699,4 +671,45 @@ input:checked + .slider:before {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+/* FAQ Styles */
+
+.faq-item {
+  margin-bottom: 15px;
+  border-left: 4px solid #007bff;
+  padding-left: 20px;
+}
+
+.faq-question {
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ccc;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.faq-question:hover {
+  color: #007bff;
+}
+
+.faq-answer {
+  display: none;
+  padding: 10px 0;
+  color: #aeaeae;
+  line-height: 1.6;
+}
+
+.faq-answer.active {
+  display: block;
+}
+
+.faq-toggle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
 }
