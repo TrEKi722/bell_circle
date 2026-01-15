@@ -83,12 +83,12 @@ if (minimumDay) {
     // If the string matches one of your defined schedules
     todaySchedule = weeklySchedule[minimumDay];
     } else {
-    todaySchedule = weeklySchedule["Block"]; // fallback
+    todaySchedule = weeklySchedule["Standard"];
     }
 } else if (weekdayID === 1) {
-    todaySchedule = weeklySchedule["Monday"];
+    todaySchedule = weeklySchedule["Mon"];
 } else {
-    todaySchedule = weeklySchedule["Block"];
+    todaySchedule = weeklySchedule["Standard"];
 }
 console.log("Using schedule:", minimumDay || (weekdayID === 1 ? "Monday" : "Block"));
 scheduleListElement.innerHTML = '';
