@@ -139,6 +139,8 @@ function main() {
             console.error("Error in main execution: ", err);
         }
     });
+    console.log("Initialization complete.");
+    console.log("For debugging, use debugHelp() to see available functions.");
 }
 
 // Use DOMContentLoaded to ensure the DOM is fully loaded before running the main function
@@ -151,4 +153,68 @@ if (formatSwitch) {
     formatSwitch.addEventListener('change', function() {
         localStorage.setItem('is24HourFormat', this.checked);
     });
+}
+
+// The following functions are for DEBUGGING ONLY
+
+// logCurrentSchedule
+function logCurrentSchedule() {
+    console.log("Current schedule: ", currentSchedule);
+}
+
+// logDateList
+function logDateList() {
+    console.log("Date list: ", dateList);
+}
+
+// logWeekdayID
+function logWeekdayID() {
+    console.log("Weekday ID: ", weekdayID);
+}
+
+// changeSchedule
+// Allows you to manually modify what schedule is currently active in order to see
+// if the schedule functions properly.
+function changeSchedule(scheduleName){
+    if (weeklySchedule[scheduleName]) {
+        currentSchedule = weeklySchedule[scheduleName];
+        console.log(`Schedule changed to ${scheduleName}: `, currentSchedule);
+        updateSchedule();
+    } else {
+        console.warn(`Schedule "${scheduleName}" not found in weeklySchedule.`);
+    }
+}
+
+/** changeDate
+* Allows you to manually modify the date in order to test special schedules.
+* Proper date format is YYYY-MM-DD, but other formats may work depending
+* on the browser's Date parsing capabilities. If the date is invalid,
+* a warning will be logged and no changes will be made.
+*/
+function changeDate(dateString) {
+    const date = new Date(dateString);
+    if (isNaN(date)) {
+        console.warn(`Invalid date string: "${dateString}". Please use a valid date format.`);
+        console.warn(`Proper date format is YYYY-MM-DD`);
+        return;
+    }
+    const temp = date.toLocaleDateString('en-US', { weekday: 'short' });
+    weekdayID = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(temp);
+    const specialName = isSpecialSchedule();
+    if (specialName && weeklySchedule[specialName]) {
+        currentSchedule = weeklySchedule[specialName];
+    } else {
+        currentSchedule = weeklySchedule[weekdayID === 0 ? "Mon" : "Standard"] || weeklySchedule["Standard"];
+    }
+    console.log(`Date changed to ${dateString}. Current schedule: `, currentSchedule);
+    updateSchedule();
+}
+
+function debugHelp() {
+    console.log("Debugging functions:");
+    console.log("- logCurrentSchedule(): Logs the current schedule to the console.");
+    console.log("- logDateList(): Logs the list of special dates to the console.");
+    console.log("- logWeekdayID(): Logs the current weekday ID to the console.");
+    console.log("- changeSchedule(scheduleName): Changes the current schedule to the specified schedule name (e.g., 'Mon', 'Standard', 'HalfDay').");
+    console.log("- changeDate(dateString): Changes the current date to test special schedules. Use format YYYY-MM-DD (e.g., '2024-12-25').");
 }
