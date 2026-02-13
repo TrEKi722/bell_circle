@@ -17,10 +17,14 @@ async function fetchDateList() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        dateList = data.map(item => ({
-            date: item.date,
-            details: item.details
-        }));
+        dateList = data.map(item => {
+            const parsed = new Date(item.date);
+            const normalizedDate = !isNaN(parsed) ? parsed.toISOString().split('T')[0] : item.date;
+            return {
+                date: normalizedDate,
+                details: item.details
+            };
+        });
         console.log("Date list fetched: ", dateList);
     } catch (error) {
         console.error("Error fetching date list:", error);
