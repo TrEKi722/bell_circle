@@ -36,7 +36,9 @@ function fetchDayID() {
 
 // Formerly isMinimumDay
 function isSpecialSchedule() {
-    const dateString = new Date().toISOString().split('T')[0];
+    // Accept an optional date string (YYYY-MM-DD). If no argument is passed,
+    // default to today's date so existing callers keep working.
+    const dateString = arguments.length > 0 && arguments[0] ? arguments[0] : new Date().toISOString().split('T')[0];
     return dateList.find(item => item.date === dateString)?.details;
 }
 
@@ -200,7 +202,8 @@ function changeDate(dateString) {
     }
     const temp = date.toLocaleDateString('en-US', { weekday: 'short' });
     weekdayID = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(temp);
-    const specialName = isSpecialSchedule();
+    const isoDate = date.toISOString().split('T')[0];
+    const specialName = isSpecialSchedule(isoDate);
     if (specialName && weeklySchedule[specialName]) {
         currentSchedule = weeklySchedule[specialName];
     } else {
@@ -215,6 +218,6 @@ function debugHelp() {
     console.log("- logCurrentSchedule(): Logs the current schedule to the console.");
     console.log("- logDateList(): Logs the list of special dates to the console.");
     console.log("- logWeekdayID(): Logs the current weekday ID to the console.");
-    console.log("- changeSchedule(scheduleName): Changes the current schedule to the specified schedule name (e.g., 'Mon', 'Standard', 'HalfDay').");
+    console.log("- changeSchedule(scheduleName): Changes the current schedule to the specified schedule name (e.g., 'Mon', 'Standard', 'Minimum Day').");
     console.log("- changeDate(dateString): Changes the current date to test special schedules. Use format YYYY-MM-DD (e.g., '2024-12-25').");
 }
