@@ -170,210 +170,49 @@
           });
     </script>
 
-
   <script>
-    const scheduleListElement = document.getElementById("schedule-list");
-    const currentTimeDateElement = document.getElementById("current-timedate");
-    const currentDateElement = document.getElementById("current-date");
-    const currentPeriodElement = document.getElementById("current-period");
-    const countdownElement = document.getElementById("countdown");
-
-    let weekdayID = 0;
-    let dateList = [];
-    let minimumDay = false;
-    let is24HourFormat = false; // Whether or not to default to 24-hour format
-
-    async function fetchDateList() {
-      try {
-        const response = await fetch('../SpecialSchedules/DJAMS.json');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        // Expecting an array of objects with properties: date (yyyy-mm-dd) and details (schedule name)
-        dateList = data.map(item => ({
-          date: item.date,
-          details: item.details
-        }));
-        console.log("Fetched dates from JSON:", dateList);
-      } catch (error) {
-        console.error('Error fetching local JSON schedule data:', error.message);
-      }
-    }
-
-    function fetchWeekdayNumber() {
-      const now = new Date();
-      const temp = now.toLocaleDateString('en-US', { weekday: 'short' });
-      weekdayID = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(temp);
-    }
-
-    function isMinimumDay() {
-      const todayDate = new Date().toISOString().split('T')[0];
-      // Find if today matches a date in the list and get its details (schedule name)
-      const found = dateList.find(item => item.date === todayDate);
-      if (found) {
-        console.log("Schedule for today:", found.details);
-        return found.details;
-      }
-      return null;
-    }
-
-    async function initializeVariables() {
-      await fetchDateList();
-      fetchWeekdayNumber();
-      minimumDay = isMinimumDay(); // now returns schedule name or null
-      console.log("Weekday ID:", weekdayID);
-      console.log("Today's Schedule:", minimumDay);
-    }
-
-    const weeklySchedule = {
-      "Monday": [
-        { start: 9 * 60 + 45, end: 10 * 60 + 30, name: "First Period" },
-        { start: 10 * 60 + 34, end: 11 * 60 + 14, name: "Second Period" },
-        { start: 11 * 60 + 14, end: 11 * 60 + 24, name: "Break" },
-        { start: 11 * 60 + 28, end: 12 * 60 + 8, name: "Third Period" },
-        { start: 12 * 60 + 12, end: 12 * 60 + 52, name: "Fourth Period" },
-        { start: 12 * 60 + 56, end: 13 * 60 + 22, name: "Bronco+" },
-        { start: 13 * 60 + 22, end: 13 * 60 + 57, name: "Lunch" },
-        { start: 14 * 60 + 1, end: 14 * 60 + 41, name: "Fifth Period" },
-        { start: 14 * 60 + 45, end: 15 * 60 + 25, name: "Sixth Period" }
-      ],
-      "Standard": [
-        { start: 7 * 60 + 38, end: 8 * 60 + 41, name: "Zero Period" },
-        { start: 8 * 60 + 45, end: 9 * 60 + 40, name: "First Period" },
-        { start: 9 * 60 + 44, end: 10 * 60 + 34, name: "Second Period" },
-        { start: 10 * 60 + 34, end: 10 * 60 + 44, name: "Break" },
-        { start: 10 * 60 + 48, end: 11 * 60 + 38, name: "Third Period" },
-        { start: 11 * 60 + 42, end: 12 * 60 + 32, name: "Fourth Period" },
-        { start: 12 * 60 + 36, end: 13 * 60 + 2, name: "Bronco+" },
-        { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
-        { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
-        { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
-      ],
-      "Minimum Day": [
-        { start: 8 * 60 + 6, end: 8 * 60 + 40, name: "Zero Period" },
-        { start: 8 * 60 + 44, end: 9 * 60 + 19, name: "First Period" },
-        { start: 9 * 60 + 23, end: 9 * 60 + 57, name: "Second Period" },
-        { start: 9 * 60 + 57, end: 10 * 60 + 5, name: "Break" },
-        { start: 10 * 60 + 9, end: 10 * 60 + 43, name: "Third Period" },
-        { start: 10 * 60 + 47, end: 11 * 60 + 21, name: "Fourth Period" },
-        { start: 11 * 60 + 21, end: 11 * 60 + 31, name: "Break" },
-        { start: 11 * 60 + 35, end: 12 * 60 + 9, name: "Fifth Period" },
-        { start: 12 * 60 + 13, end: 12 * 60 + 47, name: "Sixth Period" }
-      ]
+    window.BellCircleConfig = {
+      weeklySchedule: {
+        "Monday": [
+          { start: 9 * 60 + 45, end: 10 * 60 + 30, name: "First Period" },
+          { start: 10 * 60 + 34, end: 11 * 60 + 14, name: "Second Period" },
+          { start: 11 * 60 + 14, end: 11 * 60 + 24, name: "Break" },
+          { start: 11 * 60 + 28, end: 12 * 60 + 8, name: "Third Period" },
+          { start: 12 * 60 + 12, end: 12 * 60 + 52, name: "Fourth Period" },
+          { start: 12 * 60 + 56, end: 13 * 60 + 22, name: "Bronco+" },
+          { start: 13 * 60 + 22, end: 13 * 60 + 57, name: "Lunch" },
+          { start: 14 * 60 + 1, end: 14 * 60 + 41, name: "Fifth Period" },
+          { start: 14 * 60 + 45, end: 15 * 60 + 25, name: "Sixth Period" }
+        ],
+        "Standard": [
+          { start: 7 * 60 + 38, end: 8 * 60 + 41, name: "Zero Period" },
+          { start: 8 * 60 + 45, end: 9 * 60 + 40, name: "First Period" },
+          { start: 9 * 60 + 44, end: 10 * 60 + 34, name: "Second Period" },
+          { start: 10 * 60 + 34, end: 10 * 60 + 44, name: "Break" },
+          { start: 10 * 60 + 48, end: 11 * 60 + 38, name: "Third Period" },
+          { start: 11 * 60 + 42, end: 12 * 60 + 32, name: "Fourth Period" },
+          { start: 12 * 60 + 36, end: 13 * 60 + 2, name: "Bronco+" },
+          { start: 13 * 60 + 2, end: 13 * 60 + 37, name: "Lunch" },
+          { start: 13 * 60 + 41, end: 14 * 60 + 31, name: "Fifth Period" },
+          { start: 14 * 60 + 35, end: 15 * 60 + 25, name: "Sixth Period" }
+        ],
+        "Minimum Day": [
+          { start: 8 * 60 + 6, end: 8 * 60 + 40, name: "Zero Period" },
+          { start: 8 * 60 + 44, end: 9 * 60 + 19, name: "First Period" },
+          { start: 9 * 60 + 23, end: 9 * 60 + 57, name: "Second Period" },
+          { start: 9 * 60 + 57, end: 10 * 60 + 5, name: "Break" },
+          { start: 10 * 60 + 9, end: 10 * 60 + 43, name: "Third Period" },
+          { start: 10 * 60 + 47, end: 11 * 60 + 21, name: "Fourth Period" },
+          { start: 11 * 60 + 21, end: 11 * 60 + 31, name: "Break" },
+          { start: 11 * 60 + 35, end: 12 * 60 + 9, name: "Fifth Period" },
+          { start: 12 * 60 + 13, end: 12 * 60 + 47, name: "Sixth Period" }
+        ]
+      },
+      specialScheduleFile: "../SpecialSchedules/DJAMS.json"
     };
-
-    function formatTime(minutes) {
-      if (is24HourFormat) {
-        const hour = Math.floor(minutes / 60);
-        const minute = minutes % 60;
-        return `${hour}:${minute < 10 ? '0' : ''}${minute}`;
-      } else {
-        const hour = Math.floor(minutes / 60);
-        const minute = minutes % 60;
-        const period = hour >= 12 ? 'PM' : 'AM';
-        const formattedHour = hour % 12 || 12;
-        return `${formattedHour}:${minute < 10 ? '0' : ''}${minute} ${period}`;
-      }
-    }
-
-    function displayCurrentTime() {
-      const now = new Date();
-      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: !is24HourFormat };
-      const dateOptions = { weekday: "long", month: "long", day: "numeric", };
-      currentTimeDateElement.textContent = now.toLocaleDateString([], dateOptions) + ", " +now.toLocaleTimeString([], timeOptions);
-      //currentDateElement.textContent = now.toLocaleDateString();
-    }
-
-    function updateSchedule() {
-      let todaySchedule;
-      if (minimumDay && weeklySchedule[minimumDay]) {
-        todaySchedule = weeklySchedule[minimumDay];
-      } else {
-        todaySchedule = weeklySchedule["Standard"];
-      }
-      scheduleListElement.innerHTML = '';
-      todaySchedule.forEach(period => {
-        const listItem = document.createElement('li');
-        listItem.className = 'schedule-item';
-        listItem.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.name}`;
-        scheduleListElement.appendChild(listItem);
-      });
-    }
-
-    function updateCurrentPeriodAndCountdown() {
-      const now = new Date();
-      const currentSecondsOfDay = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-
-      let todaySchedule;
-      if (minimumDay && weeklySchedule[minimumDay]) {
-        todaySchedule = weeklySchedule[minimumDay];
-      } else {
-        todaySchedule = weeklySchedule["Standard"];
-      }
-
-      // Find the current period (using seconds for precision) and the next period
-      const currentPeriod = todaySchedule.find(period => {
-        const startSec = period.start * 60;
-        const endSec = period.end * 60;
-        return currentSecondsOfDay >= startSec && currentSecondsOfDay < endSec;
-      });
-
-      const nextPeriod = todaySchedule.find(period => currentSecondsOfDay < period.start * 60);
-
-      function formatCountdown(seconds) {
-        if (seconds <= 0) return '0h 0m 0s';
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor((seconds % 3600) / 60);
-        const s = seconds % 60;
-        return `${h}h ${m}m ${s}s`;
-      }
-
-      if (currentPeriod) {
-        currentPeriodElement.textContent = `Current: ${currentPeriod.name}`;
-        const remainingSeconds = currentPeriod.end * 60 - currentSecondsOfDay;
-        countdownElement.textContent = formatCountdown(remainingSeconds);
-      } else if (nextPeriod) {
-        currentPeriodElement.textContent = `Next: ${nextPeriod.name}`;
-        const remainingSeconds = nextPeriod.start * 60 - currentSecondsOfDay;
-        countdownElement.textContent = formatCountdown(remainingSeconds);
-      } else {
-        currentPeriodElement.textContent = "School is over for today!";
-        countdownElement.textContent = "";
-      }
-    }
-
-    function initialize() {
-      // Initialize variables and ensure schedule updates even if fetching dates fails
-      initializeVariables().catch(err => {
-        console.error('[initialize] initializeVariables failed:', err);
-      }).then(() => {
-        try {
-          displayCurrentTime();
-          updateSchedule();
-          updateCurrentPeriodAndCountdown();
-          setInterval(displayCurrentTime, 1000);
-          setInterval(updateCurrentPeriodAndCountdown, 1000);
-
-          // Attach 24-hour switch listener safely (ensure element exists)
-          const hrSwitch = document.getElementById('24HrSwitch');
-          if (hrSwitch) {
-            hrSwitch.addEventListener('change', (event) => {
-              is24HourFormat = event.target.checked;
-              displayCurrentTime();
-              updateSchedule();
-            });
-          } else {
-            console.warn('[initialize] 24HrSwitch element not found');
-          }
-        } catch (err) {
-          console.error('[initialize] Error during post-init setup:', err);
-        }
-      });
-    }
-
-    // Use DOMContentLoaded to ensure DOM elements are present and avoid onload overrides
-    document.addEventListener('DOMContentLoaded', initialize);
   </script>
+  <script src="/schedules.js"></script>
 </body>
 </html>
+
+
