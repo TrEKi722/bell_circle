@@ -161,7 +161,7 @@ function main() {
             if (breakN){
                 period.textContent = `No school today: ${breakN}`;
                 countdown.textContent = "";
-                scheduleTitle.textContent = "Enjoy your break!";
+                title.textContent = "Enjoy your break!";
                 scheduleList.innerHTML = "";
                 return;
             } else {
