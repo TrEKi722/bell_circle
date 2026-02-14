@@ -262,7 +262,12 @@ function changeDate(dateString) {
     } else {
         currentSchedule = weeklySchedule[weekdayID === 0 ? "Mon" : "Standard"] || weeklySchedule["Standard"];
     }
-    console.log(`Date changed to ${dateString}. Current schedule: `, currentSchedule);
+    if (breakList.find(item => item.date === dateString)?.details) {
+        breakN = breakList.find(item => item.date === dateString)?.details;
+    } else if (weekdayId === 5 || weekdayID === 6) {
+        breakN = "Weekend";
+    }
+    console.log(`Date changed to ${dateString}. Current schedule: `, currentSchedule ? currentSchedule : "No schedule: " + breakN);
     updateSchedule();
 }
 
