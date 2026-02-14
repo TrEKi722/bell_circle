@@ -4,7 +4,7 @@ const period = document.getElementById("current-period");
 const countdown = document.getElementById("countdown");
 
 const { weeklySchedule, specialScheduleFile } = window.BellCircleConfig;
-const breakDates = '../SpecialSchedules/breaks.json';
+const breakDates = 'SpecialSchedules/breaks.json';
 
 let weekdayID = 0;
 let breakList = [];
@@ -80,6 +80,7 @@ function isBreak() {
 // Formerly initializeVariables
 async function initializeVars() {
     await fetchDateList();
+    await fetchBreakList();
     fetchDayID();
     const scheduleKey = weekdayID === 0 ? "Mon" : "Standard" ;
     const specialName = isSpecialSchedule();
@@ -122,7 +123,7 @@ function updateSchedule() {
         listItem.className = 'schedule-item';
         listItem.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.name}`;
         if (index === 0) {
-            listItem.classList.add =('current-period');
+            listItem.classList.add('current-period');
         }
         scheduleList.appendChild(listItem);
     });
