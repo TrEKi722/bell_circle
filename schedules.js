@@ -76,7 +76,11 @@ function isBreak() {
     // Accept an optional date string (YYYY-MM-DD). If no argument is passed,
     // default to today's date so existing callers keep working.
     const dateString = arguments.length > 0 && arguments[0] ? arguments[0] : new Date().toISOString().split('T')[0];
-    return breakList.find(item => item.date === dateString)?.details;
+    if (breakList.find(item => item.date === dateString)?.details) {
+        return breakList.find(item => item.date === dateString)?.details;
+    } else if (weekdayId === 5 || weekdayID === 6) {
+        return "Weekend";
+    }
 }
 
 // Formerly initializeVariables
