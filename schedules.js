@@ -1,14 +1,19 @@
+const title = document.getElementById("schedule-title");
 const scheduleList = document.getElementById("schedule-list");
 const timeDate = document.getElementById("current-timedate");
 const period = document.getElementById("current-period");
 const countdown = document.getElementById("countdown");
+const formatSwitch = document.getElementById('24HrSwitch');
 
 const { weeklySchedule, specialScheduleFile } = window.BellCircleConfig;
+const breakDates = '../SpecialSchedules/breaks.json';
 
 let weekdayID = 0;
+let breakList = [];
 let dateList = [];
 let currentSchedule = [];
 let is24HourFormat = localStorage.getItem('is24HourFormat') === 'true';
+let breakN;
 
 async function fetchDateList() {
     try {
@@ -31,6 +36,27 @@ async function fetchDateList() {
     }
 }
 
+async function fetchBreakList() {
+    try {
+        const response = await fetch(breakDates);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        breakList = data.map(item => {
+            const parsed = new Date(item.date);
+            const normalizedDate = !isNaN(parsed) ? parsed.toISOString().split('T')[0] : item.date;
+            return {
+                date: normalizedDate,
+                details: item.details
+            };
+        });
+        console.log("Break list fetched: ", breakList);
+    } catch (error) {
+        console.error("Error fetching break list:", error);
+    }
+}
+
 // Formerly fetchWeekdayID
 function fetchDayID() {
     const now  = new Date();
@@ -46,14 +72,29 @@ function isSpecialSchedule() {
     return dateList.find(item => item.date === dateString)?.details;
 }
 
+function isBreak() {
+    // Accept an optional date string (YYYY-MM-DD). If no argument is passed,
+    // default to today's date so existing callers keep working.
+    const dateString = arguments.length > 0 && arguments[0] ? arguments[0] : new Date().toISOString().split('T')[0];
+    if (breakList.find(item => item.date === dateString)?.details) {
+        return breakList.find(item => item.date === dateString)?.details;
+    } else if (weekdayID === 5 || weekdayID === 6) {
+        return "Weekend";
+    }
+}
+
 // Formerly initializeVariables
 async function initializeVars() {
     await fetchDateList();
+    await fetchBreakList();
     fetchDayID();
     const scheduleKey = weekdayID === 0 ? "Mon" : "Standard" ;
     const specialName = isSpecialSchedule();
+    breakN = isBreak();
     if (specialName && weeklySchedule[specialName]) {
         currentSchedule = weeklySchedule[specialName];
+    } else if (breakN){
+        currentSchedule = [];
     } else {
         currentSchedule = weeklySchedule[scheduleKey] || weeklySchedule["Standard"];
     }
@@ -88,7 +129,7 @@ function updateSchedule() {
         listItem.className = 'schedule-item';
         listItem.textContent = `${formatTime(period.start)} - ${formatTime(period.end)}: ${period.name}`;
         if (index === 0) {
-            listItem.classList.add =('current-period');
+            listItem.classList.add('current-period');
         }
         scheduleList.appendChild(listItem);
     });
@@ -122,16 +163,23 @@ function main() {
         console.error("Error initializing variables: ", err);
     }).then(() => {
         try {
-            displayTime();
-            updateSchedule();
-            updateCountdown();
-            setInterval(() => {
+            if (breakN){
+                period.textContent = `No school today: ${breakN}`;
+                countdown.textContent = "";
+                title.textContent = "Enjoy your break!";
+                scheduleList.innerHTML = "";
+                formatSwitch.style.display = 'none';
+                return;
+            } else {
                 displayTime();
+                updateSchedule();
                 updateCountdown();
-            }, 1000);
-
+                setInterval(() => {
+                    displayTime();
+                    updateCountdown();
+                }, 1000);
+            }
             // 24 Hour switch listener
-            const formatSwitch = document.getElementById('24HrSwitch');
             if (formatSwitch) {
                 formatSwitch.checked = is24HourFormat;
                 formatSwitch.addEventListener('change', function() {
@@ -154,7 +202,6 @@ document.addEventListener("DOMContentLoaded", main);
 
 
 // Keep the 24-hour format switch state in sync with localStorage
-const formatSwitch = document.getElementById('24HrSwitch');
 if (formatSwitch) {
     formatSwitch.addEventListener('change', function() {
         localStorage.setItem('is24HourFormat', this.checked);
@@ -178,9 +225,10 @@ function logWeekdayID() {
     console.log("Weekday ID: ", weekdayID);
 }
 
-// changeSchedule
-// Allows you to manually modify what schedule is currently active in order to see
-// if the schedule functions properly.
+/** changeSchedule
+    * Allows you to manually modify what schedule is currently active in order to see
+    * if the schedule functions properly.
+*/
 function changeSchedule(scheduleName){
     if (weeklySchedule[scheduleName]) {
         currentSchedule = weeklySchedule[scheduleName];
@@ -192,10 +240,10 @@ function changeSchedule(scheduleName){
 }
 
 /** changeDate
-* Allows you to manually modify the date in order to test special schedules.
-* Proper date format is YYYY-MM-DD, but other formats may work depending
-* on the browser's Date parsing capabilities. If the date is invalid,
-* a warning will be logged and no changes will be made.
+    * Allows you to manually modify the date in order to test special schedules.
+    * Proper date format is YYYY-MM-DD, but other formats may work depending
+    * on the browser's Date parsing capabilities. If the date is invalid,
+    * a warning will be logged and no changes will be made.
 */
 function changeDate(dateString) {
     const date = new Date(dateString);
@@ -213,7 +261,12 @@ function changeDate(dateString) {
     } else {
         currentSchedule = weeklySchedule[weekdayID === 0 ? "Mon" : "Standard"] || weeklySchedule["Standard"];
     }
-    console.log(`Date changed to ${dateString}. Current schedule: `, currentSchedule);
+    if (breakList.find(item => item.date === dateString)?.details) {
+        breakN = breakList.find(item => item.date === dateString)?.details;
+    } else if (weekdayID === 5 || weekdayID === 6) {
+        breakN = "Weekend";
+    }
+    console.log(`Date changed to ${dateString}. Current schedule: `, currentSchedule ? currentSchedule : "No schedule: " + breakN);
     updateSchedule();
 }
 
