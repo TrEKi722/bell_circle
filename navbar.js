@@ -195,3 +195,16 @@ if (!window.initThemeToggles()) {
     window.initThemeToggles();
   }, 100);
 }
+
+// Load SiteSearch360 search plugin
+(function loadSiteSearch360(){
+  try {
+    const ssScript = document.createElement('script');
+    ssScript.async = true;
+    ssScript.src = 'https://js.sitesearch360.com/plugin/bundle/56979.js';
+    document.head.appendChild(ssScript);
+    console.log('[navbar.js] SiteSearch360 script appended');
+  } catch (e) {
+    console.error('[navbar.js] Failed to append SiteSearch360 script', e);
+  }
+})();
