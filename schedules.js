@@ -78,7 +78,7 @@ function isBreak() {
     const dateString = arguments.length > 0 && arguments[0] ? arguments[0] : new Date().toISOString().split('T')[0];
     if (breakList.find(item => item.date === dateString)?.details) {
         return breakList.find(item => item.date === dateString)?.details;
-    } else if (weekdayId === 5 || weekdayID === 6) {
+    } else if (weekdayID === 5 || weekdayID === 6) {
         return "Weekend";
     }
 }
@@ -202,7 +202,6 @@ document.addEventListener("DOMContentLoaded", main);
 
 
 // Keep the 24-hour format switch state in sync with localStorage
-const formatSwitch = document.getElementById('24HrSwitch');
 if (formatSwitch) {
     formatSwitch.addEventListener('change', function() {
         localStorage.setItem('is24HourFormat', this.checked);
