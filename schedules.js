@@ -4,7 +4,7 @@ const period = document.getElementById("current-period");
 const countdown = document.getElementById("countdown");
 
 const { weeklySchedule, specialScheduleFile } = window.BellCircleConfig;
-const breakDates = 'SpecialSchedules/breaks.json';
+const breakDates = './SpecialSchedules/breaks.json';
 
 let weekdayID = 0;
 let breakList = [];
