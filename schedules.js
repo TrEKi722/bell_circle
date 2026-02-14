@@ -3,6 +3,7 @@ const scheduleList = document.getElementById("schedule-list");
 const timeDate = document.getElementById("current-timedate");
 const period = document.getElementById("current-period");
 const countdown = document.getElementById("countdown");
+const formatSwitch = document.getElementById('24HrSwitch');
 
 const { weeklySchedule, specialScheduleFile } = window.BellCircleConfig;
 const breakDates = '../SpecialSchedules/breaks.json';
@@ -163,6 +164,7 @@ function main() {
                 countdown.textContent = "";
                 title.textContent = "Enjoy your break!";
                 scheduleList.innerHTML = "";
+                formatSwitch.style.display = 'none';
                 return;
             } else {
                 displayTime();
@@ -172,18 +174,16 @@ function main() {
                     displayTime();
                     updateCountdown();
                 }, 1000);
-
-                // 24 Hour switch listener
-                const formatSwitch = document.getElementById('24HrSwitch');
-                if (formatSwitch) {
-                    formatSwitch.checked = is24HourFormat;
-                    formatSwitch.addEventListener('change', function() {
-                        is24HourFormat = this.checked;
-                        localStorage.setItem('is24HourFormat', this.checked);
-                        displayTime();
-                        updateSchedule();
-                    });
-                }
+            }
+            // 24 Hour switch listener
+            if (formatSwitch) {
+                formatSwitch.checked = is24HourFormat;
+                formatSwitch.addEventListener('change', function() {
+                    is24HourFormat = this.checked;
+                    localStorage.setItem('is24HourFormat', this.checked);
+                    displayTime();
+                    updateSchedule();
+                });
             }
         } catch (err) {
             console.error("Error in main execution: ", err);
