@@ -1,3 +1,4 @@
+const title = document.getElementById("schedule-title");
 const scheduleList = document.getElementById("schedule-list");
 const timeDate = document.getElementById("current-timedate");
 const period = document.getElementById("current-period");
@@ -160,6 +161,7 @@ function main() {
             if (breakN){
                 period.textContent = `No school today: ${breakN}`;
                 countdown.textContent = "";
+                scheduleTitle.textContent = "Enjoy your break!";
                 scheduleList.innerHTML = "";
                 return;
             } else {
