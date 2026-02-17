@@ -168,7 +168,7 @@ p {
 
 /* .NAVBAR-DROPBTN: Dropdown button/trigger that shows submenu */
 .navbar-dropbtn {
-  color: #2f4f4f;
+  color: #fff;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
@@ -250,7 +250,7 @@ p {
   width: 28px;
   height: 4px;
   margin: 4px 0;
-  background: #fff;
+  background: #000;
   border-radius: 2px;
   transition: 0.3s;
 }
@@ -319,6 +319,7 @@ body.menu-open::before {
 .navbar-hamburger.active span:nth-child(1) {
   /* Top line rotates 45deg */
   transform: rotate(45deg) translate(6px, 6px);
+  background: white;
 }
 .navbar-hamburger.active span:nth-child(2) {
   /* Middle line disappears */
@@ -327,6 +328,7 @@ body.menu-open::before {
 .navbar-hamburger.active span:nth-child(3) {
   /* Bottom line rotates -45deg to form X */
   transform: rotate(-45deg) translate(7px, -7px);
+  background: white;
 }
 
 /* RESPONSIVE RULES: Switches between desktop menu and mobile hamburger */

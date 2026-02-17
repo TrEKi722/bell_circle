@@ -150,7 +150,7 @@ function updateCountdown() {
     } else if (nextPeriod) {
         period.textContent = `Next: ${nextPeriod.name}`;
         const secondsNext = (nextPeriod.start - currentTime) * 60 - now.getSeconds();
-        countdown.textContent = `Next period (${nextPeriod.name}) starts in: ${Math.floor(secondsNext / 60)} minute${secondsNext !== 60 ? 's' : ''}`;
+        countdown.textContent = `${Math.floor(secondsNext / 60)}:${secondsNext%60}`;
     } else {
         period.textContent = "School is over for today!";
         countdown.textContent = "";
