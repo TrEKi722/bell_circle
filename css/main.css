@@ -2,34 +2,24 @@
 /* Variables */
 :root {
   --bg: #ffffff;
-  --font-color: #000000;
-  --navbar-bg-left: #ACDFFD;
-  --navbar-bg-right: #E0FFFF;
-  --navbar-color: #2f4f4f;
-  --span-color: #000;
-  --section-bg: #80d0ff;
-  --switch-lbl-color: #333;
-  --theme-icon-colors: #000;
+  --body-color: #000000;
+  --sub-color: #333;
+  --nav-bg-left: #ACDFFD;
+  --nav-bg-right: #E0FFFF;
+  --section-bg: #ACDFFD;
   --cta: #ff6b6b;
-  --faq-q: #333;
-  --faq-a: #555;
   --speed: 0.3s;
 }
 
 /* Dark-theme overrides — toggle by setting data-theme="dark" on <html> */
 :root[data-theme="dark"] {
   --bg: #1e293b;
-  --font-color: #ffffff;
-  --navbar-bg-left: #1e293b;
-  --navbar-bg-right: #2f4f4f;
-  --navbar-color: #cccccc;
-  --span-color: #fff;
+  --body-color: #ffffff;
+  --sub-color: #CCC;
+  --nav-bg-left: #1e293b;
+  --nav-bg-right: #2f4f4f;
   --section-bg: #2f4f4f;
-  --switch-lbl-color: #ccc;
-  --theme-icon-colors: whitesmoke;
   --cta: #ff9800;
-  --faq-q: #ccc;
-  --faq-a: #aeaeae;
   --speed: 0.3s;
 }
 
@@ -40,7 +30,7 @@ html, body {
     font-family: "Comfortaa", sans-serif;
     font-size: 1.75rem;
     background-color: var(--bg);
-    transition: opacity, background-color var(--speed) ease;
+    transition: opacity, background-color 0.3s ease;
 }
 
 /* BODY TEXT: Centers body content and overrides font for text elements */
@@ -49,13 +39,13 @@ body {
     font-family: "Nunito Sans", sans-serif;
     font-weight: 400;
     font-style: normal;
-    color: var(--font-color);
+    color: var(--body-color);
 }
 
 /* HORIZONTAL RULES: Removes default hr styling */
 hr {
     height: 1px;
-    background-color: none;
+    background: none;
     border: none;
 }
 
@@ -66,7 +56,7 @@ p {
 
 /* .BANNER: Page header with wood background image, centered title */
 .banner {
-    font-size: 2rem;
+    font-size: 1rem;
     font-family: "Comfortaa", sans-serif;
     font-weight: 700;
     text-align: center;
@@ -74,8 +64,8 @@ p {
     background-size: cover;
     background-position: center;
     color: white;
-    padding: 30px 0;
-    height: 200px;
+    padding: 30px 5px;
+    height: 175px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,7 +75,7 @@ p {
 /* .FOOTER: Dark footer bar at page bottom with text and logo image */
 .footer {
     font-size: 0.5rem;
-    font-family: "Fira Code", sans-serif;
+    font-family: "STIX Two Text", sans-serif;
     font-weight: 400;
     text-align: center;
     background-color: #000;
@@ -104,19 +94,14 @@ p {
 /* --- NAVBAR CONTAINER: Top navigation bar with light-to-dark gradient --- */
 .navbar {
   width: 100%;
-  background: var(--navbar-bg-left);
-  background: -webkit-linear-gradient(90deg, var(--navbar-bg-left) 0%, var(--navbar-bg-right) 100%);
-  background: -moz-linear-gradient(90deg, var(--navbar-bg-left) 0%, var(--navbar-bg-right) 100%);
-  background: linear-gradient(90deg, var(--navbar-bg-left) 0%, var(--navbar-bg-right) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(
-    startColorstr="#ACDFFD",
-    endColorstr="#2F4F4F",
-    GradientType=1
-  );
-  color: var(--navbar-color);
-  font-family: 'Titillium Web', sans-serif;
+  background: var(--nav-bg-left);
+  background: -webkit-linear-gradient(90deg,var(--nav-bg-left) 0%, var(--nav-bg-right) 100%);
+  background: -moz-linear-gradient(90deg,var(--nav-bg-left) 0%, var(--nav-bg-right) 100%);
+  background: linear-gradient(90deg,var(--nav-bg-left) 0%, var(--nav-bg-right) 100%);
+  color: var(--sub-color);
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 0.70rem;
+  font-size: 19.2px;
   position: relative;
   z-index: 100;
   box-shadow: 0 2px 6px rgba(31, 31, 31, 0.07);
@@ -145,9 +130,10 @@ p {
 
 /* .NAVBAR-LOGO-TEXT: Site name/title text next to logo */
 .navbar-logo-text {
-  font-size: 1.5em;
+  font-family: "Comfortaa", sans-serif;
+  font-size: 1.4em;
   font-weight: 400;
-  color: var(--navbar-color);
+  color: var(--sub-color);
   margin-left: 8px;
   white-space: nowrap;
 }
@@ -160,7 +146,7 @@ p {
 
 /* .NAVBAR-LINKS A: Individual navigation link buttons */
 .navbar-links a {
-  color: var(--navbar-color);
+  color: var(--sub-color);
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -171,7 +157,7 @@ p {
 
 /* .NAVBAR-LINKS A:HOVER: Link hover effect with dark background */
 .navbar-links a:hover {
-  background: var(--navbar-bg-left);
+  background: var(--nav-bg-left);
 }
 
 /* .NAVBAR-HAMBURGER-MENU A: Menu links inside mobile slide-out drawer */
@@ -214,7 +200,7 @@ p {
 .navbar-dropbtn:hover,
 .navbar-dropdown:focus > .navbar-dropbtn,
 .navbar-dropdown:active > .navbar-dropbtn {
-  background: var(--navbar-bg-left);
+  background: var(--nav-bg-left);
 }
 
 /* .NAVBAR-DROPDOWN-CONTENT: Submenu items (hidden by default) */
@@ -283,7 +269,7 @@ p {
   width: 28px;
   height: 4px;
   margin: 4px 0;
-  background: var(--span-color, #fff);
+  background: var(--body-color);
   border-radius: 2px;
   transition: 0.3s;
 }
@@ -396,9 +382,10 @@ body.menu-open::before {
     margin: 40px auto;
     background: var(--section-bg);
     border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
     padding: 16px;
     text-align: left;
+    transition: background 0.3s ease;
 }
 
 /* .SECTION H2: Section heading */
@@ -465,6 +452,12 @@ body.menu-open::before {
     font-size: 1.25rem;
 }
 
+/* .SCHEDULE H2: Schedule heading with adjusted spacing */
+.schedule h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
 /* .SCHEDULE: Container for schedule display */
 .schedule {
     display: flex;
@@ -488,21 +481,29 @@ body.menu-open::before {
     align-items: center;
 }
 
+/* --- TOGGLE SWITCH STYLES --- */
+
 /* .SWITCH-CONTAINER: Wraps toggle switch and its label */
 .switch-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    display: grid;
+    place-items: center;
     gap: 10px;
-    margin: 20px 0;
+    margin: 0 0;
 }
 /* .SWITCH: Toggle switch wrapper (contains checkbox and slider) */
 .switch {
     position: relative;
-    display: inline-block;
+    display: inline-grid;
     width: 60px;
     height: 34px;
+    align-items: center;
+    justify-items: left;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
 }
+
 /* .SWITCH INPUT: Hidden checkbox that controls toggle state */
 .switch input {
     opacity: 0;
@@ -512,9 +513,9 @@ body.menu-open::before {
 /* .SWITCH-LABEL: Label text next to toggle switch */
 .switch-label {
     font-size: 0.65rem;
-    font-family: "Fira Code", sans-serif;
+    font-family: "Nunito Sans", sans-serif;
     font-weight: 400;
-    color: var(--switch-lbl-color);
+    color: var(--sub-color);
     margin: 0;
     padding: 0;
 }
@@ -531,7 +532,7 @@ body.menu-open::before {
 }
 
 /* .SLIDER::BEFORE: Movable circle button inside toggle */
-.slider:before {
+.slider::before {
     position: absolute;
     content: "";
     height: 26px;
@@ -540,6 +541,7 @@ body.menu-open::before {
     bottom: 4px;
     background-color: white;
     transition: .4s;
+    z-index: 3;
 }
 
 /* INPUT:CHECKED + .SLIDER: Slider turns green when toggle is ON */
@@ -547,13 +549,13 @@ input:checked + .slider {
     background-color: #00B58B;
 }
 
-/* INPUT:FOCUS + .SLIDER: Slider shows blue outline when focused */
-input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+/* INPUT:HOVER + .SLIDER: Slider shows blue outline when hovered over */
+input:hover + .slider {
+    box-shadow: 0 0 10px #2196F3;
 }
 
 /* INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when toggle ON */
-input:checked + .slider:before {
+input:checked + .slider::before {
     transform: translateX(26px);
 }
 
@@ -563,11 +565,10 @@ input:checked + .slider:before {
 }
 
 /* .SLIDER.ROUND::BEFORE: Rounded circle button */
-.slider.round:before {
+.slider.round::before {
     border-radius: 50%;
 }
 
-/* .THEME-ICONS: Container for sun/moon icons inside toggle switch */
 .theme-icons {
   position: absolute;
   inset: 0;
@@ -580,8 +581,8 @@ input:checked + .slider:before {
   pointer-events: none;
   padding: 0 9px;
   font-size: 0.8em;
-  z-index: 2;  
-  color: var(--theme-icon-colors);
+  z-index: 2;
+  color: var(--sub-color);
 }
 
 .theme-icons .left,
@@ -593,8 +594,6 @@ input:checked + .slider:before {
   filter: drop-shadow(0 1px 1px var(--icon-dim));
   transition: opacity var(--transition-slow);
 }
-
-/* End Toggle Switch Styles */
 
 /* --- MODAL / LIGHTBOX STYLES --- */
 
@@ -621,7 +620,7 @@ input:checked + .slider:before {
   border-radius: 15px;
   position: relative;
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  background-color: var(--navbar-bg-left);
+  background-color: var(--section-bg);
   display: flex;
   flex-direction: column;
 }
@@ -665,7 +664,7 @@ input:checked + .slider:before {
 .builder-label {
   font-size: 0.6rem;
   font-family: "Nunito Sans", sans-serif;
-  color: #fff;
+  color: var(--body-color);
 }
 
 .builder-submit {
@@ -692,7 +691,7 @@ input:checked + .slider:before {
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--faq-q);
+  color: var(--body-color);
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
@@ -707,7 +706,7 @@ input:checked + .slider:before {
 .faq-answer {
   display: none;
   padding: 10px 0;
-  color: var(--faq-a);
+  color: var(--sub-color);
   line-height: 1.6;
 }
 
