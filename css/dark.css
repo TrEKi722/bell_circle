@@ -589,7 +589,6 @@ input:checked + .slider::before {
 /* --- MODAL / LIGHTBOX STYLES --- */
 
 /* The Modal (background overlay) */
-/* Matches HTML class: class="modal-overlay" */
 .modal-overlay {
   display: none;
   position: fixed; 
@@ -603,7 +602,6 @@ input:checked + .slider::before {
 }
 
 /* The White Box */
-/* Matches HTML class: class="modal-content" */
 .modal-content {
   margin: 10vh auto;
   padding: 20px; 
@@ -619,7 +617,6 @@ input:checked + .slider::before {
 }
 
 /* The Close Button (X) */
-/* Matches HTML class: class="close-btn" */
 .close-btn {
   color: #ff9800;
   font-size: 28px;

@@ -1,4 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Alice&family=Comfortaa:wght@300..700&family=Fira+Code:wght@300..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+/* Variables */
+:root {
+  --bg: #ffffff;
+  --font-color: #000000;
+  --navbar-bg-left: #ACDFFD;
+  --navbar-bg-right: #E0FFFF;
+  --navbar-color: #2f4f4f;
+  --span-color: #000;
+  --section-bg: #80d0ff;
+  --switch-lbl-color: #333;
+  --theme-icon-colors: #000;
+  --cta: #ff6b6b;
+  --faq-q: #333;
+  --faq-a: #555;
+  --speed: 0.3s;
+}
+
+/* Dark-theme overrides — toggle by setting data-theme="dark" on <html> */
+:root[data-theme="dark"] {
+  --bg: #1e293b;
+  --font-color: #ffffff;
+  --navbar-bg-left: #1e293b;
+  --navbar-bg-right: #2f4f4f;
+  --navbar-color: #cccccc;
+  --span-color: #fff;
+  --section-bg: #2f4f4f;
+  --switch-lbl-color: #ccc;
+  --theme-icon-colors: whitesmoke;
+  --cta: #ff9800;
+  --faq-q: #ccc;
+  --faq-a: #aeaeae;
+  --speed: 0.3s;
+}
 
 /* ROOT STYLES: Sets up the entire page layout and background */
 html, body {
@@ -6,15 +39,17 @@ html, body {
     margin: 0;
     font-family: "Comfortaa", sans-serif;
     font-size: 1.75rem;
-    background-color: #acdffd;
+    background-color: var(--bg);
+    transition: opacity, background-color var(--speed) ease;
 }
 
 /* BODY TEXT: Centers body content and overrides font for text elements */
 body {
     text-align: center;
-    font-family: "Titillium Web", sans-serif;
+    font-family: "Nunito Sans", sans-serif;
     font-weight: 400;
     font-style: normal;
+    color: var(--font-color);
 }
 
 /* HORIZONTAL RULES: Removes default hr styling */
@@ -26,7 +61,7 @@ hr {
 
 /* PARAGRAPHS: Uses monospace font for all paragraph text */
 p {
-    font-family: 'Fira Code', monospace;
+    font-family: 'Nunito Sans', monospace;
 }
 
 /* .BANNER: Page header with wood background image, centered title */
@@ -69,16 +104,16 @@ p {
 /* --- NAVBAR CONTAINER: Top navigation bar with light-to-dark gradient --- */
 .navbar {
   width: 100%;
-  background: #ACDFFD;
-  background: -webkit-linear-gradient(90deg,rgba(172, 223, 253, 1) 0%, rgba(47, 79, 79, 1) 100%);
-  background: -moz-linear-gradient(90deg,rgba(172, 223, 253, 1) 0%, rgba(47, 79, 79, 1) 100%);
-  background: linear-gradient(90deg,rgba(172, 223, 253, 1) 0%, rgba(47, 79, 79, 1) 100%);
+  background: var(--navbar-bg-left);
+  background: -webkit-linear-gradient(90deg, var(--navbar-bg-left) 0%, var(--navbar-bg-right) 100%);
+  background: -moz-linear-gradient(90deg, var(--navbar-bg-left) 0%, var(--navbar-bg-right) 100%);
+  background: linear-gradient(90deg, var(--navbar-bg-left) 0%, var(--navbar-bg-right) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(
     startColorstr="#ACDFFD",
     endColorstr="#2F4F4F",
     GradientType=1
   );
-  color: #fff;
+  color: var(--navbar-color);
   font-family: 'Titillium Web', sans-serif;
   font-weight: 600;
   font-size: 0.70rem;
@@ -112,7 +147,7 @@ p {
 .navbar-logo-text {
   font-size: 1.5em;
   font-weight: 400;
-  color: #fff;
+  color: var(--navbar-color);
   margin-left: 8px;
   white-space: nowrap;
 }
@@ -125,7 +160,7 @@ p {
 
 /* .NAVBAR-LINKS A: Individual navigation link buttons */
 .navbar-links a {
-  color: #fff;
+  color: var(--navbar-color);
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -136,7 +171,7 @@ p {
 
 /* .NAVBAR-LINKS A:HOVER: Link hover effect with dark background */
 .navbar-links a:hover {
-  background: #222;
+  background: var(--navbar-bg-left);
 }
 
 /* .NAVBAR-HAMBURGER-MENU A: Menu links inside mobile slide-out drawer */
@@ -148,7 +183,7 @@ p {
   transition: background 0.1s;
   white-space: nowrap;
   font-size: 1em;
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   display: block;
 }
@@ -179,7 +214,7 @@ p {
 .navbar-dropbtn:hover,
 .navbar-dropdown:focus > .navbar-dropbtn,
 .navbar-dropdown:active > .navbar-dropbtn {
-  background: #222;
+  background: var(--navbar-bg-left);
 }
 
 /* .NAVBAR-DROPDOWN-CONTENT: Submenu items (hidden by default) */
@@ -248,7 +283,7 @@ p {
   width: 28px;
   height: 4px;
   margin: 4px 0;
-  background: #fff;
+  background: var(--span-color, #fff);
   border-radius: 2px;
   transition: 0.3s;
 }
@@ -317,6 +352,7 @@ body.menu-open::before {
 .navbar-hamburger.active span:nth-child(1) {
   /* Top line rotates 45deg */
   transform: rotate(45deg) translate(6px, 6px);
+  background: white;
 }
 .navbar-hamburger.active span:nth-child(2) {
   /* Middle line disappears */
@@ -325,6 +361,7 @@ body.menu-open::before {
 .navbar-hamburger.active span:nth-child(3) {
   /* Bottom line rotates -45deg to form X */
   transform: rotate(-45deg) translate(7px, -7px);
+  background: white;
 }
 
 /* RESPONSIVE RULES: Switches between desktop menu and mobile hamburger */
@@ -357,7 +394,7 @@ body.menu-open::before {
 .section {
     width: 80vw;
     margin: 40px auto;
-    background: #80d0ff;
+    background: var(--section-bg);
     border-radius: 10px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.07);
     padding: 16px;
@@ -373,14 +410,14 @@ body.menu-open::before {
 
 /* .SECTION P: Paragraph text inside sections */
 .section p {
-    font-family: 'Fira Code', monospace;
+    font-family: 'Nunito Sans', monospace;
     font-size: 0.75rem;
 }
 
 /* .SECTION UL, OL: Lists inside sections */
 .section ul, .section ol {
     font-size: 1.1rem;
-    font-family: 'Fira Code', monospace;
+    font-family: 'Nunito Sans', monospace;
     line-height: 1.5;
 }
 
@@ -390,7 +427,6 @@ body.menu-open::before {
     font-size: 1.4rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    color: #333;
 }
 
 /* .CHANGELOG H4: Minor category heading in changelog */
@@ -399,7 +435,6 @@ body.menu-open::before {
     font-size: 0.9rem;
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
-    color: #444;
 }
 
 /* .CHANGELOG UL: Changelog bullet list */
@@ -422,12 +457,6 @@ body.menu-open::before {
     border: none;
     height: 5px;
     background-color: #00B58B;
-}
-
-/* .CHANGELOG P: Descriptive text in changelog */
-.changelog p {
-    color: #666;
-    font-style: italic;
 }
 
 /* .SCHEDULE H2/H1/P: Schedule text elements */
@@ -458,6 +487,7 @@ body.menu-open::before {
     flex-direction: column;
     align-items: center;
 }
+
 /* .SWITCH-CONTAINER: Wraps toggle switch and its label */
 .switch-container {
     display: flex;
@@ -473,7 +503,6 @@ body.menu-open::before {
     width: 60px;
     height: 34px;
 }
-
 /* .SWITCH INPUT: Hidden checkbox that controls toggle state */
 .switch input {
     opacity: 0;
@@ -485,7 +514,7 @@ body.menu-open::before {
     font-size: 0.65rem;
     font-family: "Fira Code", sans-serif;
     font-weight: 400;
-    color: #333;
+    color: var(--switch-lbl-color);
     margin: 0;
     padding: 0;
 }
@@ -536,4 +565,158 @@ input:checked + .slider:before {
 /* .SLIDER.ROUND::BEFORE: Rounded circle button */
 .slider.round:before {
     border-radius: 50%;
+}
+
+/* .THEME-ICONS: Container for sun/moon icons inside toggle switch */
+.theme-icons {
+  position: absolute;
+  inset: 0;
+  width: 60px;  /* Match .switch width */
+  height: 34px; /* Match .switch height */
+  left: -2px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  pointer-events: none;
+  padding: 0 9px;
+  font-size: 0.8em;
+  z-index: 2;  
+  color: var(--theme-icon-colors);
+}
+
+.theme-icons .left,
+.theme-icons .right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  filter: drop-shadow(0 1px 1px var(--icon-dim));
+  transition: opacity var(--transition-slow);
+}
+
+/* End Toggle Switch Styles */
+
+/* --- MODAL / LIGHTBOX STYLES --- */
+
+/* The Modal (background overlay) */
+.modal-overlay {
+  display: none;
+  position: fixed; 
+  z-index: 10001; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0,0,0,0.7); /* Slightly darker for better contrast */
+  backdrop-filter: blur(5px);
+}
+
+/* The White Box */
+.modal-content {
+  margin: 10vh auto;
+  padding: 20px; 
+  width: 90%; 
+  max-width: 600px;
+  height: 70vh;
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  background-color: var(--navbar-bg-left);
+  display: flex;
+  flex-direction: column;
+}
+
+/* The Close Button (X) */
+.close-btn {
+  color: var(--cta);
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-bottom: 10px;
+  padding: 0;
+  line-height: 1;
+}
+
+/* The Iframe Container */
+/* Matches HTML class: class="iframe-container" */
+.iframe-container {
+  flex: 1;
+  overflow: hidden;  /* Prevents double scrollbars */
+  background: #fff; /* Clean background for loading */
+  border-radius: 8px;
+}
+
+/* The Iframe itself */
+.iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Custom builder css */
+.builder-label {
+  font-size: 0.6rem;
+  font-family: "Nunito Sans", sans-serif;
+  color: #fff;
+}
+
+.builder-submit {
+  font-size: 0.75rem;
+  font-family: "Nunito Sans", sans-serif;
+  background-color: var(--cta);
+  padding: 8px 16px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* FAQ Styles */
+
+.faq-item {
+  margin-bottom: 15px;
+  border-left: 4px solid #007bff;
+  padding-left: 20px;
+}
+
+.faq-question {
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--faq-q);
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.faq-question:hover {
+  color: #007bff;
+}
+
+.faq-answer {
+  display: none;
+  padding: 10px 0;
+  color: var(--faq-a);
+  line-height: 1.6;
+}
+
+.faq-answer.active {
+  display: block;
+}
+
+.faq-toggle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
 }

@@ -59,48 +59,93 @@ window.addEventListener('resize', () => {
 // ===== THEME TOGGLE FUNCTIONALITY =====
 console.log('[navbar.js] Setting up theme toggle functions');
 
-window.getCurrentTheme = function() {
-  const styleLink = document.querySelector('link[rel="stylesheet"]');
-  console.log('[getCurrentTheme] Stylesheet link found:', !!styleLink);
+// window.getCurrentTheme = function() {
+//   const styleLink = document.querySelector('link[rel="stylesheet"]');
+//   console.log('[getCurrentTheme] Stylesheet link found:', !!styleLink);
   
-  if (styleLink) {
-    const href = styleLink.getAttribute('href');
-    console.log('[getCurrentTheme] Stylesheet href:', href);
-    if (href.includes('dark.css')) {
-      console.log('[getCurrentTheme] Returning: dark');
-      return 'dark';
-    }
-  }
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  console.log('[getCurrentTheme] Returning from storage:', savedTheme);
-  return savedTheme;
+//   if (styleLink) {
+//     const href = styleLink.getAttribute('href');
+//     console.log('[getCurrentTheme] Stylesheet href:', href);
+//     if (href.includes('dark.css')) {
+//       console.log('[getCurrentTheme] Returning: dark');
+//       return 'dark';
+//     }
+//   }
+//   const savedTheme = localStorage.getItem('theme') || 'light';
+//   console.log('[getCurrentTheme] Returning from storage:', savedTheme);
+//   return savedTheme;
+// };
+
+// window.applyTheme = function(theme) {
+//   console.log('[applyTheme] Applying theme:', theme);
+//   const styleLink = document.querySelector('link[rel="stylesheet"]');
+  
+//   if (!styleLink) {
+//     console.error('[applyTheme] No stylesheet link found!');
+//     return;
+//   }
+  
+//   const href = styleLink.getAttribute('href');
+//   console.log('[applyTheme] Current href:', href);
+//   let newHref = href;
+  
+//   if (theme === 'dark') {
+//     newHref = href.replace(/light\.css/g, 'dark.css');
+//   } else {
+//     newHref = href.replace(/dark\.css/g, 'light.css');
+//   }
+  
+//   console.log('[applyTheme] New href:', newHref);
+  
+//   if (newHref !== href) {
+//     styleLink.setAttribute('href', newHref);
+//     console.log('[applyTheme] Stylesheet updated successfully');
+//   }
+
+//   // Change logo based on theme
+//   const logoImg = document.querySelector('img.navbar-logo');
+  
+//   if (!logoImg) {
+//     console.error('[applyTheme] No logo image found!');
+//     return;
+//   }
+  
+//   const src = logoImg.getAttribute('src');
+//   console.log('[applyTheme] Current logo src:', src);
+//   let newSrc = src;
+  
+//   if (theme === 'dark') {
+//     newSrc = src.replace(/Icon_LightPrimary\.png/g, 'Icon_Dark.png');
+//   } else {
+//     newSrc = src.replace(/Icon_Dark\.png/g, 'Icon_LightPrimary.png');
+//   }
+  
+//   console.log('[applyTheme] New logo src:', newSrc);
+  
+//   if (newSrc !== src) {
+//     logoImg.setAttribute('src', newSrc);
+//     console.log('[applyTheme] Logo updated successfully');
+//   }
+  
+//   localStorage.setItem('theme', theme);
+//   console.log('[applyTheme] Theme saved to localStorage');
+//   window.updateToggles(theme);
+// };
+
+window.getCurrentTheme = function() {
+  const attr = document.documentElement.getAttribute('data-theme');
+  if (attr) return attr;
+  const saved = localStorage.getItem('theme');
+  if (saved) return saved;
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
 window.applyTheme = function(theme) {
-  console.log('[applyTheme] Applying theme:', theme);
-  const styleLink = document.querySelector('link[rel="stylesheet"]');
-  
-  if (!styleLink) {
-    console.error('[applyTheme] No stylesheet link found!');
-    return;
-  }
-  
-  const href = styleLink.getAttribute('href');
-  console.log('[applyTheme] Current href:', href);
-  let newHref = href;
-  
-  if (theme === 'dark') {
-    newHref = href.replace(/light\.css/g, 'dark.css');
-  } else {
-    newHref = href.replace(/dark\.css/g, 'light.css');
-  }
-  
-  console.log('[applyTheme] New href:', newHref);
-  
-  if (newHref !== href) {
-    styleLink.setAttribute('href', newHref);
-    console.log('[applyTheme] Stylesheet updated successfully');
-  }
+  if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  else document.documentElement.removeAttribute('data-theme');
+
+  localStorage.setItem('theme', theme);
+  window.updateToggles(theme);
 
   // Change logo based on theme
   const logoImg = document.querySelector('img.navbar-logo');
