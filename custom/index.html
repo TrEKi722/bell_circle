@@ -8,21 +8,23 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
   <!-- End Google Tag Manager --> 
+
+
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../css/light.css">
+  <link rel="stylesheet" href="../css/main.css">
+
+  <!-- Theme switcher script -->
   <script>
     // Apply saved theme from localStorage immediately
     (function() {
       const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        const link = document.querySelector('link[rel="stylesheet"]');
-        if (link) {
-          link.href = link.href.replace('light.css', 'dark.css');
-        }
-      }
+      if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.removeAttribute('data-theme');
     })();
   </script>
+
   <link rel="icon" type="image/png" href="/Media/Logos/Icon_LightPrimary.png">
+  
   <title>Custom Bell Schedule - Live Class Countdown</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Build a custom bell schedule and get a live countdown for each period. Shareable links on Bell Circle.">

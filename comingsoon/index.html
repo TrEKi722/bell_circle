@@ -8,21 +8,21 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
         <!-- End Google Tag Manager --> 
+
         <meta charset="UTF-8">
-        <title>Coming Soon</title>
-        <link rel="stylesheet" href="../css/light.css">
+        <link rel="stylesheet" href="../css/main.css">
+
+        <!-- Theme switcher script -->
         <script>
-          // Apply saved theme from localStorage immediately
-          (function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-              const link = document.querySelector('link[rel="stylesheet"]');
-              if (link) {
-                link.href = link.href.replace('light.css', 'dark.css');
-              }
-            }
-          })();
+            // Apply saved theme from localStorage immediately
+            (function() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+                else document.documentElement.removeAttribute('data-theme');
+            })();
         </script>
+
+        <title>Coming Soon</title>
     </head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJQQNPYHVH"></script>
