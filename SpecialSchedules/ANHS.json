@@ -1,42 +1,14 @@
 [
   {
-    "date": "2025-09-05",
-    "details": "Special Minimum Day Block"
-  },
-  {
-    "date": "2025-11-10",
-    "details": "Late Start Block"
-  },
-  {
-    "date": "2025-12-16",
+    "date": "2026-06-03",
     "details": "Finals"
   },
   {
-    "date": "2025-12-17",
+    "date": "2026-06-04",
     "details": "Finals"
   },
   {
-    "date": "2025-12-18",
-    "details": "Finals"
-  },
-  {
-    "date": "2025-02-09",
-    "details": "Late Start Block"
-  },
-  {
-    "date": "2025-02-12",
-    "details": "Special Minimum Day Block"
-  },
-  {
-    "date": "2025-06-03",
-    "details": "Finals"
-  },
-  {
-    "date": "2025-06-04",
-    "details": "Finals"
-  },
-  {
-    "date": "2025-06-05",
+    "date": "2026-06-05",
     "details": "Finals"
   }
 ]
