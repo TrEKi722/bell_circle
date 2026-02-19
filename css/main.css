@@ -584,7 +584,6 @@ input:checked + .slider::before {
   padding: 0 9px;
   font-size: 0.8em;
   z-index: 2;
-  color: var(--sub-color);
 }
 
 .theme-icons .left,
