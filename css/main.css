@@ -189,7 +189,7 @@ p {
 
 /* .NAVBAR-DROPBTN: Dropdown button/trigger that shows submenu */
 .navbar-dropbtn {
-  color: var(--sub-color);
+  color: var(--nav-color);
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
