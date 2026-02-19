@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap'); */
 /* Variables */
 :root {
   --bg: #ffffff;
   --body-color: #000000;
   --sub-color: #333;
+  --nav-color: #333;
   --nav-bg-left: #ACDFFD;
   --nav-bg-right: #E0FFFF;
   --section-bg: #ACDFFD;
@@ -16,6 +17,7 @@
   --bg: #1e293b;
   --body-color: #ffffff;
   --sub-color: #CCC;
+  --nav-color: whitesmoke;
   --nav-bg-left: #1e293b;
   --nav-bg-right: #2f4f4f;
   --section-bg: #2f4f4f;
@@ -75,7 +77,7 @@ p {
 /* .FOOTER: Dark footer bar at page bottom with text and logo image */
 .footer {
     font-size: 0.5rem;
-    font-family: "STIX Two Text", sans-serif;
+    font-family: "Georgia", serif;
     font-weight: 400;
     text-align: center;
     background-color: #000;
@@ -98,13 +100,13 @@ p {
   background: -webkit-linear-gradient(90deg,var(--nav-bg-left) 0%, var(--nav-bg-right) 100%);
   background: -moz-linear-gradient(90deg,var(--nav-bg-left) 0%, var(--nav-bg-right) 100%);
   background: linear-gradient(90deg,var(--nav-bg-left) 0%, var(--nav-bg-right) 100%);
-  color: var(--sub-color);
+  color: var(--nav-color);
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 19.2px;
   position: relative;
   z-index: 100;
-  box-shadow: 0 2px 6px rgba(31, 31, 31, 0.07);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 .navbar-content {
   /* Inner wrapper, distributes navbar items (left logo/menu | right hamburger) */
@@ -146,7 +148,7 @@ p {
 
 /* .NAVBAR-LINKS A: Individual navigation link buttons */
 .navbar-links a {
-  color: var(--sub-color);
+  color: var(--nav-color);
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
