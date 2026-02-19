@@ -21,7 +21,7 @@ body {
 /* HORIZONTAL RULES: Removes default hr styling */
 hr {
     height: 1px;
-    background-color: none;
+    background: none;
     border: none;
 }
 
@@ -74,11 +74,6 @@ p {
   background: -webkit-linear-gradient(90deg,#1E293B 0%, #2F4F4F 100%);
   background: -moz-linear-gradient(90deg,#1E293B 0%, #2F4F4F 100%);
   background: linear-gradient(90deg,#1E293B 0%, #2F4F4F 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(
-    startColorstr="#1E293B",
-    endColorstr="#2F4F4F",
-    GradientType=1
-  );
   color: #CCCCCC;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
@@ -474,13 +469,10 @@ body.menu-open::before {
 /* .SWITCH-CONTAINER: Wraps toggle switch and its label */
 .switch-container {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
     place-items: center;
     gap: 10px;
     margin: 0 0;
-    display: grid;
 }
 /* .SWITCH: Toggle switch wrapper (contains checkbox and slider) */
 .switch {
@@ -589,7 +581,6 @@ input:checked + .slider::before {
 /* --- MODAL / LIGHTBOX STYLES --- */
 
 /* The Modal (background overlay) */
-/* Matches HTML class: class="modal-overlay" */
 .modal-overlay {
   display: none;
   position: fixed; 
@@ -603,7 +594,6 @@ input:checked + .slider::before {
 }
 
 /* The White Box */
-/* Matches HTML class: class="modal-content" */
 .modal-content {
   margin: 10vh auto;
   padding: 20px; 
@@ -619,7 +609,6 @@ input:checked + .slider::before {
 }
 
 /* The Close Button (X) */
-/* Matches HTML class: class="close-btn" */
 .close-btn {
   color: #ff9800;
   font-size: 28px;

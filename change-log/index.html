@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
-  <!-- End Google Tag Manager -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KWWN534W');</script>
+    <!-- End Google Tag Manager -->
 
-  <!-- Stylesheet -->
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="../css/light.css">
+    <!-- Stylesheet -->
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/main.css">
 
-  <!-- Theme switcher script -->
-  <script>
-    // Apply saved theme from localStorage immediately
-    (function() {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        const link = document.querySelector('link[rel="stylesheet"]');
-        if (link) {
-          link.href = link.href.replace('light.css', 'dark.css');
-        }
-      }
-    })();
-  </script>
+    <!-- Theme switcher script -->
+    <script>
+        // Apply saved theme from localStorage immediately
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+            else document.documentElement.removeAttribute('data-theme');
+        })();
+    </script>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-  <!-- SEO title & description -->
-  <title>Changelog -- Bell Circle</title>
-  <meta name="description" content="Bell Circle -- View your school's daily schedule as a live countdown -- changelog.">
+    <!-- SEO title & description -->
+    <title>Changelog -- Bell Circle</title>
+    <meta name="description" content="Bell Circle -- View your school's daily schedule as a live countdown -- changelog.">
 
-  <!-- Utility -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Utility -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
     <body>

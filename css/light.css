@@ -21,7 +21,7 @@ body {
 /* HORIZONTAL RULES: Removes default hr styling */
 hr {
     height: 1px;
-    background-color: none;
+    background: none;
     border: none;
 }
 
@@ -74,11 +74,6 @@ p {
   background: -webkit-linear-gradient(90deg,#acdffd 0%, #E0FFFF 100%);
   background: -moz-linear-gradient(90deg,#acdffd 0%, #E0FFFF 100%);
   background: linear-gradient(90deg,#acdffd 0%, #E0FFFF 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(
-    startColorstr="#ACDFFD",
-    endColorstr="#E0FFFF",
-    GradientType=1
-  );
   color: #2f4f4f;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
@@ -475,13 +470,10 @@ body.menu-open::before {
 /* .SWITCH-CONTAINER: Wraps toggle switch and its label */
 .switch-container {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
     place-items: center;
     gap: 10px;
     margin: 0 0;
-    display: grid;
 }
 /* .SWITCH: Toggle switch wrapper (contains checkbox and slider) */
 .switch {
@@ -547,7 +539,7 @@ input:hover + .slider {
 }
 
 /* INPUT:CHECKED + .SLIDER::BEFORE: Circle moves right when toggle ON */
-input:checked + .slider:before {
+input:checked + .slider::before {
     transform: translateX(26px);
 }
 
@@ -617,7 +609,6 @@ input:checked + .slider:before {
 }
 
 /* The Close Button (X) */
-/* Matches HTML class: class="close-btn" */
 .close-btn {
   color: #ff6b6b;
   font-size: 28px;
